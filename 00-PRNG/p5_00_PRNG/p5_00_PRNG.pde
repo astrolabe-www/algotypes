@@ -33,7 +33,7 @@ void draw() {
   for (int i = 0; i < 1e5; i++) {
     float x = map(mPRNG.random(), 0, 256, -width/2, width/2);
     float y = map(mPRNG.random(), 0, 256, -height/2, height/2);
-    ellipse(x, y, 1, 1);
+    ellipse(x, y, 2, 2);
   }
 
   popMatrix();
