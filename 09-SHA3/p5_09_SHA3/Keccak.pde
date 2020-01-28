@@ -2,7 +2,8 @@ import java.nio.ByteBuffer;
 
 class Keccak {
   private final int L = 6;
-  private final int W = (1 << 6);
+  private final int WORD_LENGTH = (1 << 6);
+  private final int WORD_LENGTH_BYTES = WORD_LENGTH / 8;
   private final int ROUNDS = 12 + 2 * L;
   private final byte SHA3_SUFFIX = 0x06;
 
@@ -79,12 +80,12 @@ class Keccak {
   private byte[] keccak_1600(byte[] state) {
     // turn bytes > longs
     long[][] lanes = new long[5][5];
-    byte[] lane_bytes = new byte[8];
+    byte[] lane_bytes = new byte[WORD_LENGTH_BYTES];
 
     for (int x = 0; x < 5; x++) {
       for (int y = 0; y < 5; y++) {
-        for (int b = 0; b < 8; b++) {
-          lane_bytes[7-b] = state[8 * x + 40 * y + b];
+        for (int b = 0; b < WORD_LENGTH_BYTES; b++) {
+          lane_bytes[(WORD_LENGTH_BYTES - 1) - b] = state[WORD_LENGTH_BYTES * x + WORD_LENGTH_BYTES * 5 * y + b];
         }
 
         b2l_buffer.put(lane_bytes);
@@ -101,8 +102,8 @@ class Keccak {
         b2l_buffer.putLong(lanes[x][y]);
         lane_bytes = b2l_buffer.array();
 
-        for (int b = 0; b < 8; b++) {
-          state[8 * x + 40 * y + b] = lane_bytes[7-b];
+        for (int b = 0; b < WORD_LENGTH_BYTES; b++) {
+          state[WORD_LENGTH_BYTES * x + WORD_LENGTH_BYTES * 5 * y + b] = lane_bytes[(WORD_LENGTH_BYTES - 1) - b];
         }
         b2l_buffer.clear();
       }
