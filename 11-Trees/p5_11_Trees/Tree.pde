@@ -5,10 +5,6 @@ public class Tree {
     root = null;
   }
 
-  public Node getRoot(){
-    return root;
-  }
-
   public Node find(int v) {
     if (root == null) return null;
     else return find(v, root);
@@ -27,27 +23,32 @@ public class Tree {
     return s;
   }
 
-  public void insert(Node n) {
-    if (root == null) root = n;
-    else insert(n, root);
+  public Node insert(Node n) {
+    if (root == null) {
+      root = n;
+      return root;
+    } else return insert(n, root);
   }
 
-  private void insert(Node n, Node root) {
+  private Node insert(Node n, Node root) {
     if (n.value == root.value) {
       root.count += n.count;
+      return root;
     } else if (n.value < root.value) {
       if (root.left == null) {
         root.left = n;
         n.parent = root;
+        return n;
       } else {
-        insert(n, root.left);
+        return insert(n, root.left);
       }
     } else {
       if (root.right == null) {
         root.right = n;
         n.parent = root;
+        return n;
       } else {
-        insert(n, root.right);
+        return insert(n, root.right);
       }
     }
   }

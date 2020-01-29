@@ -5,13 +5,18 @@ public class RedBlackTree extends Tree {
     super();
   }
 
-  public void insert(Node n) {
-    if (root == null) root = new RedBlackNode(n);
-    else insert(new RedBlackNode(n), root);
-    super.root = root;
+  public Node insert(Node n) {
+    RedBlackNode newNode = new RedBlackNode(n);
+
+    if (root == null) {
+      root = newNode;
+      super.root = root;
+      return newNode;
+    } else return insert(newNode, root);
   }
 
-  private void insert(RedBlackNode n, RedBlackNode root) {
+  private Node insert(RedBlackNode n, RedBlackNode root) {
+    return n;
     // TODO
   }
 }

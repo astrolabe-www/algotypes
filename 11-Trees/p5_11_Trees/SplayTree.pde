@@ -4,7 +4,8 @@ public class SplayTree extends Tree {
     super();
   }
 
-  private void insert(Node n, Node root) {
+  private Node insert(Node n, Node root) {
     // TODO
+    return n;
   }
 }
