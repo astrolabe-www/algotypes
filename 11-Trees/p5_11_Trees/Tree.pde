@@ -18,9 +18,8 @@ public class Tree {
   }
 
   public String toString() {
-    String s = "";
-    // TODO
-    return s;
+    if (root == null) return "Ø";
+    else return root.printNode();
   }
 
   public Node insert(Node n) {
@@ -73,5 +72,24 @@ class Node {
     left = n.left;
     right = n.right;
     parent = n.parent;
+  }
+
+  public boolean isLeftChild() {
+    if (parent == null) return false;
+    else return (parent.left == this);
+  }
+
+  public String printNode() {
+    StringBuilder buffer = new StringBuilder(1024);
+    printNode(buffer, "", true);
+    return buffer.toString();
+  }
+
+  private void printNode(StringBuilder buffer, String prefix, boolean fromLeft) {
+    if (right != null) right.printNode(buffer, prefix + (fromLeft ? "│   " : "    "), false);
+
+    buffer.append(prefix).append(fromLeft ? "└── " : "┌── ").append(value).append('\n');
+
+    if (left != null) left.printNode(buffer, prefix + (fromLeft ? "    " : "│   "), true);
   }
 }

@@ -1,4 +1,5 @@
 // Based on:
+// https://en.wikipedia.org/wiki/Binary_tree
 // https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree
 // https://en.wikipedia.org/wiki/Splay_tree
 // https://en.wikipedia.org/wiki/Red–black_tree
@@ -14,6 +15,7 @@ void initInput() {
 }
 
 Tree mTree;
+Tree mSplayTree;
 
 void setup() {
   size(469, 804);
@@ -22,16 +24,18 @@ void setup() {
 
 void draw() {
   initInput();
-  mTree = new RedBlackTree();
+  mTree = new Tree();
+  mSplayTree = new SplayTree();
+
 
   for (int i = 0; i < INPUT.length; i++) {
     mTree.insert(new Node(INPUT[i]));
+    mSplayTree.insert(new Node(INPUT[i]));
   }
 
-  for (int i = 0; i < 300; i++) {
-    Node found = mTree.find(i);
-    if(found != null) println(i + " : " + found.count);
-  }
+  print(mTree);
+  println("\n -------- SPLAY -------- \n");
+  print(mSplayTree);
 
   background(255);
 }
