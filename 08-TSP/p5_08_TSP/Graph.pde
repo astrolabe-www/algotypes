@@ -17,6 +17,60 @@ class Graph {
     }
   }
 
+  public int anneal() {
+    int[] tour = new int[num_cities];
+    for (int c = 1; c < tour.length; c++) {
+      tour[c] = c;
+    }
+
+    int min_length = calculate_length(tour);
+    int[] min_tour = tour;
+
+    int current_length = min_length;
+    int[] current_tour = tour;
+
+    for (float temperature = 500.0; temperature > 0.1; temperature *= 0.9) {
+      for (int r = 0; r < 1e5; r++) {
+        int[] neighbor = shuffle(current_tour);
+        int neighbor_length = calculate_length(neighbor);
+
+        if (neighbor_length < min_length) {
+          min_length = neighbor_length;
+          min_tour = neighbor;
+        }
+
+        if (acceptance(current_length, neighbor_length, temperature) > random(1.0)) {
+          current_length = neighbor_length;
+          current_tour = neighbor;
+        }
+      }
+    }
+    return min_length;
+  }
+
+  private float acceptance(int current_length, int neighbor_length, float temperature) {
+    if (neighbor_length < current_length) return 1.0;
+    else return exp((current_length - neighbor_length) / temperature);
+  }
+
+  private int calculate_length(int[] tour) {
+    int total_length = 0;
+    for (int c = 1; c < tour.length; c++) {
+      total_length += path[tour[c - 1]][tour[c]];
+    }
+    return total_length;
+  }
+
+  private int[] shuffle(int[] tour) {
+    int[] result = tour.clone();
+    int i0 = floor(random(tour.length));
+    int i1 = floor(random(tour.length));
+    int t = result[i1];
+    result[i1] = result[i0];
+    result[i0] = t;
+    return result;
+  }
+
   public int greedy() {
     int min_length = -1;
 

@@ -1,6 +1,7 @@
 // Based on:
 // https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm
 // https://en.wikipedia.org/wiki/Travelling_salesman_problem#Heuristic_and_approximation_algorithms
+// https://en.wikipedia.org/wiki/Simulated_annealing
 
 // input
 static final int INPUT_SIZE = 1024;
@@ -28,4 +29,5 @@ void draw() {
   background(255);
 
   println(mGraph.greedy());
+  println(" " + mGraph.anneal());
 }
