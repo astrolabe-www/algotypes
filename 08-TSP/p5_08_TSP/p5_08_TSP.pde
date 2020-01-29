@@ -13,7 +13,8 @@ void initInput() {
   }
 }
 
-Graph mGraph;
+Greedy mGreedy;
+Annealing mAnnealing;
 
 
 void setup() {
@@ -24,10 +25,11 @@ void setup() {
 
 void draw() {
   initInput();
-  mGraph = new Graph(INPUT);
+  mGreedy = new Greedy(INPUT);
+  mAnnealing = new Annealing(INPUT);
 
   background(255);
 
-  println(mGraph.greedy());
-  println(" " + mGraph.anneal());
+  println(mGreedy.solve());
+  println(" " + mAnnealing.solve());
 }
