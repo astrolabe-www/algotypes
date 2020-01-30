@@ -28,6 +28,8 @@ void draw() {
   println(mLUPMatrix);
   println("det = " + mLUPMatrix.determinant() + "\n");
   println(mLUPMatrix);
+  println("\nINVERTED\n");
+  println(mLUPMatrix.inverted());
 
   background(255);
 }
