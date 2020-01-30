@@ -23,13 +23,19 @@ void setup() {
 
 void draw() {
   initInput();
+
   mLUPMatrix = new LUPMatrix(INPUT);
 
   println(mLUPMatrix);
+
   println("det = " + mLUPMatrix.determinant() + "\n");
   println(mLUPMatrix);
+
   println("\nINVERTED\n");
   println(mLUPMatrix.inverted());
+
+  println("\nIDENTITY\n");
+  println(LUPMatrix.multiply(mLUPMatrix, mLUPMatrix.inverted()));
 
   background(255);
 }

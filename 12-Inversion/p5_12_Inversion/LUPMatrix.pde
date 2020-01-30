@@ -133,12 +133,28 @@ static class LUPMatrix {
     isDecomposed = true;
   }
 
+  public static LUPMatrix multiply(LUPMatrix A, LUPMatrix B) {
+    int result_size = min(A.size, B.size);
+    float[][] result = new float[result_size][result_size];
+
+    for (int i = 0; i < result_size; i++) {
+      for (int j = 0; j < result_size; j++) {
+        float sum = 0;
+        for (int k = 0; k < result_size; k++) {
+          sum += A.value[i][k] * B.value[k][j];
+        }
+        result[i][j] = sum;
+      }
+    }
+    return new LUPMatrix(result);
+  }
+
   public String toString() {
     String r = "";
     for (int i = 0; i < size; i++) {
       r += "[ ";
       for (int j = 0; j < size; j++) {
-        r += (isDecomposed) ? LU[i][j] : value[i][j];
+        r += String.format("%.03f", (isDecomposed) ? LU[i][j] : value[i][j]);
         r += (j < size - 1)?", ":" ]\n";
       }
     }
