@@ -1,7 +1,6 @@
 // Based on:
 // https://en.wikipedia.org/wiki/Primality_test
-// 
-// 
+// https://en.wikipedia.org/wiki/Primality_test#Pseudocode
 
 // input
 static final int INPUT_SIZE = 1024; 
