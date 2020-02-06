@@ -40,6 +40,7 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   //if (!isData) return;
   //if (!isBeacon) return;
   //if (!isProbeR) return;
+  //if (!(isData || isProbeR)) return;
   //if (!(isBeacon || isData || isProbeR)) return;
 
   // Parse MAC addresses contained in packet header into human-readable strings
