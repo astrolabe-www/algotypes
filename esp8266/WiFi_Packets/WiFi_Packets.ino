@@ -14,6 +14,9 @@ extern "C" {
 #include "user_interface.h"
 }
 
+long long lastWrite = 0;
+const boolean WRITE_TO_FILE = true;
+
 void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   // First layer: type cast the received buffer into our generic SDK structure
   const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buff;
@@ -49,16 +52,18 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   mac2str(hdr->addr3, addr3);
 
   // Output info to serial
-  Serial.printf("\n%s | %s | %s | %2u | %03d | %3u | %4u | %-18s | ",
-                addr1,
-                addr2,
-                addr3,
-                wifi_get_channel(),
-                ppkt->rx_ctrl.rssi,
-                buff_length,
-                payload_size,
-                wifi_pkt_type2str((wifi_promiscuous_pkt_type_t)frame_ctrl->type, (wifi_mgmt_subtypes_t)frame_ctrl->subtype)
-               );
+  if (!WRITE_TO_FILE) {
+    Serial.printf("\n%s | %s | %s | %2u | %03d | %3u | %4u | %-18s | ",
+                  addr1,
+                  addr2,
+                  addr3,
+                  wifi_get_channel(),
+                  ppkt->rx_ctrl.rssi,
+                  buff_length,
+                  payload_size,
+                  wifi_pkt_type2str((wifi_promiscuous_pkt_type_t)frame_ctrl->type, (wifi_mgmt_subtypes_t)frame_ctrl->subtype)
+                 );
+  }
 
   // Print ESSID if beacon
   if (frame_ctrl->type == WIFI_PKT_MGMT && frame_ctrl->subtype == BEACON) {
@@ -70,7 +75,7 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
     } else {
       strncpy(ssid, beacon_frame->ssid, beacon_frame->tag_length);
     }
-    Serial.printf("%s", ssid);
+    if (!WRITE_TO_FILE) Serial.printf("%s", ssid);
   }
 
   // Print ESSID if probe request
@@ -83,16 +88,17 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
     } else {
       strncpy(ssid, probe_req_frame->ssid, probe_req_frame->tag_length);
     }
-    Serial.printf("%s", ssid);
+    if (!WRITE_TO_FILE) Serial.printf("%s", ssid);
   }
 
-  /*
+  if (WRITE_TO_FILE && ((millis() - lastWrite) > 500)) {
+    uint8_t preamble[4] = { 0xde, 0xad, (payload_size >> 8) & 0xff, (payload_size >> 0) & 0xff };
     uint8_t* pload = ((wifi_promiscuous_pkt_t *)buff)->payload;
-    for (int ii = 0; ii < payload_size; ii++) {
-      Serial.printf("[%d] : %02x\n", ii, pload[ii]);
-    }
-  */
-
+    Serial.write(preamble, 4);
+    Serial.write(pload, payload_size);
+    Serial.flush();
+    lastWrite = millis();
+  }
 }
 
 uint8 cchannel = 0;
