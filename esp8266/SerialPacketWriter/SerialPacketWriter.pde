@@ -15,7 +15,6 @@ void setup() {
   myPort.clear();
 } 
 
-
 void draw() {
   if (outBufferCount >= outBuffer.length) {
     saveBytes("frames.raw", outBuffer);
@@ -33,6 +32,7 @@ void serialEvent(Serial myPort) {
     if (bytesRead == nBytes) {
       arraycopy(readBuf, 0, outBuffer, outBufferCount, min(nBytes, outBuffer.length - outBufferCount));
       outBufferCount += min(nBytes, outBuffer.length - outBufferCount);
+      println("total: " + outBufferCount);
     }
     //println(readBuf);
     readyForBytes = false;
