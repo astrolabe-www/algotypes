@@ -11,7 +11,7 @@ int SIZE_INPUT_FRAMES;
 int[] INPUT_FRAMES;
 
 void initInputNoise() {
-  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+  for (int i = 0; i < SIZE_INPUT_NOISE; i++) {
     INPUT_NOISE[i] = int(0xff * noise(i, frameCount));
   }
 }
@@ -22,7 +22,7 @@ void initInputFrames() {
   SIZE_INPUT_FRAMES = in.length;
   INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
 
-  for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
+  for (int i = 0; i < SIZE_INPUT_FRAMES; i++) {
     INPUT_FRAMES[i] = in[i] & 0xff;
   }
 }
