@@ -12,7 +12,7 @@ public class PID {
   private float derivative = 0.0;
   private float input;
 
-  public PID(byte[] b) {
+  public PID(int[] b) {
     goal = 1.0 * b[b.length - 1];
     dt = 1.0 / b.length;
 
