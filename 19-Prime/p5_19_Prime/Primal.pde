@@ -3,7 +3,7 @@ public static class Primal {
   public static int[] primes(int[] in) {
     for (int i = 0; i < in.length; i++) {
       int np = nextPrime(in[i]);
-      // println(String.format("%02d", in[i]) + " > " + String.format("%02d", np));
+      // println(i + ": " + String.format("%02d", in[i]) + " > " + String.format("%02d", np));
       in[i] = np;
     }
     return in;
@@ -27,7 +27,8 @@ public static class Primal {
   }
 
   private static int nextPrime(int n) {
-    if(isPrime(n)) return n;
+    if (isPrime(n)) return n;
+    if (n == 0) return 2;
 
     n = next6k(n);
 
