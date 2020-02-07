@@ -2,23 +2,23 @@
 // https://en.wikipedia.org/wiki/Discrete_Fourier_transform
 // https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm
 
-static final int INPUT_SIZE = 1024;
+static final int SIZE_INPUT_NOISE = 1024;
 
-int[] INPUT = new int[INPUT_SIZE];
+int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 Complex[] OUTPUT_DFT;
 Complex[] OUTPUT_FFT;
 
 void initInput() {
-  for (int i=0; i < INPUT_SIZE; i++) {
-    INPUT[i] = int(0xff * (2.0 * noise(i/1e2, frameCount) - 1.0));
-    //INPUT[i] = int(0xff * sin(TWO_PI*(float(i)/INPUT_SIZE)));
-    //INPUT[i] = int(0xff * sin(TWO_PI*(4.0*float(i)/INPUT_SIZE)));
-    //INPUT[i] = int(0x80 * sin(TWO_PI*(float(i)/INPUT_SIZE))) + int(0x80 * sin(TWO_PI*(5.0*float(i)/INPUT_SIZE)));
+  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+    INPUT_NOISE[i] = int(0xff * (2.0 * noise(i/1e2, frameCount) - 1.0));
+    //INPUT_NOISE[i] = int(0xff * sin(TWO_PI*(float(i)/SIZE_INPUT_NOISE)));
+    //INPUT_NOISE[i] = int(0xff * sin(TWO_PI*(4.0*float(i)/SIZE_INPUT_NOISE)));
+    //INPUT_NOISE[i] = int(0x80 * sin(TWO_PI*(float(i)/SIZE_INPUT_NOISE))) + int(0x80 * sin(TWO_PI*(5.0*float(i)/SIZE_INPUT_NOISE)));
     /*
-    INPUT[i] = int(0x40 * sin(TWO_PI*(float(i)/INPUT_SIZE))) +
-     int(0x40 * sin(TWO_PI*(3.0*float(i)/INPUT_SIZE))) +
-     int(0x40 * sin(TWO_PI*(5.0*float(i)/INPUT_SIZE))) +
-     int(0x40 * sin(TWO_PI*(11.0*float(i)/INPUT_SIZE)));
+    INPUT_NOISE[i] = int(0x40 * sin(TWO_PI*(float(i)/SIZE_INPUT_NOISE))) +
+     int(0x40 * sin(TWO_PI*(3.0*float(i)/SIZE_INPUT_NOISE))) +
+     int(0x40 * sin(TWO_PI*(5.0*float(i)/SIZE_INPUT_NOISE))) +
+     int(0x40 * sin(TWO_PI*(11.0*float(i)/SIZE_INPUT_NOISE)));
     /**/
   }
 }
@@ -30,8 +30,8 @@ void setup() {
 
 void draw() {
   initInput();
-  OUTPUT_DFT = Fourier.DFT(INPUT);
-  OUTPUT_FFT = Fourier.FFT(INPUT);
+  OUTPUT_DFT = Fourier.DFT(INPUT_NOISE);
+  OUTPUT_FFT = Fourier.FFT(INPUT_NOISE);
   Fourier.testFTs(OUTPUT_DFT, OUTPUT_FFT);
 
   background(255);
@@ -40,9 +40,9 @@ void draw() {
 
   stroke(0, 64);
   strokeWeight(1);
-  for (int i=0; i < INPUT.length; i++) {
-    float x = map(INPUT[i], -(0xff), 0xff, -width/2, width/2);
-    float y = map(i, 0, INPUT.length, 0, height);
+  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+    float x = map(INPUT_NOISE[i], -(0xff), 0xff, -width/2, width/2);
+    float y = map(i, 0, SIZE_INPUT_NOISE, 0, height);
     line(0, y, x, y);
   }
 

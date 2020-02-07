@@ -4,12 +4,12 @@
 // https://en.wikipedia.org/wiki/QR_algorithm
 
 // input
-static final int INPUT_SIZE = 1024;
-int[] INPUT = new int[INPUT_SIZE];
+static final int SIZE_INPUT_NOISE = 1024;
+int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
 void initInput() {
-  for (int i=0; i < INPUT_SIZE; i++) {
-    INPUT[i] = int(0xff * noise(i, frameCount));
+  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+    INPUT_NOISE[i] = int(0xff * noise(i, frameCount));
   }
 }
 
@@ -24,7 +24,7 @@ void setup() {
 void draw() {
   initInput();
 
-  A = new SquareMatrix(INPUT);
+  A = new SquareMatrix(INPUT_NOISE);
   A = new SquareMatrix(new int[]{5,5, 2,8});
   //A = new SquareMatrix(new int[]{6,-1, 2,3});
   //A = new SquareMatrix(new int[]{3,2,4, 2,0,2, 4,2,3});

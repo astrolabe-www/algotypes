@@ -4,12 +4,12 @@
 // https://en.wikipedia.org/wiki/RC4#Pseudo-random_generation_algorithm_(PRGA)
 
 // input
-static final int INPUT_SIZE = 1024;
-int[] INPUT = new int[INPUT_SIZE];
+static final int SIZE_INPUT_NOISE = 1024;
+int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
 void initInput() {
-  for (int i=0; i < INPUT_SIZE; i++) {
-    INPUT[i] = int(0xff * noise(i, frameCount));
+  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+    INPUT_NOISE[i] = int(0xff * noise(i, frameCount));
   }
 }
 
@@ -22,7 +22,7 @@ void setup() {
 
 void draw() {
   initInput();
-  mPRNG = new PRNG(INPUT);
+  mPRNG = new PRNG(INPUT_NOISE);
 
   background(255);
   pushMatrix();

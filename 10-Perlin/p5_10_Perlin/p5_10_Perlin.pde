@@ -2,13 +2,13 @@
 // https://en.wikipedia.org/wiki/Perlin_noise
 
 // input
-static final int INPUT_SIZE = 4096 * 3;
-int[] INPUT = new int[INPUT_SIZE];
+static final int SIZE_INPUT_NOISE = 4096 * 3;
+int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
 void initInput() {
   noiseDetail(4);
-  for (int i=0; i < INPUT_SIZE; i++) {
-    INPUT[i] = int(0xff * noise(i, frameCount));
+  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+    INPUT_NOISE[i] = int(0xff * noise(i, frameCount));
   }
 }
 
@@ -21,7 +21,7 @@ void setup() {
 
 void draw() {
   initInput();
-  mPerlin = new Perlin(INPUT);
+  mPerlin = new Perlin(INPUT_NOISE);
 
   background(255);
   rectMode(CENTER);

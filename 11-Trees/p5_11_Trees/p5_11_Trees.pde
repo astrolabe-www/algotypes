@@ -5,12 +5,12 @@
 // https://en.wikipedia.org/wiki/Red–black_tree
 
 // input
-static final int INPUT_SIZE = 1024;
-int[] INPUT = new int[INPUT_SIZE];
+static final int SIZE_INPUT_NOISE = 1024;
+int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
 void initInput() {
-  for (int i=0; i < INPUT_SIZE; i++) {
-    INPUT[i] = int(0xff * noise(i, frameCount));
+  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+    INPUT_NOISE[i] = int(0xff * noise(i, frameCount));
   }
 }
 
@@ -28,9 +28,9 @@ void draw() {
   mSplayTree = new SplayTree();
 
 
-  for (int i = 0; i < INPUT.length; i++) {
-    mTree.insert(new Node(INPUT[i]));
-    mSplayTree.insert(new Node(INPUT[i]));
+  for (int i = 0; i < SIZE_INPUT_NOISE; i++) {
+    mTree.insert(new Node(INPUT_NOISE[i]));
+    mSplayTree.insert(new Node(INPUT_NOISE[i]));
   }
 
   print(mTree);

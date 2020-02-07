@@ -3,12 +3,12 @@
 // https://en.wikipedia.org/wiki/Primality_test#Pseudocode
 
 // input
-static final int INPUT_SIZE = 1024; 
-int[] INPUT = new int[INPUT_SIZE];
+static final int SIZE_INPUT_NOISE = 1024; 
+int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
 void initInput() {
-  for (int i=0; i < INPUT_SIZE; i++) {
-    INPUT[i] = int(0x7fffffff * random(1.0));
+  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+    INPUT_NOISE[i] = int(0x7fffffff * random(1.0));
   }
 }
 
@@ -20,6 +20,6 @@ void setup() {
 
 void draw() {
   initInput();
-  Primal.primes(INPUT);
+  Primal.primes(INPUT_NOISE);
   background(255);
 }

@@ -4,8 +4,8 @@
 // https://en.wikipedia.org/wiki/JPEG#Discrete_cosine_transform
 
 // input
-static final int INPUT_SIZE = 1024; 
-int[] INPUT = new int[INPUT_SIZE];
+static final int SIZE_INPUT_NOISE = 1024; 
+int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
 static final int[] TEST_INPUT = new int[] {
   52, 55, 61, 66, 70, 61, 64, 73, 
@@ -19,11 +19,11 @@ static final int[] TEST_INPUT = new int[] {
 };
 
 void initInput() {
-  int INPUT_DIM = (int)sqrt(INPUT_SIZE);
-  for (int i=0; i < INPUT_SIZE; i++) {
+  int INPUT_DIM = (int)sqrt(SIZE_INPUT_NOISE);
+  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
     float x = (i / INPUT_DIM) / 10.0f;
     float y = (i % INPUT_DIM) / 10.0f;
-    INPUT[i] = int(0xff * noise(x, y, frameCount));
+    INPUT_NOISE[i] = int(0xff * noise(x, y, frameCount));
   }
 }
 
@@ -38,7 +38,7 @@ void setup() {
 void draw() {
   initInput();
 
-  mJFIF = new JFIF(INPUT);
+  mJFIF = new JFIF(INPUT_NOISE);
   int[][] mjpeg = mJFIF.jpeg();
   int[][] mluminance = mJFIF.luminance();
 
