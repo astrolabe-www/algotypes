@@ -19,7 +19,7 @@ void drawInputWave() {
   pushMatrix();
   translate(width/2, 0);
 
-  for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
+  for (int i = 0; i < SIZE_INPUT_FRAMES; i++) {
     float x = map(INPUT_FRAMES[i], -(0xff), 0xff, -width/2, width/2);
     float y = map(i, 0, SIZE_INPUT_FRAMES, 0, height);
     line(0, y, x, y);
@@ -39,7 +39,7 @@ void drawOutput() {
   pushMatrix();
   translate(width/2, 0);
 
-  for (int i=0; i < OUTPUT_FFT.length; i++) {
+  for (int i = 0; i < OUTPUT_FFT.length; i++) {
     float mag = OUTPUT_FFT[i].magnitude() / OUTPUT_FFT.length;
     float x = map(mag, 0, 0xff, 1, width / 0.5);
     float y = map(i, 0, OUTPUT_FFT.length, 0, height);
