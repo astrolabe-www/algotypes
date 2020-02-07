@@ -30,7 +30,7 @@ void setup() {
   SIZE_INPUT_FRAMES = in.length;
   INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
   for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
-    INPUT_FRAMES[i] = in[i] & 0xff;
+    INPUT_FRAMES[i] = (in[i] & 0xff) + 1;
   }
 }
 
