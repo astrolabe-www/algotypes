@@ -28,7 +28,6 @@ void initInputFrames() {
   }
 }
 
-
 Greedy mGreedy;
 Annealing mAnnealing;
 

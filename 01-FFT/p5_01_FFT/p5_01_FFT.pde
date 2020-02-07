@@ -55,6 +55,4 @@ void draw() {
   drawInputFrames();
   drawOutput();
   drawBorders(10);
-
-  delay(10);
 }
