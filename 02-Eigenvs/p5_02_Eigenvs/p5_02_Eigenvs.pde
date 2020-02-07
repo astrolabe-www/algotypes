@@ -4,15 +4,27 @@
 // https://en.wikipedia.org/wiki/QR_algorithm
 
 // input
-final int SIZE_INPUT_NOISE = 1024;
+int SIZE_INPUT_NOISE = 1024;
 int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
+String INPUT_FRAMES_FILENAME = "frames_20200207-0004_reqs.raw";
 int SIZE_INPUT_FRAMES;
 int[] INPUT_FRAMES;
 
-void initInput() {
-  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+void initInputNoise() {
+  for (int i = 0; i < SIZE_INPUT_NOISE; i++) {
     INPUT_NOISE[i] = int(0xff * noise(i, frameCount));
+  }
+}
+
+void initInputFrames() {
+  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME));
+
+  SIZE_INPUT_FRAMES = in.length;
+  INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
+
+  for (int i = 0; i < SIZE_INPUT_FRAMES; i++) {
+    INPUT_FRAMES[i] = in[i] & 0xff;
   }
 }
 
@@ -21,20 +33,11 @@ SquareMatrix A;
 void setup() {
   size(469, 804);
   noLoop();
-
-  byte in[] = loadBytes(sketchPath("../../esp8266/frames_20200206-2351.raw"));
-
-  SIZE_INPUT_FRAMES = in.length;
-  INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
-  for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
-    INPUT_FRAMES[i] = in[i] & 0xff;
-  }
+  initInputNoise();
+  initInputFrames();
 }
 
-
 void draw() {
-  initInput();
-
   A = new SquareMatrix(INPUT_FRAMES);
   //A = new SquareMatrix(new int[]{5,5, 2,8});
   //A = new SquareMatrix(new int[]{6,-1, 2,3});
@@ -45,4 +48,8 @@ void draw() {
   println(A.QR());
 
   background(255);
+
+  drawInputFrames();
+  drawOutput();
+  drawBorders(10);
 }
