@@ -4,10 +4,13 @@
 // https://en.wikipedia.org/wiki/JPEG#Discrete_cosine_transform
 
 // input
-static final int SIZE_INPUT_NOISE = 1024; 
+final int SIZE_INPUT_NOISE = 1024;
 int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
-static final int[] TEST_INPUT = new int[] {
+int SIZE_INPUT_FRAMES;
+int[] INPUT_FRAMES;
+
+final int[] TEST_INPUT = new int[] {
   52, 55, 61, 66, 70, 61, 64, 73, 
   63, 59, 55, 90, 109, 85, 69, 72, 
   62, 59, 68, 113, 144, 104, 66, 73, 
@@ -33,12 +36,20 @@ void setup() {
   size(469, 804);
   noLoop();
   noiseSeed(0);
+
+  byte in[] = loadBytes(sketchPath("../../esp8266/frames_20200206-2351.raw"));
+
+  SIZE_INPUT_FRAMES = in.length;
+  INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
+  for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
+    INPUT_FRAMES[i] = in[i] & 0xff;
+  }
 }
 
 void draw() {
   initInput();
 
-  mJFIF = new JFIF(INPUT_NOISE);
+  mJFIF = new JFIF(INPUT_FRAMES);
   int[][] mjpeg = mJFIF.jpeg();
   int[][] mluminance = mJFIF.luminance();
 

@@ -2,9 +2,12 @@
 // https://en.wikipedia.org/wiki/Discrete_Fourier_transform
 // https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm
 
-static final int SIZE_INPUT_NOISE = 1024;
-
+final int SIZE_INPUT_NOISE = 1024;
 int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
+
+int SIZE_INPUT_FRAMES;
+int[] INPUT_FRAMES;
+
 Complex[] OUTPUT_DFT;
 Complex[] OUTPUT_FFT;
 
@@ -26,12 +29,21 @@ void initInput() {
 void setup() {
   size(469, 804);
   noLoop();
+
+  byte in[] = loadBytes(sketchPath("../../esp8266/frames_20200206-2351.raw"));
+
+  SIZE_INPUT_FRAMES = in.length;
+  INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
+  for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
+    INPUT_FRAMES[i] = in[i] & 0xff;
+    INPUT_FRAMES[i] = 2 * INPUT_FRAMES[i] - 256;
+  }
 }
 
 void draw() {
   initInput();
-  OUTPUT_DFT = Fourier.DFT(INPUT_NOISE);
-  OUTPUT_FFT = Fourier.FFT(INPUT_NOISE);
+  OUTPUT_DFT = Fourier.DFT(INPUT_FRAMES);
+  OUTPUT_FFT = Fourier.FFT(INPUT_FRAMES);
   Fourier.testFTs(OUTPUT_DFT, OUTPUT_FFT);
 
   background(255);
@@ -40,9 +52,9 @@ void draw() {
 
   stroke(0, 64);
   strokeWeight(1);
-  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
-    float x = map(INPUT_NOISE[i], -(0xff), 0xff, -width/2, width/2);
-    float y = map(i, 0, SIZE_INPUT_NOISE, 0, height);
+  for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
+    float x = map(INPUT_FRAMES[i], -(0xff), 0xff, -width/2, width/2);
+    float y = map(i, 0, SIZE_INPUT_FRAMES, 0, height);
     line(0, y, x, y);
   }
 

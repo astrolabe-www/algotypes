@@ -4,8 +4,11 @@
 // https://en.wikipedia.org/wiki/RC4#Pseudo-random_generation_algorithm_(PRGA)
 
 // input
-static final int SIZE_INPUT_NOISE = 1024;
+final int SIZE_INPUT_NOISE = 1024;
 int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
+
+int SIZE_INPUT_FRAMES;
+int[] INPUT_FRAMES;
 
 void initInput() {
   for (int i=0; i < SIZE_INPUT_NOISE; i++) {
@@ -18,11 +21,19 @@ PRNG mPRNG;
 void setup() {
   size(469, 804);
   noLoop();
+
+  byte in[] = loadBytes(sketchPath("../../esp8266/frames_20200206-2351.raw"));
+
+  SIZE_INPUT_FRAMES = in.length;
+  INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
+  for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
+    INPUT_FRAMES[i] = in[i] & 0xff;
+  }
 }
 
 void draw() {
   initInput();
-  mPRNG = new PRNG(INPUT_NOISE);
+  mPRNG = new PRNG(INPUT_FRAMES);
 
   background(255);
   pushMatrix();
