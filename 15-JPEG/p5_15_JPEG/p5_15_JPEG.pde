@@ -4,9 +4,10 @@
 // https://en.wikipedia.org/wiki/JPEG#Discrete_cosine_transform
 
 // input
-final int SIZE_INPUT_NOISE = 1024;
+int SIZE_INPUT_NOISE = 1024;
 int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
+String INPUT_FRAMES_FILENAME = "frames_20200207-0004_reqs.raw";
 int SIZE_INPUT_FRAMES;
 int[] INPUT_FRAMES;
 
@@ -21,12 +22,23 @@ final int[] TEST_INPUT = new int[] {
   87, 79, 69, 68, 65, 76, 78, 94
 };
 
-void initInput() {
+void initInputNoise() {
   int INPUT_DIM = (int)sqrt(SIZE_INPUT_NOISE);
-  for (int i=0; i < SIZE_INPUT_NOISE; i++) {
+  for (int i = 0; i < SIZE_INPUT_NOISE; i++) {
     float x = (i / INPUT_DIM) / 10.0f;
     float y = (i % INPUT_DIM) / 10.0f;
     INPUT_NOISE[i] = int(0xff * noise(x, y, frameCount));
+  }
+}
+
+void initInputFrames() {
+  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME));
+
+  SIZE_INPUT_FRAMES = in.length;
+  INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
+
+  for (int i = 0; i < SIZE_INPUT_FRAMES; i++) {
+    INPUT_FRAMES[i] = in[i] & 0xff;
   }
 }
 
@@ -35,40 +47,18 @@ JFIF mJFIF;
 void setup() {
   size(469, 804);
   noLoop();
-  noiseSeed(0);
-
-  byte in[] = loadBytes(sketchPath("../../esp8266/frames_20200206-2351.raw"));
-
-  SIZE_INPUT_FRAMES = in.length;
-  INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
-  for (int i=0; i < SIZE_INPUT_FRAMES; i++) {
-    INPUT_FRAMES[i] = in[i] & 0xff;
-  }
+  initInputNoise();
+  initInputFrames();
 }
 
 void draw() {
-  initInput();
-
   mJFIF = new JFIF(INPUT_FRAMES);
-  int[][] mjpeg = mJFIF.jpeg();
-  int[][] mluminance = mJFIF.luminance();
 
   background(255);
 
-  float w = float(width) / mJFIF.luminance[0].length;
-  float h = float(height / 2) / mJFIF.luminance.length;
-
-  for (int y=0; y<mjpeg.length; y++) {
-    for (int x=0; x<mjpeg[y].length; x++) {
-      fill(mluminance[y][x]);
-      stroke(mluminance[y][x]);
-      rect(w*x, h*y, w, h);
-
-      fill(mjpeg[y][x]);
-      stroke(mjpeg[y][x]);
-      rect(w*x, (height/2)+h*y, w, h);
-    }
-  }
+  drawInputFrames();
+  drawOutput();
+  drawBorders(10);
 }
 
 void testZigZagOrder() {
