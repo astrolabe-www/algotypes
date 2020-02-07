@@ -29,6 +29,7 @@ public static class Primal {
   private static int nextPrime(int n) {
     if (isPrime(n)) return n;
     if (n == 0) return 2;
+    if (n == 0x7fffffff) return n;
 
     n = next6k(n);
 
