@@ -13,10 +13,28 @@ void drawInputFrames() {
 }
 
 void drawOutput() {
+  drawOutput00();
+}
+
+void drawOutput01() {
   rectMode(CENTER);
-  stroke(0, 132);
+  stroke(255, 0, 0, 250);
+  fill(255, 0, 0, 250);
+  int WH = 8;
+
+  for (int i = 0; i < SIZE_INPUT_FRAMES; i += 1) {
+    float x = map(mPRNG.random(), 0, 256, 0, width);
+    float y = map(mPRNG.random(), 0, 256, 0, height);
+    rect(x, y, WH, WH);
+  }
+}
+
+void drawOutput00() {
+  rectMode(CENTER);
+  stroke(0, 128);
   fill(255, 0, 0, 20);
-  for (int i = 0; i < SIZE_INPUT_FRAMES; i += 8) {
+
+  for (int i = 0; i < SIZE_INPUT_FRAMES; i += 1) {
     float x = map(mPRNG.random(), 0, 256, 0, width);
     float y = map(mPRNG.random(), 0, 256, 0, height);
     float w = map(mPRNG.random(), 0, 256, 16, 100);
