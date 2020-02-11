@@ -13,10 +13,16 @@ void drawInputFrames() {
 }
 
 void drawOutput() {
-  rectMode(CENTER);
-  stroke(0, 132);
-  fill(255, 0, 0, 20);
-  // TODO
+  noStroke();
+
+  randomSeed(1212);
+  for (int i = 0; i < 100; i++) {
+    noiseSeed((long)(random(123456789)));
+    stroke(255, 0, 0, 30);
+    fill(255, 0, 0, 30);
+    mSplayTree.draw();
+    mTree.draw();
+  }
 }
 
 void drawBorders(int bwidth) {

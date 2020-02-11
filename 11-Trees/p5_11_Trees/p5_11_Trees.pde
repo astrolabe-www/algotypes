@@ -52,6 +52,10 @@ void draw() {
   println("\n -------- SPLAY -------- \n");
   print(mSplayTree);
 
+  println("\n -------- HEIGHT -------- \n");
+  println("Tree height: " + mTree.height());
+  println("Splay height: " + mSplayTree.height());
+
   background(255);
 
   drawInputFrames();
