@@ -30,6 +30,7 @@ void initInputFrames() {
 
 Greedy mGreedy;
 Annealing mAnnealing;
+int border_width = 10;
 
 void setup() {
   size(469, 804);
@@ -42,12 +43,9 @@ void draw() {
   mGreedy = new Greedy(INPUT_FRAMES);
   mAnnealing = new Annealing(INPUT_FRAMES);
 
-  println(mGreedy.solve());
-  println(" " + mAnnealing.solve());
-
   background(255);
 
   drawInputFrames();
-  drawOutput();
-  drawBorders(10);
+  drawOutput(border_width);
+  drawBorders(border_width);
 }

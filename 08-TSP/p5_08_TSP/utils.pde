@@ -12,11 +12,9 @@ void drawInputFrames() {
   }
 }
 
-void drawOutput() {
-  rectMode(CENTER);
-  stroke(0, 132);
-  fill(255, 0, 0, 20);
-  // TODO
+void drawOutput(int bwidth) {
+  mGreedy.drawCities(bwidth);
+  mAnnealing.drawCities(bwidth);
 }
 
 void drawBorders(int bwidth) {
