@@ -3,6 +3,8 @@
 // https://en.wikipedia.org/wiki/PID_controller#Discrete_implementation
 // https://www.csimn.com/CSI_pages/PIDforDummies.html
 
+import processing.pdf.*;
+
 // input
 int SIZE_INPUT_NOISE = 1024;
 byte[] INPUT_NOISE = new byte[SIZE_INPUT_NOISE];
@@ -43,9 +45,11 @@ void draw() {
   mPID = new PID(INPUT_FRAMES);
   println(mPID.getError());
 
+  //beginRecord(PDF, "filename.pdf");
   background(255);
 
   drawInputFrames();
   drawOutput();
   drawBorders(10);
+  //endRecord();
 }
