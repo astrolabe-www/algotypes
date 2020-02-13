@@ -22,10 +22,22 @@ void drawOutput() {
   float w = float(width) / mJFIF.luminance[0].length;
   float h = float(height) / mJFIF.luminance.length;
 
+  float minDiff = (mjpeg[0][0] - mluminance[0][0]);
+  float maxDiff = (mjpeg[0][0] - mluminance[0][0]);
+
   for (int y = 0; y < mjpeg.length; y++) {
     for (int x = 0; x < mjpeg[y].length; x++) {
-      fill((mjpeg[y][x] - mluminance[y][x]), 0, 0, (mjpeg[y][x] - mluminance[y][x]));
-      stroke((mjpeg[y][x] - mluminance[y][x]), 0, 0, (mjpeg[y][x] - mluminance[y][x]));
+      float thisDiff = mjpeg[y][x] - mluminance[y][x];
+      if (thisDiff > maxDiff) maxDiff = thisDiff;
+      if (thisDiff < minDiff) minDiff = thisDiff;
+    }
+  }
+
+  for (int y = 0; y < mjpeg.length; y++) {
+    for (int x = 0; x < mjpeg[y].length; x++) {
+      int red = (int)map((mjpeg[y][x] - mluminance[y][x]), minDiff, maxDiff, 0, 255);
+      fill(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
+      stroke(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
       rect(w*x, h*y, w, h);
     }
   }
