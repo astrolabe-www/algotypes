@@ -48,9 +48,9 @@ void drawBorders(int bwidth) {
   stroke(255);
   fill(255);
   rect(0, 0, width, bwidth);
-  rect(0, height-bwidth-1, width, bwidth);
+  rect(0, height-bwidth, width, bwidth);
   rect(0, 0, bwidth, height);
-  rect(width-bwidth-1, 0, bwidth, height);
+  rect(width-bwidth, 0, bwidth, height);
 
   noFill();
   stroke(10);

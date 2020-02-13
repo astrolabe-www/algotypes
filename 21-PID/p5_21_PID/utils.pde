@@ -18,6 +18,7 @@ void drawInputFrames() {
 
 void drawOutput() {
   rectMode(CENTER);
+  strokeCap(PROJECT);
   stroke(0, 132);
   fill(255, 0, 0, 20);
   stroke(255, 0, 0, 32);
@@ -54,11 +55,11 @@ void drawBorders(int bwidth) {
   stroke(255);
   fill(255);
   rect(0, 0, width, bwidth);
-  rect(0, height-bwidth-1, width, bwidth);
+  rect(0, height-bwidth, width, bwidth);
   rect(0, 0, bwidth, height);
-  rect(width-bwidth-1, 0, bwidth, height);
+  rect(width-bwidth, 0, bwidth, height);
 
   noFill();
   stroke(10);
-  rect(1, 1, width-3, height-3);
+  rect(1, 1, width-2, height-2);
 }
