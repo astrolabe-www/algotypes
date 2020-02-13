@@ -2,13 +2,24 @@
 // https://en.wikipedia.org/wiki/Primality_test
 // https://en.wikipedia.org/wiki/Primality_test#Pseudocode
 
+import java.util.Arrays;
+
 // input
 int SIZE_INPUT_NOISE = 1024;
 int[] INPUT_NOISE = new int[SIZE_INPUT_NOISE];
 
-String INPUT_FRAMES_FILENAME = "frames_20200207-0004_reqs.raw";
+String[] INPUT_FRAMES_FILENAME = {
+  "frames_20200206-2351.raw",
+  "frames_20200206-2357.raw",
+  "frames_20200207-0004_reqs.raw",
+  "frames_20200207-0006_beacons.raw",
+  "frames_20200207-0008_data.raw",
+  "frames_20200207-0010.raw",
+  "frames_20200207-0012.raw"
+};
 int SIZE_INPUT_FRAMES;
 int[] INPUT_FRAMES;
+int BYTES_PER_PRIME = 2;
 
 void initInputNoise() {
   for (int i = 0; i < SIZE_INPUT_NOISE; i++) {
@@ -17,17 +28,24 @@ void initInputNoise() {
 }
 
 void initInputFrames() {
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME));
+  byte in[] = new byte[0];
 
-  SIZE_INPUT_FRAMES = in.length / 4;
+  for (int i = 0; i < INPUT_FRAMES_FILENAME.length; i++) {
+    byte file[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME[i]));
+    in = Arrays.copyOf(in, in.length + file.length);
+    arraycopy(file, 0, in, in.length - file.length, file.length);
+  }
+
+  SIZE_INPUT_FRAMES = in.length / BYTES_PER_PRIME;
   INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
 
   for (int i = 0; i < SIZE_INPUT_FRAMES; i++) {
     INPUT_FRAMES[i] = 0x0;
-    for (int b = 0; b < 4; b++) {
-      INPUT_FRAMES[i] = INPUT_FRAMES[i] | ((in[4 * i + b] & 0xff) << (24 - 8 * b));
+    for (int b = 0; b < BYTES_PER_PRIME; b++) {
+      int bi = (BYTES_PER_PRIME * i + b);
+      INPUT_FRAMES[i] = INPUT_FRAMES[i] | ((in[bi] & 0xff) << (8 * (BYTES_PER_PRIME - 1 - b)));
     }
-    INPUT_FRAMES[i] = 0x3fffffff & INPUT_FRAMES[i];
+    INPUT_FRAMES[i] = (0x3fffffff >>> (8 * (4 - BYTES_PER_PRIME))) & INPUT_FRAMES[i];
   }
 }
 
@@ -39,11 +57,11 @@ void setup() {
 }
 
 void draw() {
-  Primal.primes(INPUT_FRAMES);
+  int[] ps = Primal.primes(INPUT_FRAMES);
 
   background(255);
 
   drawInputFrames();
-  drawOutput();
+  drawOutput(ps);
   drawBorders(10);
 }
