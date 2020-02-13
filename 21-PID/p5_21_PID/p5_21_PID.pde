@@ -23,10 +23,14 @@ void initInputFrames() {
   SIZE_INPUT_FRAMES = in.length;
   INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
 
+  noiseSeed(1010);
+
   for (int i = 0; i < SIZE_INPUT_FRAMES; i++) {
-    INPUT_FRAMES[i] = in[i];
+    INPUT_FRAMES[i] = int(in[i] * noise(i/100.0, frameCount));
   }
 }
+
+PID mPID;
 
 void setup() {
   size(469, 804);
@@ -36,7 +40,7 @@ void setup() {
 }
 
 void draw() {
-  PID mPID = new PID(INPUT_FRAMES);
+  mPID = new PID(INPUT_FRAMES);
   println(mPID.getError());
 
   background(255);
