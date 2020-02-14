@@ -25,10 +25,6 @@ void drawOutput(int bwidth) {
   float[] out = A.page_rank().value;
   Arrays.sort(out);
 
-  float sum = 0;
-  for (int i = 0; i < out.length; i++) sum += out[i];
-  println(sum);
-
   for (int i = out.length - 1; i > -1; i--) {
     //float h = 32.0 * out[out.length - 1 - i] * mHeight;
     //ellipseMode(CENTER);
