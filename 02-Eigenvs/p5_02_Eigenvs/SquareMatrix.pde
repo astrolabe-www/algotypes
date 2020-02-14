@@ -17,6 +17,11 @@ static class SquareMatrix {
     set(input);
   }
 
+  public SquareMatrix(float[][] input) {
+    size = input.length;
+    value = input;
+  }
+
   public void set(int[] input) {
     for (int i = 0; i < size * size; i++) {
       value[i / size][i % size] = (i < input.length)?input[i]:0;
@@ -114,6 +119,37 @@ static class SquareMatrix {
       bk = bk1.normalized();
     }
     return bk;
+  }
+
+  public Vector page_rank() {
+    float[] L = new float[size];
+    float[] _PR = new float[size];
+    float[] _omdN = new float[size];
+    float[][] _dM = new float[size][size];
+    final float d = 0.85;
+
+    for (int j = 0; j < size; j++) {
+      _PR[j] = 1.0 / size;
+      _omdN[j] = (1 - d) / size;
+
+      L[j] = 0.0;
+      for (int i = 0; i < size; i++) {
+        L[j] += (i == j) ? 0.0 : value[i][j];
+      }
+
+      for (int i = 0; i < size; i++) {
+        _dM[i][j] = (i == j) ? 0.0 : d * (value[i][j] / L[j]);
+      }
+    }
+
+    SquareMatrix dM = new SquareMatrix(_dM);
+    Vector PR = new Vector(_PR);
+    Vector omdN = new Vector(_omdN);
+
+    for (int iteration = 0; iteration < 32; iteration++) {
+      PR = Vector.add(Vector.multiply(dM, PR), omdN);
+    }
+    return PR;
   }
 
   public String toString() {

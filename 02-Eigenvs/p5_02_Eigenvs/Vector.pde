@@ -14,6 +14,11 @@ static class Vector {
     set(input);
   }
 
+  public Vector(float[] input) {
+    size = input.length;
+    value = input;
+  }
+
   public void set(int[] input) {
     for (int i = 0; i < size; i++) {
       value[i] = (i < input.length)?input[i]:0;

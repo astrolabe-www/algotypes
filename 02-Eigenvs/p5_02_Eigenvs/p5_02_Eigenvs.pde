@@ -2,6 +2,7 @@
 // https://en.wikipedia.org/wiki/Power_iteration
 // https://en.wikipedia.org/wiki/QR_decomposition
 // https://en.wikipedia.org/wiki/QR_algorithm
+// https://en.wikipedia.org/wiki/PageRank
 
 // input
 int SIZE_INPUT_NOISE = 1024;
@@ -39,13 +40,15 @@ void setup() {
 
 void draw() {
   A = new SquareMatrix(INPUT_FRAMES);
-  //A = new SquareMatrix(new int[]{5,5, 2,8});
-  //A = new SquareMatrix(new int[]{6,-1, 2,3});
   //A = new SquareMatrix(new int[]{3,2,4, 2,0,2, 4,2,3});
   //A = new SquareMatrix(new int[]{12,-51,4, 6,167,-68, -4,24,-41});
 
-  println(A.power_iteration());
-  println(A.QR());
+  //println("///// Power /////");
+  //println(A.power_iteration());
+  //println("///// QR /////");
+  //println(A.QR());
+  println("///// PageRank /////");
+  println(A.page_rank());
 
   background(255);
 
