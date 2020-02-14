@@ -21,7 +21,7 @@ static class Vector {
 
   public void set(int[] input) {
     for (int i = 0; i < size; i++) {
-      value[i] = (i < input.length)?input[i]:0;
+      value[i] = (i < input.length) ? input[i] : 0;
     }
   }
 
@@ -96,7 +96,7 @@ static class Vector {
   public String toString() {
     String r = "[ ";
     for (int i = 0; i < size; i++) {
-      r += value[i];
+      r += String.format("%.4f", value[i]);
       r += (i < size - 1)?", ":" ]\n";
     }
     return r;

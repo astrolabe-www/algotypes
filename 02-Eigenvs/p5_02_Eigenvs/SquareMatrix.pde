@@ -1,14 +1,12 @@
 static class SquareMatrix {
+  static private final float PR_DAMPING = 0.85;
   private float[][] value;
   private int size;
 
   public SquareMatrix(int s) {
     size = s;
     value = new float[size][size];
-
-    for (int i = 0; i < size * size; i++) {
-      value[i / size][i % size] = 0;
-    }
+    set(new int[0]);
   }
 
   public SquareMatrix(int[] input) {
@@ -18,13 +16,15 @@ static class SquareMatrix {
   }
 
   public SquareMatrix(float[][] input) {
-    size = input.length;
+    size = min(input.length, input[0].length);
     value = input;
   }
 
   public void set(int[] input) {
-    for (int i = 0; i < size * size; i++) {
-      value[i / size][i % size] = (i < input.length)?input[i]:0;
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        value[i][j] = ((i * size + j) < input.length) ? input[i * size + j] : 0;
+      }
     }
   }
 
@@ -122,23 +122,25 @@ static class SquareMatrix {
   }
 
   public Vector page_rank() {
-    float[] L = new float[size];
+    return page_rank(PR_DAMPING);
+  }
+
+  public Vector page_rank(float d) {
     float[] _PR = new float[size];
     float[] _omdN = new float[size];
     float[][] _dM = new float[size][size];
-    final float d = 0.85;
 
     for (int j = 0; j < size; j++) {
       _PR[j] = 1.0 / size;
       _omdN[j] = (1 - d) / size;
 
-      L[j] = 0.0;
+      float Lj = 0.0;
       for (int i = 0; i < size; i++) {
-        L[j] += (i == j) ? 0.0 : value[i][j];
+        Lj += (i == j) ? 0.0 : value[i][j];
       }
 
       for (int i = 0; i < size; i++) {
-        _dM[i][j] = (i == j) ? 0.0 : d * (value[i][j] / L[j]);
+        _dM[i][j] = (i == j) ? 0.0 : d * (value[i][j] / Lj);
       }
     }
 
@@ -157,7 +159,7 @@ static class SquareMatrix {
     for (int i = 0; i < size; i++) {
       r += "[ ";
       for (int j = 0; j < size; j++) {
-        r += value[i][j];
+        r += String.format("%.4f", value[i][j]);
         r += (j < size - 1)?", ":" ]\n";
       }
     }
