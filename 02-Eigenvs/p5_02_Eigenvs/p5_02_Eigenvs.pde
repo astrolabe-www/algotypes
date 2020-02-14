@@ -30,6 +30,7 @@ void initInputFrames() {
 }
 
 SquareMatrix A;
+final int BORDER_WIDTH = 10;
 
 void setup() {
   size(469, 804);
@@ -53,6 +54,6 @@ void draw() {
   background(255);
 
   drawInputFrames();
-  drawOutput();
-  drawBorders(10);
+  drawOutput(BORDER_WIDTH);
+  drawBorders(BORDER_WIDTH);
 }

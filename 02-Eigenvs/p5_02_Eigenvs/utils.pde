@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 void drawInputFrames() {
   rectMode(CENTER);
   stroke(0, 200);
@@ -12,11 +14,32 @@ void drawInputFrames() {
   }
 }
 
-void drawOutput() {
-  rectMode(CENTER);
-  stroke(0, 132);
-  fill(255, 0, 0, 20);
-  // TODO
+void drawOutput(int bwidth) {
+  float y = bwidth;
+  int mHeight = height - 2 * bwidth;
+
+  stroke(255, 0, 0, 64);
+  fill(255, 0, 0, 16);
+  noiseSeed(101010);
+
+  float[] out = A.page_rank().value;
+  Arrays.sort(out);
+
+  float sum = 0;
+  for (int i = 0; i < out.length; i++) sum += out[i];
+  println(sum);
+
+  for (int i = out.length - 1; i > -1; i--) {
+    //float h = 32.0 * out[out.length - 1 - i] * mHeight;
+    //ellipseMode(CENTER);
+    //noStroke();
+    //ellipse(width / 2.0, y + h / 2.0, h, h);
+    //y += mHeight * out[i];
+
+    float h = 32.0 * out[i] * mHeight;
+    ellipseMode(CORNER);
+    ellipse(width / 2.0 - h / 2.0, height / 4.0 - i, h, h);
+  }
 }
 
 void drawBorders(int bwidth) {
