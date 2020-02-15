@@ -31,7 +31,7 @@ void initInputFrames() {
 LUPMatrix mLUPMatrix;
 
 void setup() {
-  size(469, 804);
+  size(469, 804, P3D);
   noLoop();
   initInputNoise();
   initInputFrames();
@@ -40,20 +40,38 @@ void setup() {
 void draw() {
   mLUPMatrix = new LUPMatrix(INPUT_FRAMES);
 
+  println("///// MATRIX /////");
   println(mLUPMatrix);
 
   println("det = " + mLUPMatrix.determinant() + "\n");
   println(mLUPMatrix);
 
-  println("\nINVERTED\n");
+  println("///// INVERTED /////");
   println(mLUPMatrix.inverted());
-
-  println("\nIDENTITY\n");
-  println(LUPMatrix.multiply(mLUPMatrix, mLUPMatrix.inverted()));
 
   background(255);
 
-  drawInputFrames();
-  drawOutput();
+  hint(DISABLE_DEPTH_MASK);
+  hint(DISABLE_DEPTH_TEST);
+
+  float SCALE = 3;
+  float PITCH = PI * 0.42;
+  float ROLL = -PI * 0.01;
+  float YAW = PI * 0.09;
+  float SLIDEX = 0.18;
+  float SLIDEY = 0.55;
+
+  image(drawInputFramesToGraphics(), 0, 0);
+
+  pushMatrix();
+  translate(width / 2, height / 2);
+  rotateZ(ROLL);
+  rotateY(YAW);
+  rotateX(PITCH);
+  scale(SCALE, SCALE);
+  translate(-width * SLIDEX, -height * SLIDEY);
+  image(drawOutputToGraphics(), 0, 0);
+  popMatrix();
+
   drawBorders(10);
 }
