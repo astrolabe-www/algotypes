@@ -2,9 +2,9 @@ import java.util.Arrays;
 
 void drawInputFrames() {
   rectMode(CENTER);
-  stroke(0, 200);
+  stroke(0, 32);
   fill(0, 0, 200, 16);
-  fill(0, 32);
+  fill(0, 16);
   for (int i = 0; i < SIZE_INPUT_FRAMES; i += 4) {
     float x = map(INPUT_FRAMES[i], 0, 256, 0, width);
     float y = map(INPUT_FRAMES[i+1], 0, 256, 0, height);

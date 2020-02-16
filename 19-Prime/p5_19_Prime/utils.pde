@@ -7,10 +7,10 @@ void drawInputFrames() {
   mpg.beginDraw();
   mpg.rectMode(CENTER);
   mpg.smooth();
-  mpg.stroke(0, 200);
+  mpg.stroke(0, 32);
   mpg.strokeWeight(0.9 * OVER_SAMPLE);
   mpg.fill(0, 0, 200, 16);
-  mpg.fill(0, 32);
+  mpg.fill(0, 16);
 
   for (int i = 0; i < in.length; i += 4) {
     float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);

@@ -5,8 +5,8 @@ PGraphics drawInputFramesToGraphics() {
   inG.rectMode(CENTER);
 
   inG.background(255, 0);
-  inG.stroke(0, 200);
-  inG.fill(0, 32);
+  inG.stroke(0, 32);
+  inG.fill(0, 16);
 
   //inG.stroke(0, 0, 200, 32);
   //inG.fill(0, 0, 200, 16);

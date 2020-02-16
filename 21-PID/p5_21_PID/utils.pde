@@ -1,7 +1,7 @@
 void drawInputFrames() {
   rectMode(CENTER);
-  stroke(0, 200);
-  fill(0, 32);
+  stroke(0, 32);
+  fill(0, 16);
   //noStroke();
   //fill(0, 0, 200, 16);
 
