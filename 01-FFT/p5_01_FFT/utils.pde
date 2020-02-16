@@ -61,5 +61,5 @@ void drawBorders(int bwidth) {
   noFill();
   stroke(10);
   strokeWeight(1);
-  rect(1, 1, width-3, height-3);
+  rect(1, 1, width - 2, height - 2);
 }
