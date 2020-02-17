@@ -9,7 +9,7 @@ extern "C" {
   int wifi_send_pkt_freedom(uint8 *buf, int len, bool sys_seq);
 }
 
-const uint8_t CHANNELS[] = {1, 5, 6, 7};
+const uint8_t CHANNELS[] = {1, 2, 3, 4, 7};
 const uint8_t NUM_CHANNELS = sizeof(CHANNELS) / sizeof(uint8_t);
 
 const char *SSIDS[] = {
@@ -31,7 +31,7 @@ const uint8_t NUM_SSIDS = sizeof(SSIDS) / sizeof(char*);
 
 const uint32_t PACKET_SIZE = sizeof(beaconPacket);
 
-uint32_t TX_PERIOD_MS = 100;
+uint32_t TX_PERIOD_MS = 128;
 
 char emptySSID[32];
 uint8_t channelIndex = 0;
@@ -83,7 +83,7 @@ void loop() {
       // set channel for beacon frame
       beaconPacket[82] = currentChannel;
 
-      for (int k = 0; k < 3; k++) {
+      for (int k = 0; k < 8; k++) {
         wifi_send_pkt_freedom(beaconPacket, PACKET_SIZE, 0);
         delay(1);
       }
