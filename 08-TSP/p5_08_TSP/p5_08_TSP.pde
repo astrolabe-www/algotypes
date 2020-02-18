@@ -30,7 +30,6 @@ void initInputFrames() {
 
 Greedy mGreedy;
 Annealing mAnnealing;
-final int BORDER_WIDTH = 10;
 
 void setup() {
   size(469, 804);
@@ -39,13 +38,26 @@ void setup() {
   initInputFrames();
 }
 
+int OUT_SCALE = 10;
+int BORDER_WIDTH = 10;
+
 void draw() {
   mGreedy = new Greedy(INPUT_FRAMES);
   mAnnealing = new Annealing(INPUT_FRAMES);
 
   background(255);
 
-  drawInputFrames();
-  drawOutput(BORDER_WIDTH);
-  drawBorders(BORDER_WIDTH);
+  PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  mpg.smooth(8);
+  mpg.beginDraw();
+  mpg.background(255, 0);
+  mpg.endDraw();
+
+  drawInputFrames(mpg);
+  drawOutput(mpg, OUT_SCALE * BORDER_WIDTH);
+  drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
+  // mpg.save("out.png");
+  // mpg.save("out.jpg");
+
+  image(mpg, 0, 0, width, height);
 }
