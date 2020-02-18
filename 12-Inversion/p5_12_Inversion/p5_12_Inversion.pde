@@ -37,6 +37,9 @@ void setup() {
   initInputFrames();
 }
 
+int OUT_SCALE = 10;
+int BORDER_WIDTH = 10;
+
 void draw() {
   mLUPMatrix = new LUPMatrix(INPUT_FRAMES);
 
@@ -49,11 +52,6 @@ void draw() {
   println("///// INVERTED /////");
   println(mLUPMatrix.inverted());
 
-  background(255);
-
-  hint(DISABLE_DEPTH_MASK);
-  hint(DISABLE_DEPTH_TEST);
-
   float SCALE = 3;
   float PITCH = PI * 0.42;
   float ROLL = -PI * 0.01;
@@ -61,17 +59,41 @@ void draw() {
   float SLIDEX = 0.18;
   float SLIDEY = 0.55;
 
-  image(drawInputFramesToGraphics(), 0, 0);
+  background(255);
 
-  pushMatrix();
-  translate(width / 2, height / 2);
-  rotateZ(ROLL);
-  rotateY(YAW);
-  rotateX(PITCH);
-  scale(SCALE, SCALE);
-  translate(-width * SLIDEX, -height * SLIDEY);
-  image(drawOutputToGraphics(), 0, 0);
-  popMatrix();
+  PGraphics mpgI = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  mpgI.smooth(8);
+  PGraphics mpgB = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  mpgB.smooth(8);
+  PGraphics mpgO = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  mpgO.smooth(8);
+  PGraphics mpgF = createGraphics(OUT_SCALE * width, OUT_SCALE * height, P3D);
+  mpgF.smooth(8);
 
-  drawBorders(10);
+  drawInputFrames(mpgI);
+  drawOutput(mpgO);
+  drawBorders(mpgB, OUT_SCALE * BORDER_WIDTH);
+
+  mpgF.beginDraw();
+  mpgF.hint(DISABLE_DEPTH_MASK);
+  mpgF.hint(DISABLE_DEPTH_TEST);
+  mpgF.background(255);
+  mpgF.image(mpgI, 0, 0, mpgF.width, mpgF.height);
+
+  mpgF.pushMatrix();
+  mpgF.translate(mpgF.width / 2, mpgF.height / 2);
+  mpgF.rotateZ(ROLL);
+  mpgF.rotateY(YAW);
+  mpgF.rotateX(PITCH);
+  mpgF.scale(SCALE, SCALE);
+  mpgF.translate(-mpgF.width * SLIDEX, -mpgF.height * SLIDEY);
+  mpgF.image(mpgO, 0, 0, mpgF.width, mpgF.height);
+  mpgF.popMatrix();
+
+  mpgF.image(mpgB, 0, 0, mpgF.width, mpgF.height);
+  mpgF.endDraw();
+  // mpgF.save("out.png");
+  // mpgF.save("out.jpg");
+
+  image(mpgF, 0, 0, width, height);
 }
