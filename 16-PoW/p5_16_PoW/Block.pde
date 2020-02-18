@@ -34,12 +34,12 @@ public class Block {
   }
 
   public int nextTarget() {
-    if(hash == null) hashMe();
-    return ((0xff & hash[2]) << 8) | (0xff & hash[3]);
+    if (hash == null) hashMe();
+    return ((0xff & hash[2]) << 24) | ((0xff & hash[3]) << 16);
   }
 
   public byte[] hash() {
-    if(hash == null) hashMe();
+    if (hash == null) hashMe();
     return hash;
   }
 
@@ -75,12 +75,23 @@ public class Block {
       hash = SHA256.encode(sha_input);
     }
 
-    println("done! hashMSB = " + String.format("%02x", hash[0]) + String.format("%02x", hash[1]) + " nonce = " + nonce);
+    println("done! target : " + String.format("%04x", target >>> 16));
+    println("      nonce  : " + nonce);
+    println("      hash   : " + this);
   }
 
   private boolean meetsTarget(byte[] h) {
     int one_byte = (0xff & h[0]);
     int two_bytes = (one_byte << 8) | (0xff & h[1]);
     return ((target >>> 16) ^ two_bytes) == 0;
+  }
+
+  public String toString() {
+    if (hash == null) hashMe();
+    String s = "";
+    for (int i = 0; i < hash.length; i++) {
+      s += String.format("%02x", hash[i]);
+    }
+    return s;
   }
 }

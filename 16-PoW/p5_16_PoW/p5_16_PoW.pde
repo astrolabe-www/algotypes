@@ -7,9 +7,16 @@
 int SIZE_INPUT_NOISE = 1024;
 byte[] INPUT_NOISE = new byte[SIZE_INPUT_NOISE];
 
-String INPUT_FRAMES_FILENAME = "frames_20200207-0004_reqs.raw";
-int SIZE_INPUT_FRAMES;
-byte[] INPUT_FRAMES;
+String[] INPUT_FRAMES_FILENAME = {
+  "frames_20200206-2351.raw",
+  "frames_20200206-2357.raw",
+  "frames_20200207-0004_reqs.raw",
+  "frames_20200207-0006_beacons.raw",
+  "frames_20200207-0008_data.raw",
+  "frames_20200207-0010.raw",
+  "frames_20200207-0012.raw"
+};
+byte[][] INPUT_FRAMES;
 
 void initInputNoise() {
   for (int i = 0; i < SIZE_INPUT_NOISE; i++) {
@@ -18,13 +25,15 @@ void initInputNoise() {
 }
 
 void initInputFrames() {
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME));
+  INPUT_FRAMES = new byte[INPUT_FRAMES_FILENAME.length][];
 
-  SIZE_INPUT_FRAMES = in.length;
-  INPUT_FRAMES = new byte[SIZE_INPUT_FRAMES];
+  for (int i = 0; i < INPUT_FRAMES_FILENAME.length; i++) {
+    byte file[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME[i]));
+    INPUT_FRAMES[i] = new byte[file.length];
 
-  for (int i = 0; i < SIZE_INPUT_FRAMES; i++) {
-    INPUT_FRAMES[i] = byte(in[i] & 0xff);
+    for (int b = 0; b < file.length; b++) {
+      INPUT_FRAMES[i][b] = byte(file[b] & 0xff);
+    }
   }
 }
 
@@ -41,8 +50,11 @@ int OUT_SCALE = 10;
 int BORDER_WIDTH = 10;
 
 void draw() {
-  mBlock = new Block(INPUT_FRAMES);
-  mBlock.hash();
+  Block chain = new Block(INPUT_FRAMES[0]);
+  for (int i = 1; i < INPUT_FRAMES.length; i++) {
+    chain = new Block(INPUT_FRAMES[i], chain.hash(), chain.nextTarget());
+  }
+  chain.hash();
 
   background(255);
 
