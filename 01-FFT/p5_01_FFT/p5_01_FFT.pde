@@ -45,6 +45,9 @@ void setup() {
   initInputFrames();
 }
 
+int OUT_SCALE = 10;
+int BORDER_WIDTH = 10;
+
 void draw() {
   OUTPUT_DFT = Fourier.DFT(INPUT_FRAMES);
   OUTPUT_FFT = Fourier.FFT(INPUT_FRAMES);
@@ -52,7 +55,18 @@ void draw() {
 
   background(255);
 
-  drawInputFrames();
-  drawOutput();
-  drawBorders(10);
+  PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  mpg.smooth(8);
+  mpg.beginDraw();
+  mpg.background(255, 0);
+  mpg.endDraw();
+
+  drawInputFrames(mpg);
+  drawInputWave(mpg);
+  drawOutput(mpg);
+  drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
+  // mpg.save("out.png");
+  // mpg.save("out.jpg");
+
+  image(mpg, 0, 0, width, height);
 }
