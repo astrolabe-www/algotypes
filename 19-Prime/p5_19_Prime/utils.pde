@@ -1,16 +1,12 @@
-int OVER_SAMPLE = 1;
-
-void drawInputFrames() {
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME[2]));
-  PGraphics mpg = createGraphics(OVER_SAMPLE * width, OVER_SAMPLE * height);
-
+void drawInputFrames(PGraphics mpg) {
   mpg.beginDraw();
+
   mpg.rectMode(CENTER);
-  mpg.smooth();
   mpg.stroke(0, 32);
-  mpg.strokeWeight(0.9 * OVER_SAMPLE);
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
+
+  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME[2]));
 
   for (int i = 0; i < in.length; i += 4) {
     float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);
@@ -20,33 +16,50 @@ void drawInputFrames() {
     mpg.rect(x, y, w, h);
   }
   mpg.endDraw();
-
-  pushMatrix();
-  scale(1.0 / OVER_SAMPLE);
-  image(mpg, 0, 0);
-  popMatrix();
 }
 
-void drawOutput(int[] ps) {
-  randomSeed(1);
-  fill(255, 0, 0, 20);
-  noStroke();
-  rectMode(CENTER);
+void drawOutput(PGraphics mpg) {
+  int[] ps = Primal.primes(INPUT_FRAMES);
 
-  float M = 4;
-  PVector m = new PVector(M, M * height / width);
+  randomSeed(1);
+
+  mpg.beginDraw();
+  mpg.fill(255, 0, 0, 20);
+  mpg.noStroke();
+  mpg.rectMode(CENTER);
+
+  float M = OUT_SCALE * 4;
+  PVector m = new PVector(M, M * mpg.height / mpg.width);
   PVector xy;
 
-  pushMatrix();
-  translate(width / 2, height / 2);
+  mpg.pushMatrix();
+  mpg.translate(mpg.width / 2, mpg.height / 2);
 
   for (int i = 1; i < ps.length; i++) {
     xy = getXY(ps[i]);
-    rect(m.x * xy.x, m.y * xy.y, m.x, m.x);
+    mpg.rect(m.x * xy.x, m.y * xy.y, m.x, m.x);
     xy = getXY(Primal.nextPrime(int(random(min(ps[i-1], ps[i]), max(ps[i-1], ps[i])))));
-    ellipse(m.x * xy.x, m.y * xy.y, m.x, m.x);
+    mpg.ellipse(m.x * xy.x, m.y * xy.y, m.x, m.x);
   }
-  popMatrix();
+  mpg.popMatrix();
+  mpg.endDraw();
+}
+
+void drawBorders(PGraphics mpg, int bwidth) {
+  mpg.beginDraw();
+  mpg.rectMode(CORNER);
+  mpg.stroke(255);
+  mpg.fill(255);
+  mpg.rect(0, 0, mpg.width, bwidth);
+  mpg.rect(0, mpg.height - bwidth, mpg.width, bwidth);
+  mpg.rect(0, 0, bwidth, mpg.height);
+  mpg.rect(mpg.width - bwidth, 0, bwidth, mpg.height);
+
+  mpg.noFill();
+  mpg.stroke(10);
+  mpg.strokeWeight(1);
+  mpg.rect(1, 1, mpg.width - 2, mpg.height - 2);
+  mpg.endDraw();
 }
 
 public PVector getXY(int n) {
@@ -63,18 +76,4 @@ public PVector getXY(int n) {
   dy *= (w % 2 == 0) ? -1 : 1;
 
   return new PVector(xy0.x + dx, xy0.y + dy);
-}
-
-void drawBorders(int bwidth) {
-  rectMode(CORNER);
-  stroke(255);
-  fill(255);
-  rect(0, 0, width, bwidth);
-  rect(0, height-bwidth, width, bwidth);
-  rect(0, 0, bwidth, height);
-  rect(width-bwidth, 0, bwidth, height);
-
-  noFill();
-  stroke(10);
-  rect(1, 1, width - 2, height - 2);
 }

@@ -1,27 +1,31 @@
-void drawInputFrames() {
-  rectMode(CENTER);
-  stroke(0, 32);
-  fill(0, 16);
-  //noStroke();
-  //fill(0, 0, 200, 16);
+void drawInputFrames(PGraphics mpg) {
+  mpg.beginDraw();
+
+  mpg.rectMode(CENTER);
+  mpg.stroke(0, 32);
+  mpg.fill(0, 0, 200, 16);
+  mpg.fill(0, 16);
 
   byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME));
 
   for (int i = 0; i < SIZE_INPUT_FRAMES; i += 4) {
-    float x = map(in[i+0] & 0xff, 0, 256, 0, width);
-    float y = map(in[i+1] & 0xff, 0, 256, 0, height);
-    float w = map(in[i+2] & 0xff, 0, 256, width/20, width/4);
-    float h = map(in[i+3] & 0xff, 0, 256, height/20, height/4);
-    rect(x, y, w, h);
+    float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);
+    float y = map(in[i+1] & 0xff, 0, 256, 0, mpg.height);
+    float w = map(in[i+2] & 0xff, 0, 256, mpg.width/20, mpg.width/4);
+    float h = map(in[i+3] & 0xff, 0, 256, mpg.height/20, mpg.height/4);
+    mpg.rect(x, y, w, h);
   }
+  mpg.endDraw();
 }
 
-void drawOutput() {
-  rectMode(CENTER);
-  strokeCap(PROJECT);
-  stroke(0, 132);
-  fill(255, 0, 0, 20);
-  stroke(255, 0, 0, 32);
+void drawOutput(PGraphics mpg) {
+  mpg.beginDraw();
+  mpg.rectMode(CENTER);
+  mpg.strokeCap(PROJECT);
+  mpg.stroke(0, 132);
+  mpg.fill(255, 0, 0, 20);
+  mpg.stroke(255, 0, 0, 32);
+  mpg.strokeWeight(OUT_SCALE);
 
   float[] e = mPID.getErrors();
 
@@ -40,26 +44,30 @@ void drawOutput() {
     avg_sum += avg[avg_index];
     avg_index = (avg_index + 1) % avg.length;
 
-    float x = map(i, 0, e.length, 0, width);
+    float x = map(i, 0, e.length, 0, mpg.width);
 
-    float y0 = (height / 64) * cos(x * (PI / 2.125) / width) * (avg_sum / AVG_SIZE);
-    float y1 = (height / 64) * cos(x * (PI / 2.125) / width) * e[i];
+    float y0 = (mpg.height / 64) * cos(x * (PI / 2.125) / mpg.width) * (avg_sum / AVG_SIZE);
+    float y1 = (mpg.height / 64) * cos(x * (PI / 2.125) / mpg.width) * e[i];
 
-    line(x, height / 2 - 1, x, height / 2 - abs(y0));
-    line(x, height / 2, x, height / 2 + abs(y1));
+    mpg.line(x, mpg.height / 2 - 1, x, mpg.height / 2 - abs(y0));
+    mpg.line(x, mpg.height / 2, x, mpg.height / 2 + abs(y1));
   }
+  mpg.endDraw();
 }
 
-void drawBorders(int bwidth) {
-  rectMode(CORNER);
-  stroke(255);
-  fill(255);
-  rect(0, 0, width, bwidth);
-  rect(0, height-bwidth, width, bwidth);
-  rect(0, 0, bwidth, height);
-  rect(width-bwidth, 0, bwidth, height);
+void drawBorders(PGraphics mpg, int bwidth) {
+  mpg.beginDraw();
+  mpg.rectMode(CORNER);
+  mpg.stroke(255);
+  mpg.fill(255);
+  mpg.rect(0, 0, mpg.width, bwidth);
+  mpg.rect(0, mpg.height - bwidth, mpg.width, bwidth);
+  mpg.rect(0, 0, bwidth, mpg.height);
+  mpg.rect(mpg.width - bwidth, 0, bwidth, mpg.height);
 
-  noFill();
-  stroke(10);
-  rect(1, 1, width-2, height-2);
+  mpg.noFill();
+  mpg.stroke(10);
+  mpg.strokeWeight(1);
+  mpg.rect(1, 1, mpg.width - 2, mpg.height - 2);
+  mpg.endDraw();
 }
