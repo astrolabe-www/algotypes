@@ -18,10 +18,13 @@ public class Tree {
     else return find(v, n.right);
   }
 
-  public void draw() {
+  public void draw(PGraphics mpg) {
     if (root == null) return;
-    else if (dimensions != null) root.drawNode((int)dimensions.y);
-    else root.drawNode(height());
+
+    mpg.beginDraw();
+    if (dimensions != null) root.drawNode(mpg, (int)dimensions.y);
+    else root.drawNode(mpg, height());
+    mpg.endDraw();
   }
 
   public int height() {
@@ -110,79 +113,60 @@ class Node {
     if (left != null) left.printNode(buffer, prefix + (fromLeft ? "    " : "│   "), true);
   }
 
-  private PVector drawNode(int treeHeight) {
-    return drawNode3(treeHeight);
+  private PVector drawNode(PGraphics mpg, int treeHeight) {
+    return drawNode0(mpg, treeHeight);
   }
 
-  private PVector drawNode0(int treeHeight) {
-    float dx = location.x * width;
-    float dy = (location.y / (treeHeight - 1)) * height;
+  private PVector drawNode0(PGraphics mpg, int treeHeight) {
+    float dx = location.x * mpg.width;
+    float dy = (location.y / (treeHeight - 1)) * mpg.height;
 
-    dx += map(noise(location.x/3f, location.y/10f), 0, 1, -10, 10);
-    dy += map(noise(location.y/1f, location.x/100f), 0, 1, -100, 500);
+    dx *= map(noise(location.x, location.y/(OUT_SCALE * 1000f)), 0, 1, -0.5, 2.5);
+    mpg.ellipse(dx, dy, OUT_SCALE * 2, 0);
 
     if (left != null) {
-      PVector leftDrawLocation = left.drawNode(treeHeight);
-      line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
+      PVector leftDrawLocation = left.drawNode(mpg, treeHeight);
+      mpg.line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
     }
     if (right != null) {
-      PVector rightDrawLocation = right.drawNode(treeHeight);
-      line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
+      PVector rightDrawLocation = right.drawNode(mpg, treeHeight);
+      mpg.line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
     }
 
     return new PVector(dx, dy);
   }
 
-  private PVector drawNode1(int treeHeight) {
-    float dx = location.x * width;
-    float dy = (location.y / (treeHeight - 1)) * height;
+  private PVector drawNode1(PGraphics mpg, int treeHeight) {
+    float dx = location.x * mpg.width;
+    float dy = (location.y / (treeHeight - 1)) * mpg.height;
 
-    dy *= map(noise(location.y/1f, location.x/100f), 0, 1, 0, 2);
+    dy *= map(noise(location.y, location.x/(OUT_SCALE * 100f)), 0, 1, -500 * OUT_SCALE, 500 * OUT_SCALE);
 
     if (left != null) {
-      PVector leftDrawLocation = left.drawNode(treeHeight);
-      line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
+      PVector leftDrawLocation = left.drawNode(mpg, treeHeight);
+      mpg.line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
     }
     if (right != null) {
-      PVector rightDrawLocation = right.drawNode(treeHeight);
-      line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
+      PVector rightDrawLocation = right.drawNode(mpg, treeHeight);
+      mpg.line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
     }
 
     return new PVector(dx, dy);
   }
 
-  private PVector drawNode2(int treeHeight) {
-    float dx = location.x * width;
-    float dy = (location.y / (treeHeight - 1)) * height;
+  private PVector drawNode2(PGraphics mpg, int treeHeight) {
+    float dx = location.x * mpg.width;
+    float dy = (location.y / (treeHeight - 1)) * mpg.height;
 
-    dx *= map(noise(location.x, location.y/1000f), 0, 1, -0.5, 2.5);
-    ellipse(dx, dy, 2, 0);
-
-    if (left != null) {
-      PVector leftDrawLocation = left.drawNode(treeHeight);
-      line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
-    }
-    if (right != null) {
-      PVector rightDrawLocation = right.drawNode(treeHeight);
-      line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
-    }
-
-    return new PVector(dx, dy);
-  }
-
-  private PVector drawNode3(int treeHeight) {
-    float dx = location.x * width;
-    float dy = (location.y / (treeHeight - 1)) * height;
-
-    dy *= map(noise(location.y/1f, location.x/100f), 0, 1, -500, 500);
+    dy *= map(noise(location.y, location.x/(OUT_SCALE * 100f)), 0, 1, 0, 2);
 
     if (left != null) {
-      PVector leftDrawLocation = left.drawNode(treeHeight);
-      line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
+      PVector leftDrawLocation = left.drawNode(mpg, treeHeight);
+      mpg.line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
     }
     if (right != null) {
-      PVector rightDrawLocation = right.drawNode(treeHeight);
-      line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
+      PVector rightDrawLocation = right.drawNode(mpg, treeHeight);
+      mpg.line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
     }
 
     return new PVector(dx, dy);

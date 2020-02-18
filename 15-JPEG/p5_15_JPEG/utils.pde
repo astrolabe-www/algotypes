@@ -1,26 +1,30 @@
-void drawInputFrames() {
-  rectMode(CENTER);
-  stroke(0, 32);
-  fill(0, 0, 200, 16);
-  fill(0, 16);
+void drawInputFrames(PGraphics mpg) {
+  mpg.beginDraw();
+
+  mpg.rectMode(CENTER);
+  mpg.stroke(0, 32);
+  mpg.fill(0, 0, 200, 16);
+  mpg.fill(0, 16);
   for (int i = 0; i < SIZE_INPUT_FRAMES; i += 4) {
-    float x = map(INPUT_FRAMES[i], 0, 256, 0, width);
-    float y = map(INPUT_FRAMES[i+1], 0, 256, 0, height);
-    float w = map(INPUT_FRAMES[i+2], 0, 256, width/20, width/4);
-    float h = map(INPUT_FRAMES[i+3], 0, 256, height/20, height/4);
-    rect(x, y, w, h);
+    float x = map(INPUT_FRAMES[i+0], 0, 256, 0, mpg.width);
+    float y = map(INPUT_FRAMES[i+1], 0, 256, 0, mpg.height);
+    float w = map(INPUT_FRAMES[i+2], 0, 256, mpg.width/20, mpg.width/4);
+    float h = map(INPUT_FRAMES[i+3], 0, 256, mpg.height/20, mpg.height/4);
+    mpg.rect(x, y, w, h);
   }
+  mpg.endDraw();
 }
 
-void drawOutput() {
-  rectMode(CENTER);
-  strokeWeight(0.0);
+void drawOutput(PGraphics mpg) {
+  mpg.beginDraw();
+  mpg.rectMode(CENTER);
+  mpg.strokeWeight(0.0);
 
   int[][] mjpeg = mJFIF.jpeg();
   int[][] mluminance = mJFIF.luminance();
 
-  float w = float(width) / mJFIF.luminance[0].length;
-  float h = float(height) / mJFIF.luminance.length;
+  float w = float(mpg.width) / mJFIF.luminance[0].length;
+  float h = float(mpg.height) / mJFIF.luminance.length;
 
   float minDiff = (mjpeg[0][0] - mluminance[0][0]);
   float maxDiff = (mjpeg[0][0] - mluminance[0][0]);
@@ -36,23 +40,27 @@ void drawOutput() {
   for (int y = 0; y < mjpeg.length; y++) {
     for (int x = 0; x < mjpeg[y].length; x++) {
       int red = (int)map((mjpeg[y][x] - mluminance[y][x]), minDiff, maxDiff, 0, 255);
-      fill(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
-      stroke(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
-      rect(w*x, h*y, w, h);
+      mpg.fill(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
+      mpg.stroke(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
+      mpg.rect(w*x, h*y, w, h);
     }
   }
+  mpg.endDraw();
 }
 
-void drawBorders(int bwidth) {
-  rectMode(CORNER);
-  stroke(255);
-  fill(255);
-  rect(0, 0, width, bwidth);
-  rect(0, height-bwidth, width, bwidth);
-  rect(0, 0, bwidth, height);
-  rect(width-bwidth, 0, bwidth, height);
+void drawBorders(PGraphics mpg, int bwidth) {
+  mpg.beginDraw();
+  mpg.rectMode(CORNER);
+  mpg.stroke(255);
+  mpg.fill(255);
+  mpg.rect(0, 0, mpg.width, bwidth);
+  mpg.rect(0, mpg.height - bwidth, mpg.width, bwidth);
+  mpg.rect(0, 0, bwidth, mpg.height);
+  mpg.rect(mpg.width - bwidth, 0, bwidth, mpg.height);
 
-  noFill();
-  stroke(10);
-  rect(1, 1, width - 2, height - 2);
+  mpg.noFill();
+  mpg.stroke(10);
+  mpg.strokeWeight(1);
+  mpg.rect(1, 1, mpg.width - 2, mpg.height - 2);
+  mpg.endDraw();
 }
