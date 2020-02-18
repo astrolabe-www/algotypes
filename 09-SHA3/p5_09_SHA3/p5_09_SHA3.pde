@@ -38,7 +38,9 @@ void setup() {
   initInputFrames();
 }
 
+int OUT_SCALE = 10;
 int BORDER_WIDTH = 10;
+
 void draw() {
   mKeccak = new Keccak(576, 1024);
 
@@ -51,11 +53,19 @@ void draw() {
   r = mKeccak.SHA3("hello world.".getBytes());
   println(hexString(r));
 
-  //beginRecord(PDF, "filename.pdf");
   background(255);
 
-  drawInputFrames();
-  drawOutput(BORDER_WIDTH);
-  drawBorders(BORDER_WIDTH);
-  //endRecord();
+  PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  mpg.smooth(8);
+  mpg.beginDraw();
+  mpg.background(255, 0);
+  mpg.endDraw();
+
+  drawInputFrames(mpg);
+  drawOutput(mpg, OUT_SCALE * BORDER_WIDTH);
+  drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
+  // mpg.save("out.png");
+  // mpg.save("out.jpg");
+
+  image(mpg, 0, 0, width, height);
 }
