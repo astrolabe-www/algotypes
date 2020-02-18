@@ -20,8 +20,22 @@ void setup() {
   initInputFrames();
 }
 
+int OUT_SCALE = 10;
+int BORDER_WIDTH = 10;
+
 void draw() {
   background(255);
-  image(drawInputFramesToGraphics(INPUT_FRAMES), 0, 0);
-  drawBorders(10);
+
+  PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  mpg.smooth(8);
+  mpg.beginDraw();
+  mpg.background(255, 0);
+  mpg.endDraw();
+
+  drawInputFrames(mpg);
+  drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
+  // mpg.save("out.png");
+  // mpg.save("out.jpg");
+
+  image(mpg, 0, 0, width, height);
 }
