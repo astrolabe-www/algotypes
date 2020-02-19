@@ -50,18 +50,12 @@ int OUT_SCALE = 10;
 int BORDER_WIDTH = 10;
 
 void draw() {
-  Block chain = new Block(INPUT_FRAMES[0]);
-  for (int i = 1; i < INPUT_FRAMES.length; i++) {
-    chain = new Block(INPUT_FRAMES[i], chain.hash(), chain.nextTarget());
-  }
-  chain.hash();
-
   background(255);
 
   PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
   mpg.smooth(8);
   mpg.beginDraw();
-  mpg.background(255, 0);
+  mpg.background(255);
   mpg.endDraw();
 
   drawInputFrames(mpg);

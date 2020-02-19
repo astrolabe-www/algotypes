@@ -38,6 +38,11 @@ public class Block {
     return ((0xff & hash[2]) << 24) | ((0xff & hash[3]) << 16);
   }
 
+  public int nonce() {
+    if (hash == null) hashMe();
+    return nonce;
+  }
+
   public byte[] hash() {
     if (hash == null) hashMe();
     return hash;

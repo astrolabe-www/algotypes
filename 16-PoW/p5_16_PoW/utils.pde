@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 void drawInputFrames(PGraphics mpg) {
   mpg.beginDraw();
 
@@ -19,12 +21,42 @@ void drawInputFrames(PGraphics mpg) {
 }
 
 void drawOutput(PGraphics mpg) {
+  int maxNonce = 0;
+  int minNonce = 0x7fffffff;
+  int[] nonces = new int[INPUT_FRAMES.length];
+  Block[] chain = new Block[INPUT_FRAMES.length];
+
+  chain[0] = new Block(INPUT_FRAMES[0]);
+  for (int i = 1; i < chain.length; i++) {
+    if (chain[i-1].nonce() > maxNonce) maxNonce = chain[i-1].nonce();
+    if (chain[i-1].nonce() < minNonce) minNonce = chain[i-1].nonce();
+
+    chain[i] = new Block(INPUT_FRAMES[i % INPUT_FRAMES.length], chain[i-1].hash(), chain[i-1].nextTarget());
+    nonces[i - 1] = chain[i - 1].nonce();
+  }
+  nonces[chain.length - 1] = chain[chain.length - 1].nonce();
+  Arrays.sort(nonces);
+
   mpg.beginDraw();
-  mpg.rectMode(CENTER);
-  mpg.stroke(0, 132);
-  mpg.strokeWeight(OUT_SCALE);
-  mpg.fill(255, 0, 0, 20);
-  // TODO
+  mpg.fill(200, 0, 0, 16);
+  mpg.stroke(200, 0, 0, 64);
+  mpg.strokeWeight(1.2 * OUT_SCALE);
+
+  for (int i = nonces.length - 1; i >= 0; i--) {
+    float noiseScale = map(max(nonces[i], 10e3), 0, maxNonce, 1024, 32);
+    float yScale = map(max(nonces[i], 10e3), minNonce, maxNonce, 1.0, 2.0);
+    float yc = mpg.height / 2;
+
+    mpg.beginShape();
+    mpg.vertex(0, yc);
+    for (int x = 1; x < mpg.width; x++) {
+      float y = yc + (2 * yScale * noise(x/noiseScale, yc/noiseScale) - yScale) * mpg.height / chain.length;
+      mpg.vertex(x, y);
+    }
+    mpg.vertex(mpg.width, yc);
+    mpg.endShape();
+  }
+  mpg.endDraw();
 }
 
 void drawBorders(PGraphics mpg, int bwidth) {
