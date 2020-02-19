@@ -31,8 +31,14 @@ void initInputFrames() {
 
 SquareMatrix A;
 
+static class Card {
+  static final public String number = "0x02";
+  static final public String name = "Page Rank";
+}
+
 void setup() {
   size(469, 804);
+  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   noLoop();
   initInputNoise();
   initInputFrames();
@@ -40,6 +46,8 @@ void setup() {
 
 int OUT_SCALE = 10;
 int BORDER_WIDTH = 10;
+int FONT_SIZE = 32;
+PFont mFont;
 
 void draw() {
   A = new SquareMatrix(INPUT_FRAMES);

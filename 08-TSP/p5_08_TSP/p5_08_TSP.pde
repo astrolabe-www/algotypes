@@ -31,8 +31,14 @@ void initInputFrames() {
 Greedy mGreedy;
 Annealing mAnnealing;
 
+static class Card {
+  static final public String number = "0x08";
+  static final public String name = "Travelling Salesperson";
+}
+
 void setup() {
   size(469, 804);
+  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   noLoop();
   initInputNoise();
   initInputFrames();
@@ -40,6 +46,8 @@ void setup() {
 
 int OUT_SCALE = 10;
 int BORDER_WIDTH = 10;
+int FONT_SIZE = 32;
+PFont mFont;
 
 void draw() {
   mGreedy = new Greedy(INPUT_FRAMES);
