@@ -21,18 +21,25 @@ void drawOutput(PGraphics mpg, int bwidth) {
   Keccak mKeccak = new Keccak(576, 1024);
 
   mpg.beginDraw();
-  mpg.stroke(200, 0, 0, 2);
+  mpg.strokeWeight(OUT_SCALE / 2);
+  mpg.stroke(200, 0, 0, 8);
+  mpg.noFill();
 
   for (int i = 0; i < SIZE_INPUT_FRAMES / 64; i++) {
-    byte[] iiin = Arrays.copyOfRange(INPUT_FRAMES, i * 64, (i + 1) * 64);
-    byte[] iout = mKeccak.SHA3(iiin);
+    byte[] iin = Arrays.copyOfRange(INPUT_FRAMES, i * 64, (i + 1) * 64);
+    byte[] out = mKeccak.SHA3(iin);
 
-    for (int j = 0; j < min(iiin.length, iout.length); j++) {
-      float iiinY = map(iiin[j], -128, 0x7f, bwidth, mpg.width - bwidth);
-      float ioutY = map(iout[j], -128, 0x7f, bwidth, mpg.width - bwidth);
-      for (int k = -6; k <= 6; k++) {
-        mpg.line(k + iiinY, mpg.height - bwidth, k + ioutY, bwidth);
-      }
+    for (int j = 0; j < min(iin.length, out.length); j+=2) {
+      float iinX = map(iin[j], -128, 127, bwidth, mpg.width - bwidth);
+      float outX = map(out[j], -128, 127, bwidth, mpg.width - bwidth);
+      float outX2x = map(out[j], -128, 127, -mpg.width, 2 * mpg.width);
+
+      mpg.beginShape();
+      mpg.vertex(iinX, mpg.height - bwidth);
+      mpg.vertex(outX, bwidth);
+      mpg.vertex(outX2x, bwidth);
+      mpg.vertex(iinX, mpg.height - bwidth);
+      mpg.endShape();
     }
   }
   mpg.endDraw();
