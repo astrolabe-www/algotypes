@@ -1,2 +1,4 @@
 .DS*
 venv/
+out.png
+out.jpg
