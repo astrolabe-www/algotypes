@@ -72,6 +72,12 @@ class Greedy {
     location[tour[0]] = new PVector(mpg.width / 2, 0.75 * mpg.height);
 
     mpg.beginDraw();
+    mpg.fill(200, 0, 0, 32);
+    mpg.stroke(200, 0, 0, 64);
+    mpg.strokeWeight(OUT_SCALE);
+
+    mpg.beginShape();
+    mpg.vertex(location[tour[0]].x, location[tour[0]].y);
     for (int i = 1; i < num_cities; i++) {
       float d = map(path[tour[i-1]][tour[i]], 0, 0xff, bwidth, 32 * mpg.height);
       float a = random(0, TWO_PI);
@@ -83,17 +89,9 @@ class Greedy {
         constrain(mx, bwidth + 2, mpg.width - bwidth - OUT_SCALE * 2),
         constrain(my, bwidth + 2, mpg.height - bwidth - OUT_SCALE * 2));
 
-      mpg.noStroke();
-      mpg.fill(200, 0, 0, 20);
-      mpg.ellipse(location[tour[i]].x, location[tour[i]].y, OUT_SCALE * 4, OUT_SCALE * 4);
-
-      mpg.stroke(200, 0, 0, 64);
-      mpg.strokeWeight(OUT_SCALE);
-      mpg.line(location[tour[i]].x,
-        location[tour[i]].y,
-        location[tour[(i - 1)]].x,
-        location[tour[(i - 1)]].y);
+      mpg.vertex(location[tour[i]].x, location[tour[i]].y);
     }
+    mpg.endShape(CLOSE);
     mpg.endDraw();
   }
 }
