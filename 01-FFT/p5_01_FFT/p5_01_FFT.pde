@@ -38,8 +38,14 @@ void initInputFrames() {
 Complex[] OUTPUT_DFT;
 Complex[] OUTPUT_FFT;
 
+static class Card {
+  static final public String number = "0x01";
+  static final public String name = "FFT";
+}
+
 void setup() {
   size(469, 804);
+  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   noLoop();
   initInputNoise();
   initInputFrames();
@@ -47,6 +53,8 @@ void setup() {
 
 int OUT_SCALE = 10;
 int BORDER_WIDTH = 10;
+int FONT_SIZE = 32;
+PFont mFont;
 
 void draw() {
   OUTPUT_DFT = Fourier.DFT(INPUT_FRAMES);

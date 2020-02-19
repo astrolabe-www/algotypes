@@ -45,6 +45,22 @@ void drawBorders(PGraphics mpg, int bwidth) {
   mpg.rect(0, 0, bwidth, mpg.height);
   mpg.rect(mpg.width - bwidth, 0, bwidth, mpg.height);
 
+  mpg.noStroke();
+  mpg.textFont(mFont);
+  mpg.textSize(OUT_SCALE * FONT_SIZE);
+  mpg.rectMode(CENTER);
+  mpg.textAlign(CENTER, CENTER);
+  mpg.fill(255);
+  mpg.rect(mpg.width/2, bwidth, 1.111 * mpg.textWidth(Card.number), 2 * OUT_SCALE * FONT_SIZE);
+  mpg.fill(0);
+  mpg.text(Card.number, mpg.width/2, OUT_SCALE * FONT_SIZE / 2);
+
+  mpg.fill(255);
+  mpg.rect(mpg.width/2, mpg.height - bwidth, 1.111 * mpg.textWidth(Card.name), 2 * OUT_SCALE * FONT_SIZE);
+  mpg.fill(0);
+  mpg.text(Card.name, mpg.width/2, mpg.height - OUT_SCALE * 32);
+
+  mpg.rectMode(CORNER);
   mpg.noFill();
   mpg.stroke(10);
   mpg.strokeWeight(1);
