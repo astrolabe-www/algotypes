@@ -46,7 +46,7 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInputFrames(mpg);
+  drawInput(mpg);
   drawOutput(mpg, OUT_SCALE * BORDER_WIDTH);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
   // mpg.save(Card.filename + ".png");

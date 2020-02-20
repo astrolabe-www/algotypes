@@ -1,4 +1,4 @@
-void drawInputFrames(PGraphics mpg) {
+void drawInput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.rectMode(CENTER);
