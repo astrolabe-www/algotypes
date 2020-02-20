@@ -3,11 +3,7 @@
 // https://en.bitcoin.it/wiki/Target
 // https://en.wikipedia.org/wiki/SHA-2
 
-// input
-int SIZE_INPUT_NOISE = 1024;
-byte[] INPUT_NOISE = new byte[SIZE_INPUT_NOISE];
-
-String[] INPUT_FRAMES_FILENAME = {
+String[] INPUT_FILENAME = {
   "frames_20200206-2351.raw",
   "frames_20200206-2357.raw",
   "frames_20200207-0004_reqs.raw",
@@ -16,28 +12,18 @@ String[] INPUT_FRAMES_FILENAME = {
   "frames_20200207-0010.raw",
   "frames_20200207-0012.raw"
 };
-byte[][] INPUT_FRAMES;
+byte[][] INPUT;
 
-void initInputNoise() {
-  for (int i = 0; i < SIZE_INPUT_NOISE; i++) {
-    INPUT_NOISE[i] = byte(0xff * noise(i, frameCount));
-  }
-}
-
-void initInputFrames() {
-  INPUT_FRAMES = new byte[INPUT_FRAMES_FILENAME.length][];
-
-  for (int i = 0; i < INPUT_FRAMES_FILENAME.length; i++) {
-    byte file[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME[i]));
-    INPUT_FRAMES[i] = new byte[file.length];
-
-    for (int b = 0; b < file.length; b++) {
-      INPUT_FRAMES[i][b] = byte(file[b] & 0xff);
+void initInput() {
+  INPUT = new byte[INPUT_FILENAME.length][];
+  for (int i = 0; i < INPUT_FILENAME.length; i++) {
+    byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME[i]));
+    INPUT[i] = new byte[in.length];
+    for (int b = 0; b < INPUT[i].length; b++) {
+      INPUT[i][b] = byte(in[b] & 0xff);
     }
   }
 }
-
-Block mBlock;
 
 static class Card {
   static final public String number = "0x10";
@@ -45,12 +31,14 @@ static class Card {
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
+Block mBlock;
+
 void setup() {
   size(469, 804);
-  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   noLoop();
-  initInputNoise();
-  initInputFrames();
+  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
+  initInput();
+  mBlock = new Block(INPUT[0]);
 }
 
 int OUT_SCALE = 10;
@@ -67,7 +55,7 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInputFrames(mpg);
+  drawInput(mpg);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
   // mpg.save(Card.filename + ".png");

@@ -1,4 +1,4 @@
-void drawInputFrames(PGraphics mpg) {
+void drawInput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.rectMode(CENTER);
@@ -6,7 +6,7 @@ void drawInputFrames(PGraphics mpg) {
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
 
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME[2]));
+  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME[2]));
 
   for (int i = 0; i < in.length; i += 4) {
     float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);
@@ -19,8 +19,6 @@ void drawInputFrames(PGraphics mpg) {
 }
 
 void drawOutput(PGraphics mpg) {
-  int[] ps = Primal.primes(INPUT_FRAMES);
-
   randomSeed(1);
 
   mpg.beginDraw();
@@ -35,10 +33,10 @@ void drawOutput(PGraphics mpg) {
   mpg.pushMatrix();
   mpg.translate(mpg.width / 2, mpg.height / 2);
 
-  for (int i = 1; i < ps.length; i++) {
-    xy = getXY(ps[i]);
+  for (int i = 1; i < mPrimes.length; i++) {
+    xy = getXY(mPrimes[i]);
     mpg.rect(m.x * xy.x, m.y * xy.y, m.x, m.x);
-    xy = getXY(Primal.nextPrime(int(random(min(ps[i-1], ps[i]), max(ps[i-1], ps[i])))));
+    xy = getXY(Primal.nextPrime(int(random(min(mPrimes[i-1], mPrimes[i]), max(mPrimes[i-1], mPrimes[i])))));
     mpg.ellipse(m.x * xy.x, m.y * xy.y, m.x, m.x);
   }
   mpg.popMatrix();

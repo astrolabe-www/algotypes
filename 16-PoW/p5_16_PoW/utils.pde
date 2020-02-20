@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-void drawInputFrames(PGraphics mpg) {
+void drawInput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.rectMode(CENTER);
@@ -8,7 +8,7 @@ void drawInputFrames(PGraphics mpg) {
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
 
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME[2]));
+  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME[2]));
 
   for (int i = 0; i < in.length; i += 4) {
     float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);
@@ -23,19 +23,21 @@ void drawInputFrames(PGraphics mpg) {
 void drawOutput(PGraphics mpg) {
   int maxNonce = 0;
   int minNonce = 0x7fffffff;
-  int[] nonces = new int[INPUT_FRAMES.length];
-  Block[] chain = new Block[INPUT_FRAMES.length];
+  int[] nonces = new int[INPUT.length];
+  Block[] chain = new Block[INPUT.length];
 
-  chain[0] = new Block(INPUT_FRAMES[0]);
+  chain[0] = new Block(INPUT[0]);
   for (int i = 1; i < chain.length; i++) {
     if (chain[i-1].nonce() > maxNonce) maxNonce = chain[i-1].nonce();
     if (chain[i-1].nonce() < minNonce) minNonce = chain[i-1].nonce();
 
-    chain[i] = new Block(INPUT_FRAMES[i % INPUT_FRAMES.length], chain[i-1].hash(), chain[i-1].nextTarget());
+    chain[i] = new Block(INPUT[i % INPUT.length], chain[i-1].hash(), chain[i-1].nextTarget());
     nonces[i - 1] = chain[i - 1].nonce();
   }
   nonces[chain.length - 1] = chain[chain.length - 1].nonce();
   Arrays.sort(nonces);
+
+  noiseSeed(101010);
 
   mpg.beginDraw();
   mpg.fill(200, 0, 0, 16);
@@ -43,7 +45,7 @@ void drawOutput(PGraphics mpg) {
   mpg.strokeWeight(1.2 * OUT_SCALE);
 
   for (int i = nonces.length - 1; i >= 0; i--) {
-    float noiseScale = map(max(nonces[i], 10e3), 0, maxNonce, 1024, 32);
+    float noiseScale = map(max(nonces[i], 10e3), 0, maxNonce, 1024, 64);
     float yScale = map(max(nonces[i], 10e3), minNonce, maxNonce, 1.0, 2.0);
     float yc = mpg.height / 2;
 
