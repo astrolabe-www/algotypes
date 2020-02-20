@@ -1,23 +1,19 @@
 // input
-String INPUT_FRAMES_FILENAME = "frames_20200207-0004_reqs.raw";
-int SIZE_INPUT_FRAMES;
-int[] INPUT_FRAMES;
+String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
+int[] INPUT;
 
-void initInputFrames() {
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FRAMES_FILENAME));
-
-  SIZE_INPUT_FRAMES = in.length / 4;
-  INPUT_FRAMES = new int[SIZE_INPUT_FRAMES];
-
-  for (int i = 0; i < SIZE_INPUT_FRAMES; i++) {
-    INPUT_FRAMES[i] = in[i] & 0xff;
+void initInput() {
+  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME));
+  INPUT = new int[in.length / 4];
+  for (int i = 0; i < INPUT.length; i++) {
+    INPUT[i] = in[i] & 0xff;
   }
 }
 
 void setup() {
   size(469, 804);
   noLoop();
-  initInputFrames();
+  initInput();
 }
 
 int OUT_SCALE = 10;
@@ -32,7 +28,7 @@ void draw() {
   mpg.background(255, 0);
   mpg.endDraw();
 
-  drawInputFrames(mpg);
+  drawInput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
   // mpg.save("out.png");
   // mpg.save("out.jpg");
