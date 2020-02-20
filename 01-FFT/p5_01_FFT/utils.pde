@@ -1,17 +1,39 @@
-void drawInputFrames(PGraphics mpg) {
+void drawInput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.rectMode(CENTER);
   mpg.stroke(0, 32);
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
-  for (int i = 0; i < SIZE_INPUT_FRAMES; i += 4) {
-    float x = map(INPUT_FRAMES[i], -256, 256, 0, mpg.width);
-    float y = map(INPUT_FRAMES[i+1], -256, 256, 0, mpg.height);
-    float w = map(INPUT_FRAMES[i+2], -256, 256, mpg.width/20, mpg.width/4);
-    float h = map(INPUT_FRAMES[i+3], -256, 256, mpg.height/20, mpg.height/4);
+  for (int i = 0; i < INPUT.length; i += 4) {
+    float x = map(INPUT[i], -256, 256, 0, mpg.width);
+    float y = map(INPUT[i+1], -256, 256, 0, mpg.height);
+    float w = map(INPUT[i+2], -256, 256, mpg.width/20, mpg.width/4);
+    float h = map(INPUT[i+3], -256, 256, mpg.height/20, mpg.height/4);
     mpg.rect(x, y, w, h);
   }
+  mpg.endDraw();
+}
+
+void drawInputWave(PGraphics mpg) {
+  int WAVE_LENGTH = INPUT.length / 4;
+  noiseSeed(10108010);
+
+  mpg.beginDraw();
+  mpg.stroke(0, 64);
+  mpg.strokeWeight(OUT_SCALE);
+
+  mpg.pushMatrix();
+  mpg.translate(mpg.width/2, 0);
+
+  for (int i = 0; i < WAVE_LENGTH; i++) {
+    float v = 0xff * (2.0 * noise(i/1e2) - 1.0);
+    float x = map(v, -256, 256, -mpg.width / 2, mpg.width / 2);
+    float y = map(i, 0, WAVE_LENGTH, 0, mpg.height);
+    mpg.line(0, y, x, y);
+  }
+
+  mpg.popMatrix();
   mpg.endDraw();
 }
 
@@ -65,23 +87,5 @@ void drawBorders(PGraphics mpg, int bwidth) {
   mpg.stroke(10);
   mpg.strokeWeight(1);
   mpg.rect(1, 1, mpg.width - 2, mpg.height - 2);
-  mpg.endDraw();
-}
-
-void drawInputWave(PGraphics mpg) {
-  mpg.beginDraw();
-  mpg.stroke(0, 64);
-  mpg.strokeWeight(OUT_SCALE);
-
-  mpg.pushMatrix();
-  mpg.translate(mpg.width/2, 0);
-
-  for (int i = 0; i < SIZE_INPUT_NOISE; i++) {
-    float x = map(INPUT_NOISE[i], -(0xff), 0xff, -mpg.width / 2, mpg.width / 2);
-    float y = map(i, 0, SIZE_INPUT_NOISE, 0, mpg.height);
-    mpg.line(0, y, x, y);
-  }
-
-  mpg.popMatrix();
   mpg.endDraw();
 }
