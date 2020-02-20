@@ -32,6 +32,7 @@ PRNG mPRNG;
 static class Card {
   static final public String number = "0x00";
   static final public String name = "PRNG";
+  static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
 void setup() {
@@ -61,8 +62,8 @@ void draw() {
   drawInputFrames(mpg);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
-  // mpg.save("out.png");
-  // mpg.save("out.jpg");
+  // mpg.save(Card.filename + ".png");
+  // mpg.save(Card.filename + ".jpg");
 
   image(mpg, 0, 0, width, height);
 }

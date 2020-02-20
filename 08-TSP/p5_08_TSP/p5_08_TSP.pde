@@ -34,6 +34,7 @@ Annealing mAnnealing;
 static class Card {
   static final public String number = "0x08";
   static final public String name = "Travelling Salesperson";
+  static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
 void setup() {
@@ -64,8 +65,8 @@ void draw() {
   drawInputFrames(mpg);
   drawOutput(mpg, OUT_SCALE * BORDER_WIDTH);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
-  // mpg.save("out.png");
-  // mpg.save("out.jpg");
+  // mpg.save(Card.filename + ".png");
+  // mpg.save(Card.filename + ".jpg");
 
   image(mpg, 0, 0, width, height);
 }

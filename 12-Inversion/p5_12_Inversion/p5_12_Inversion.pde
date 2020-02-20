@@ -33,6 +33,7 @@ LUPMatrix mLUPMatrix;
 static class Card {
   static final public String number = "0x0C";
   static final public String name = "Matrix Inversion";
+  static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
 void setup() {
@@ -100,8 +101,8 @@ void draw() {
 
   mpgF.image(mpgB, 0, 0, mpgF.width, mpgF.height);
   mpgF.endDraw();
-  // mpgF.save("out.png");
-  // mpgF.save("out.jpg");
+  // mpg.save(Card.filename + ".png");
+  // mpg.save(Card.filename + ".jpg");
 
   image(mpgF, 0, 0, width, height);
 }

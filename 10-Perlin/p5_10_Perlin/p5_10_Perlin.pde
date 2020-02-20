@@ -31,6 +31,7 @@ Perlin mPerlin;
 static class Card {
   static final public String number = "0x0A";
   static final public String name = "Perlin Noise";
+  static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
 void setup() {
@@ -60,8 +61,8 @@ void draw() {
   drawInputFrames(mpg);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
-  // mpg.save("out.png");
-  // mpg.save("out.jpg");
+  // mpg.save(Card.filename + ".png");
+  // mpg.save(Card.filename + ".jpg");
 
   image(mpg, 0, 0, width, height);
 }
