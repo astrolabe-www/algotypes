@@ -19,5 +19,5 @@ else
     ifconfig "$foundface" down
     iwconfig "$foundface" mode Monitor
     ifconfig "$foundface" up
-    tshark -i "$foundface" -p -I -f "type mgt subtype probe-req" -o "gui.column.format:\"No.\",\"%m\",\"Source\",\"%s\",\"Destination\",\"%us\",\"Info\",\"%i\"" -l 2>/dev/null | sed -u 's/, FN=0, Flags=........C,//g'
+    tshark -i "$foundface" -p -I -f "type mgt subtype probe-req" -o "gui.column.format:\"No.\",\"%m\",\"Source\",\"%s\",\"Info\",\"%i\"" -l 2>/dev/null | sed -u 's/, FN=0, Flags=........C,//g'
 fi
