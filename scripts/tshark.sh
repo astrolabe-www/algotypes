@@ -1,6 +1,7 @@
 #!/bin/bash
 
-for x in $(ifconfig | grep -o 'wlan[0-9]')
+faces=(`ifconfig | grep -o 'wlan[0-9]'`)
+for x in "${faces[@]}"
 do
     isused=`ifconfig "$x" | grep inet | wc -l`
     if [ "$isused" -eq 0 ]
@@ -8,7 +9,13 @@ do
         foundface=$x
         break
     fi
+    lastface=$x
 done
+
+if [[ -z ${foundface+x} ]] && [[ "${#faces[@]}" -gt 1 ]]
+then
+    foundface=$lastface
+fi
 
 if [ -z ${foundface+x} ]
 then
