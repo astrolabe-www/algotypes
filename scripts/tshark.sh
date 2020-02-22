@@ -15,6 +15,7 @@ done
 if [[ -z ${foundface+x} ]] && [[ "${#faces[@]}" -gt 1 ]]
 then
     foundface=$lastface
+    sudo nmcli d disconnect "$lastface"
 fi
 
 if [ -z ${foundface+x} ]
