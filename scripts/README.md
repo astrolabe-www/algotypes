@@ -3,6 +3,8 @@
 
 - Change password:  
 ```sudo passwd username```
+- Change hostname:  
+```sudo hostnamectl set-hostname newhostname```
 - Update/Upgrade system:  
 ```sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade```
 - Install dev stuff:  
