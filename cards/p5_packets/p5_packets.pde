@@ -13,6 +13,9 @@ void initInput() {
 PGraphics bpg;
 PGraphics mpg;
 
+int OUT_SCALE = 2;
+int BORDER_WIDTH = 16;
+
 void setup() {
   size(469, 804);
   initInput();
@@ -31,9 +34,6 @@ void setup() {
 
   drawBorders(bpg, OUT_SCALE * BORDER_WIDTH);
 }
-
-int OUT_SCALE = 2;
-int BORDER_WIDTH = 10;
 
 void draw() {
   background(255);

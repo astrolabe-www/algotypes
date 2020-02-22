@@ -10,15 +10,13 @@ void drawInput(PGraphics mpg) {
     for (int i = 0; i < numPackets; i++) {
       drawOnePacket(mpg);
     }
-    if (random(1) > 0.995) clearBackground = !clearBackground;
+    if (random(1) > 0.997) clearBackground = !clearBackground;
   }
 }
 
 void drawOnePacket(PGraphics mpg) {
   mpg.beginDraw();
   mpg.rectMode(CENTER);
-  mpg.strokeWeight(OUT_SCALE);
-  mpg.stroke(0, 64);
   mpg.noStroke();
   mpg.fill(0, 32);
 
@@ -44,7 +42,6 @@ void drawOnePacket(PGraphics mpg) {
     mpg.background(255);
     if (!clearBackground) clearBackground = !clearBackground;
   }
-
   mpg.endDraw();
   mpg.popMatrix();
 }
