@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 for x in $(ifconfig | grep -o 'wlan[0-9]')
 do
     isused=`ifconfig "$x" | grep inet | wc -l`
@@ -20,5 +19,5 @@ else
     ifconfig "$foundface" down
     iwconfig "$foundface" mode Monitor
     ifconfig "$foundface" up
-    tshark -i "$foundface" -p -I -f "type mgt subtype probe-req"
+    tshark -i "$foundface" -p -I -f "type mgt subtype probe-req" -o "gui.column.format:\"No.\",\"%m\",\"Source\",\"%s\",\"Destination\",\"%us\",\"Info\",\"%i\"" -l 2>/dev/null | sed -u 's/, FN=0, Flags=........C,//g'
 fi
