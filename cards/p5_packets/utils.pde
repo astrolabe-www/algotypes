@@ -1,4 +1,20 @@
+int indexCounter = 0;
+boolean clearBackground = false;
+
 void drawInput(PGraphics mpg) {
+  if (clearBackground) {
+    drawOnePacket(mpg);
+    if (random(1) > 0.99) clearBackground = !clearBackground;
+  } else {
+    int numPackets = (int)random(2, 8);
+    for (int i = 0; i < numPackets; i++) {
+      drawOnePacket(mpg);
+    }
+    if (random(1) > 0.995) clearBackground = !clearBackground;
+  }
+}
+
+void drawOnePacket(PGraphics mpg) {
   mpg.beginDraw();
   mpg.rectMode(CENTER);
   mpg.strokeWeight(OUT_SCALE);
@@ -6,19 +22,29 @@ void drawInput(PGraphics mpg) {
   mpg.noStroke();
   mpg.fill(0, 32);
 
+  if (clearBackground) mpg.background(255);
+
   int packetsPerRow = 16;
   int packetWidth = ceil(mpg.width / packetsPerRow);
 
+  int i = (indexCounter++) % INPUT.length;
+
+  float s = map(INPUT[i], 0, 256, 0.05, 1);
+
+  int xi = (i % packetsPerRow);
+  int yi_raw = (i / packetsPerRow);
+  int yi = (yi_raw) % ceil(mpg.height / float(packetWidth));
+
   mpg.pushMatrix();
   mpg.translate(packetWidth / 2, packetWidth / 2);
+  mpg.rect(xi * packetWidth, yi * packetWidth, s * packetWidth, s * packetWidth);
 
-  for (int i = 0; i < INPUT.length; i++) {
-    int xi = (i % packetsPerRow);
-    //int yi = (i / packetsPerRow) % ceil(mpg.height / float(packetWidth));
-    int yi = (i / packetsPerRow);
-    float s = map(INPUT[i], 0, 256, 0.05, 1);
-    mpg.rect(xi * packetWidth, yi * packetWidth, s * packetWidth, s * packetWidth);
+  if (yi_raw > 4 * (mpg.height / packetWidth)) {
+    indexCounter = 0;
+    mpg.background(255);
+    if (!clearBackground) clearBackground = !clearBackground;
   }
+
   mpg.endDraw();
   mpg.popMatrix();
 }

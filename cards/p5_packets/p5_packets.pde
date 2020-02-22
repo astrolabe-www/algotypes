@@ -10,28 +10,34 @@ void initInput() {
   }
 }
 
+PGraphics bpg;
+PGraphics mpg;
+
 void setup() {
   size(469, 804);
-  noLoop();
   initInput();
+
+  mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  mpg.smooth(8);
+  mpg.beginDraw();
+  mpg.background(255, 255);
+  mpg.endDraw();
+
+  bpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  bpg.smooth(8);
+  bpg.beginDraw();
+  bpg.background(255, 0);
+  bpg.endDraw();
+
+  drawBorders(bpg, OUT_SCALE * BORDER_WIDTH);
 }
 
-int OUT_SCALE = 4;
+int OUT_SCALE = 2;
 int BORDER_WIDTH = 10;
 
 void draw() {
   background(255);
-
-  PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
-  mpg.smooth(8);
-  mpg.beginDraw();
-  mpg.background(255, 0);
-  mpg.endDraw();
-
   drawInput(mpg);
-  drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
-  // mpg.save("out.png");
-  // mpg.save("out.jpg");
-
   image(mpg, 0, 0, width, height);
+  image(bpg, 0, 0, width, height);
 }
