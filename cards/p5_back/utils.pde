@@ -1,8 +1,33 @@
+void __drawInput(PGraphics mpg) {
+  mpg.beginDraw();
+  mpg.rectMode(CENTER);
+  mpg.strokeWeight(OUT_SCALE);
+  mpg.stroke(0, 64);
+  mpg.noStroke();
+  mpg.fill(0, 32);
+
+  int packetsPerRow = 16;
+  int packetWidth = ceil(mpg.width / packetsPerRow);
+
+  mpg.pushMatrix();
+  mpg.translate(packetWidth / 2, packetWidth / 2);
+
+  for (int i = 0; i < INPUT.length; i++) {
+    int xi = (i % packetsPerRow);
+    //int yi = (i / packetsPerRow) % ceil(mpg.height / float(packetWidth));
+    int yi = (i / packetsPerRow);
+    float s = map(INPUT[i], 0, 256, 0.05, 1);
+    mpg.rect(xi * packetWidth, yi * packetWidth, s * packetWidth, s * packetWidth);
+  }
+  mpg.endDraw();
+  mpg.popMatrix();
+}
+
 void drawInput(PGraphics mpg) {
   mpg.beginDraw();
   mpg.rectMode(CENTER);
 
-  for (int i = 0; i < INPUT.length; i += 4) {
+  for (int i = 0; i < INPUT.length / 4; i += 4) {
     float x = map(INPUT[i+0], 0, 256, 0, mpg.width);
     float y = map(INPUT[i+1], 0, 256, 0, mpg.height);
     float w = map(INPUT[i+2], 0, 256, mpg.width/20, mpg.width/4);

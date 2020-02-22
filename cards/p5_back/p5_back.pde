@@ -4,7 +4,7 @@ int[] INPUT;
 
 void initInput() {
   byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME));
-  INPUT = new int[in.length / 4];
+  INPUT = new int[in.length];
   for (int i = 0; i < INPUT.length; i++) {
     INPUT[i] = in[i] & 0xff;
   }
