@@ -1,11 +1,24 @@
 #!/bin/bash
 
-if [ "$#" -gt 0 ]
+
+for x in $(ifconfig | grep -o 'wlan[0-9]')
+do
+    isused=`ifconfig "$x" | grep inet | wc -l`
+    if [ "$isused" -eq 0 ]
+    then
+        foundface=$x
+        break
+    fi
+done
+
+if [ -z ${foundface+x} ]
 then
-    ifconfig "$1" down
-    iwconfig "$1" mode Monitor
-    ifconfig "$1" up
-    tshark -i "$1" -p -I -f "type mgt subtype probe-req"
+    echo "ERROR: couldn't find an available interface"
+    exit 1
 else
-    echo "ERROR: please provide a network interface (eg. wlan0, etc)"
+    echo "using '$foundface'"
+    ifconfig "$foundface" down
+    iwconfig "$foundface" mode Monitor
+    ifconfig "$foundface" up
+    tshark -i "$foundface" -p -I -f "type mgt subtype probe-req"
 fi
