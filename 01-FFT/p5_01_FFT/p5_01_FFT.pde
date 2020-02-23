@@ -6,7 +6,7 @@ String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
 int[] INPUT;
 
 void initInput() {
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME));
+  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
   INPUT = new int[in.length];
   for (int i = 0; i < INPUT.length; i++) {
     INPUT[i] = 2 * (in[i] & 0xff) - 256;
@@ -52,7 +52,7 @@ void draw() {
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
   // mpg.save(Card.filename + ".png");
   // mpg.save(Card.filename + ".jpg");
-  // saveOutput(Card.filename + ".byt");
+  // saveOutput(Card.filename + ".raw");
 
   image(mpg, 0, 0, width, height);
 }

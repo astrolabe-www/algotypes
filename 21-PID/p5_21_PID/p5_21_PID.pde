@@ -8,7 +8,7 @@ int[] INPUT;
 
 void initInput() {
   noiseSeed(1010);
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME));
+  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
   INPUT = new int[in.length];
   for (int i = 0; i < INPUT.length; i++) {
     INPUT[i] = int(in[i] * noise(i/100.0));
@@ -51,7 +51,7 @@ void draw() {
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
   // mpg.save(Card.filename + ".png");
   // mpg.save(Card.filename + ".jpg");
-  // saveOutput(Card.filename + ".byt");
+  // saveOutput(Card.filename + ".raw");
 
   image(mpg, 0, 0, width, height);
 }

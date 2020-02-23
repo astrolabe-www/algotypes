@@ -6,7 +6,7 @@ void drawInput(PGraphics mpg) {
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
 
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME[2]));
+  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME[2]));
 
   for (int i = 0; i < in.length; i += 4) {
     float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);

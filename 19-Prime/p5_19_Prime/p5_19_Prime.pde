@@ -20,7 +20,7 @@ void initInput() {
   byte in[] = new byte[0];
 
   for (int i = 0; i < INPUT_FILENAME.length; i++) {
-    byte file[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME[i]));
+    byte file[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME[i]));
     in = Arrays.copyOf(in, in.length + file.length);
     arraycopy(file, 0, in, in.length - file.length, file.length);
   }
@@ -72,7 +72,7 @@ void draw() {
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
   // mpg.save(Card.filename + ".png");
   // mpg.save(Card.filename + ".jpg");
-  // saveOutput(Card.filename + ".byt");
+  // saveOutput(Card.filename + ".raw");
 
   image(mpg, 0, 0, width, height);
 }

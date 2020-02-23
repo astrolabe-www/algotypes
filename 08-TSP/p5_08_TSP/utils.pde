@@ -5,11 +5,14 @@ void drawInput(PGraphics mpg) {
   mpg.stroke(0, 32);
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
-  for (int i = 0; i < INPUT.length; i += 4) {
-    float x = map(INPUT[i+0], 0, 256, 0, mpg.width);
-    float y = map(INPUT[i+1], 0, 256, 0, mpg.height);
-    float w = map(INPUT[i+2], 0, 256, mpg.width/20, mpg.width/4);
-    float h = map(INPUT[i+3], 0, 256, mpg.height/20, mpg.height/4);
+
+  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
+
+  for (int i = 0; i < in.length; i += 4) {
+    float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);
+    float y = map(in[i+1] & 0xff, 0, 256, 0, mpg.height);
+    float w = map(in[i+2] & 0xff, 0, 256, mpg.width/20, mpg.width/4);
+    float h = map(in[i+3] & 0xff, 0, 256, mpg.height/20, mpg.height/4);
     mpg.rect(x, y, w, h);
   }
   mpg.endDraw();

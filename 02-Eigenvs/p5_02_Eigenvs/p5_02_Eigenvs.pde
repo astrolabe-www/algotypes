@@ -8,7 +8,7 @@ String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
 int[] INPUT;
 
 void initInput() {
-  byte in[] = loadBytes(sketchPath("../../esp8266/" + INPUT_FILENAME));
+  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
   INPUT = new int[in.length];
   for (int i = 0; i < INPUT.length; i++) {
     INPUT[i] = in[i] & 0xff;
@@ -41,7 +41,7 @@ void draw() {
   background(255);
 
   PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
-  mpg.smooth(4);
+  mpg.smooth(8);
   mpg.beginDraw();
   mpg.background(255);
   mpg.endDraw();
