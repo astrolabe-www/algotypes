@@ -50,6 +50,7 @@ void draw() {
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
   // mpg.save(Card.filename + ".png");
   // mpg.save(Card.filename + ".jpg");
+  // saveOutput(Card.filename + ".byt");
 
   image(mpg, 0, 0, width, height);
 }

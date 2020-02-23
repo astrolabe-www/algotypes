@@ -23,18 +23,13 @@ void drawInput(PGraphics mpg) {
 void drawOutput(PGraphics mpg) {
   int maxNonce = 0;
   int minNonce = 0x7fffffff;
-  int[] nonces = new int[INPUT.length];
-  Block[] chain = new Block[INPUT.length];
+  int[] nonces = new int[chain.length];
 
-  chain[0] = new Block(INPUT[0]);
-  for (int i = 1; i < chain.length; i++) {
-    if (chain[i-1].nonce() > maxNonce) maxNonce = chain[i-1].nonce();
-    if (chain[i-1].nonce() < minNonce) minNonce = chain[i-1].nonce();
-
-    chain[i] = new Block(INPUT[i % INPUT.length], chain[i-1].hash(), chain[i-1].nextTarget());
-    nonces[i - 1] = chain[i - 1].nonce();
+  for (int i = 0; i < chain.length; i++) {
+    if (chain[i].nonce() > maxNonce) maxNonce = chain[i].nonce();
+    if (chain[i].nonce() < minNonce) minNonce = chain[i].nonce();
+    nonces[i] = chain[i].nonce();
   }
-  nonces[chain.length - 1] = chain[chain.length - 1].nonce();
   Arrays.sort(nonces);
 
   noiseSeed(101010);
@@ -59,6 +54,15 @@ void drawOutput(PGraphics mpg) {
     mpg.endShape();
   }
   mpg.endDraw();
+}
+
+void saveOutput(String filename) {
+  byte[] out = new byte[INPUT.length];
+  for (int i = 0; i < out.length / 2; i += 1) {
+    out[2 * i + 0] = (byte)((chain[i].nonce() << 8) & 0xff);
+    out[2 * i + 1] = (byte)((chain[i].nonce() << 0) & 0xff);
+  }
+  saveBytes(filename, out);
 }
 
 void drawBorders(PGraphics mpg, int bwidth) {

@@ -31,14 +31,19 @@ static class Card {
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
-Block mBlock;
+Block[] chain;
 
 void setup() {
   size(469, 804);
   noLoop();
   mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   initInput();
-  mBlock = new Block(INPUT[0]);
+  chain = new Block[INPUT.length];
+
+  chain[0] = new Block(INPUT[0]);
+  for (int i = 1; i < chain.length; i++) {
+    chain[i] = new Block(INPUT[i], chain[i-1].hash(), chain[i-1].nextTarget());
+  }
 }
 
 int OUT_SCALE = 10;
@@ -60,6 +65,7 @@ void draw() {
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
   // mpg.save(Card.filename + ".png");
   // mpg.save(Card.filename + ".jpg");
+  // saveOutput(Card.filename + ".byt");
 
   image(mpg, 0, 0, width, height);
 }

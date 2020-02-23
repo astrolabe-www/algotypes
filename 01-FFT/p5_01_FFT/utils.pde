@@ -57,6 +57,15 @@ void drawOutput(PGraphics mpg) {
   mpg.endDraw();
 }
 
+void saveOutput(String filename) {
+  byte[] out = new byte[INPUT.length];
+  for (int i = 0; i < out.length; i += 1) {
+    float mag = OUTPUT_FFT[i % OUTPUT_FFT.length].magnitude() / OUTPUT_FFT.length;
+    out[i] = (byte)((int)(mag) & 0xff);
+  }
+  saveBytes(filename, out);
+}
+
 void drawBorders(PGraphics mpg, int bwidth) {
   mpg.beginDraw();
   mpg.rectMode(CORNER);

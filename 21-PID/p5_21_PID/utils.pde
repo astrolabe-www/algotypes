@@ -61,6 +61,23 @@ void drawOutput(PGraphics mpg) {
   mpg.endDraw();
 }
 
+void saveOutput(String filename) {
+  float[] e = mPID.getErrors();
+  float minE = e[0];
+  float maxE = e[0];
+
+  for (int i = 0; i < e.length; i++) {
+    if(e[i] < minE) minE = e[i];
+    if(e[i] > maxE) maxE = e[i];
+  }
+
+  byte[] out = new byte[INPUT.length];
+  for (int i = 0; i < out.length; i += 1) {
+    out[i] = (byte)((int)(map(e[i], minE, maxE, 0, 0xff)) & 0xff);
+  }
+  saveBytes(filename, out);
+}
+
 void drawBorders(PGraphics mpg, int bwidth) {
   mpg.beginDraw();
   mpg.rectMode(CORNER);

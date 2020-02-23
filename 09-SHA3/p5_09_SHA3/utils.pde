@@ -45,6 +45,19 @@ void drawOutput(PGraphics mpg, int bwidth) {
   mpg.endDraw();
 }
 
+void saveOutput(String filename) {
+  byte[] out = new byte[INPUT.length];
+
+  for (int i = 0; i < INPUT.length / 64; i++) {
+    byte[] iin = Arrays.copyOfRange(INPUT, i * 64, (i + 1) * 64);
+    byte[] sha3 = mKeccak.SHA3(iin);
+    for (int j = 0; j < sha3.length; j++) {
+      out[i * sha3.length + j] = sha3[j];
+    }
+  }
+  saveBytes(filename, out);
+}
+
 void drawBorders(PGraphics mpg, int bwidth) {
   mpg.beginDraw();
   mpg.rectMode(CORNER);

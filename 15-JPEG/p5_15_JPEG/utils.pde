@@ -48,6 +48,16 @@ void drawOutput(PGraphics mpg) {
   mpg.endDraw();
 }
 
+void saveOutput(String filename) {
+  int[][] mjpeg = mJFIF.jpeg();
+  int size = mJFIF.size;
+  byte[] out = new byte[INPUT.length];
+  for (int i = 0; i < out.length; i += 1) {
+    out[i] = (byte)(mjpeg[i / size][i % size] & 0xff);
+  }
+  saveBytes(filename, out);
+}
+
 void drawBorders(PGraphics mpg, int bwidth) {
   mpg.beginDraw();
   mpg.rectMode(CORNER);
