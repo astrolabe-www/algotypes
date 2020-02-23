@@ -56,17 +56,6 @@ void drawOutput(PGraphics mpg) {
   mpg.endDraw();
 }
 
-void saveOutput(String filename) {
-  byte[] out = new byte[INPUT[0].length];
-  for (int i = 0; i < out.length / 32; i += 1) {
-    byte[] h0 = chain[i % chain.length].hash();
-    for(int j = 0; j < h0.length; j++) {
-      out[i * h0.length + j] = h0[j];
-    }
-  }
-  saveBytes(filename, out);
-}
-
 void drawBorders(PGraphics mpg, int bwidth) {
   mpg.beginDraw();
   mpg.rectMode(CORNER);
