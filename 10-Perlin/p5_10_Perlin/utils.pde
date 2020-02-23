@@ -39,7 +39,7 @@ void drawOutput(PGraphics mpg) {
 }
 
 void saveOutput(String filename) {
-  float NOISE_SCALE = 1.0 / (OUT_SCALE * 128f);
+  float NOISE_SCALE = 1.0 / (OUT_SCALE * 8f);
   byte[] out = new byte[INPUT.length];
   for (int i = 0; i < out.length; i += 1) {
     out[i] = (byte)((int)(255f * mPerlin.noise(i * NOISE_SCALE)) & 0xff);
