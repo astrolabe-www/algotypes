@@ -27,7 +27,7 @@ void drawOnePacket(PGraphics mpg) {
 
   int i = (indexCounter++) % INPUT.length;
 
-  float s = map(INPUT[i], 0, 256, 0.05, 1);
+  float s = map(INPUT[i], 0, 256, 0.08, 1);
 
   int xi = (i % packetsPerRow);
   int yi_raw = (i / packetsPerRow);
