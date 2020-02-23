@@ -57,10 +57,12 @@ void drawOutput(PGraphics mpg) {
 }
 
 void saveOutput(String filename) {
-  byte[] out = new byte[INPUT.length];
-  for (int i = 0; i < out.length / 2; i += 1) {
-    out[2 * i + 0] = (byte)((chain[i].nonce() << 8) & 0xff);
-    out[2 * i + 1] = (byte)((chain[i].nonce() << 0) & 0xff);
+  byte[] out = new byte[INPUT[0].length];
+  for (int i = 0; i < out.length / 32; i += 1) {
+    byte[] h0 = chain[i % chain.length].hash();
+    for(int j = 0; j < h0.length; j++) {
+      out[i * h0.length + j] = h0[j];
+    }
   }
   saveBytes(filename, out);
 }
