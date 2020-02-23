@@ -1,9 +1,14 @@
 // input
-String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
+String[] INPUT_FILENAME = {
+  "in/frames_20200207-0004_reqs.raw",
+  "out/0x00_PRNG.raw",
+  "out/0x0A_Perlin_Noise.raw",
+  "out/0x13_Primality_Test.raw"
+};
 int[] INPUT;
 
 void initInput() {
-  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
+  byte in[] = loadBytes(sketchPath("../../Packets/" + INPUT_FILENAME[0]));
   INPUT = new int[in.length];
   for (int i = 0; i < INPUT.length; i++) {
     INPUT[i] = in[i] & 0xff;
