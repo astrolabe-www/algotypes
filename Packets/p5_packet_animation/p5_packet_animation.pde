@@ -5,13 +5,16 @@ String[] INPUT_FILENAME = {
   "out/0x0A_Perlin_Noise.raw",
   "out/0x13_Primality_Test.raw"
 };
-int[] INPUT;
+int[][] INPUT;
 
 void initInput() {
-  byte in[] = loadBytes(sketchPath("../../Packets/" + INPUT_FILENAME[0]));
-  INPUT = new int[in.length];
-  for (int i = 0; i < INPUT.length; i++) {
-    INPUT[i] = in[i] & 0xff;
+  INPUT = new int[INPUT_FILENAME.length][];
+  for (int i = 0; i < INPUT_FILENAME.length; i++) {
+    byte in[] = loadBytes(sketchPath("../../Packets/" + INPUT_FILENAME[i]));
+    INPUT[i] = new int[in.length];
+    for (int b = 0; b < INPUT[i].length; b++) {
+      INPUT[i][b] = in[b] & 0xff;
+    }
   }
 }
 

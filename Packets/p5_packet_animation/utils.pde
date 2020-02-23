@@ -1,4 +1,6 @@
+int currentFile = 0;
 int indexCounter = 0;
+int wrapCounter = 0;
 boolean clearBackground = false;
 
 void drawInput(PGraphics mpg) {
@@ -18,16 +20,18 @@ void drawOnePacket(PGraphics mpg) {
   mpg.beginDraw();
   mpg.rectMode(CENTER);
   mpg.noStroke();
-  mpg.fill(0, 32);
+  if (currentFile == 0) mpg.fill(0, 32);
+  else if (currentFile % 2 == 1) mpg.fill(200, 0, 0, 32);
+  else mpg.fill(0, 0, 200, 32);
 
   if (clearBackground) mpg.background(255);
 
   int packetsPerRow = 16;
   int packetWidth = ceil(mpg.width / packetsPerRow);
 
-  int i = (indexCounter++) % INPUT.length;
+  int i = (indexCounter++) % INPUT[currentFile].length;
 
-  float s = map(INPUT[i], 0, 256, 0.08, 1);
+  float s = map(INPUT[currentFile][i], 0, 256, 0.08, 1);
 
   int xi = (i % packetsPerRow);
   int yi_raw = (i / packetsPerRow);
@@ -39,8 +43,13 @@ void drawOnePacket(PGraphics mpg) {
 
   if (yi_raw > 4 * (mpg.height / packetWidth)) {
     indexCounter = 0;
+    wrapCounter++;
     mpg.background(255);
     if (!clearBackground) clearBackground = !clearBackground;
+    if (wrapCounter > 1) {
+      wrapCounter = 0;
+      currentFile = (currentFile + 1) % INPUT.length;
+    }
   }
   mpg.endDraw();
   mpg.popMatrix();
