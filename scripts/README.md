@@ -64,6 +64,7 @@ Comment=
 ```dconf write /org/mate/terminal/profiles/default/background-color "'#FFFFFFFFFFFF'"```  
 ```dconf write /org/mate/terminal/profiles/default/foreground-color "'#000000000000'"```  
 ```dconf write /org/mate/terminal/profiles/default/background-type "'transparent'"```  
-```dconf write /org/mate/terminal/profiles/default/background-darkness "0.0"```
+```dconf write /org/mate/terminal/profiles/default/background-darkness "0.0"```  
+```dconf write /org/mate/terminal/profiles/default/scrollbar-position "'hidden'"```
 - Restart desktop:  
 ```sudo /etc/init.d/lightdm restart```
