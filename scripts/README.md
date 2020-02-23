@@ -28,7 +28,8 @@ autologin-user=srackham
 ```
 - Enable portrait mode:  
 ```nano /etc/X11/xorg.conf```  
-~~```Driver "armsoc"```~~ ```Driver "fbdev"```
+\- ~~```Driver "armsoc"```~~  
+\+ ```Driver "fbdev"```
 - Portrait mode on login:  
 ```nano ~/.config/autostart/portrait.desktop```
 ```
@@ -57,5 +58,12 @@ Name=Portrait
 Comment[en_NG]=
 Comment=
 ```
+- Enable gpu-composite window manager:  
+```gsettings set org.mate.session.required-components windowmanager marco-compton```
+- Change default terminal profile colors/transparency:  
+```dconf write /org/mate/terminal/profiles/default/background-color "'#FFFFFFFFFFFF'"```
+```dconf write /org/mate/terminal/profiles/default/foreground-color "'#000000000000'"```
+```dconf write /org/mate/terminal/profiles/default/background-type "'transparent'"```
+```dconf write /org/mate/terminal/profiles/default/background-darkness "0.0"```
 - Restart desktop:  
-```sudo /etc/init.d/lightdm restart ```
+```sudo /etc/init.d/lightdm restart```
