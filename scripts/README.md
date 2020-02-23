@@ -61,9 +61,9 @@ Comment=
 - Enable gpu-composite window manager:  
 ```gsettings set org.mate.session.required-components windowmanager marco-compton```
 - Change default terminal profile colors/transparency:  
-```dconf write /org/mate/terminal/profiles/default/background-color "'#FFFFFFFFFFFF'"```
-```dconf write /org/mate/terminal/profiles/default/foreground-color "'#000000000000'"```
-```dconf write /org/mate/terminal/profiles/default/background-type "'transparent'"```
+```dconf write /org/mate/terminal/profiles/default/background-color "'#FFFFFFFFFFFF'"```  
+```dconf write /org/mate/terminal/profiles/default/foreground-color "'#000000000000'"```  
+```dconf write /org/mate/terminal/profiles/default/background-type "'transparent'"```  
 ```dconf write /org/mate/terminal/profiles/default/background-darkness "0.0"```
 - Restart desktop:  
 ```sudo /etc/init.d/lightdm restart```
