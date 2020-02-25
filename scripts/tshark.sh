@@ -1,34 +1,36 @@
 #!/bin/bash
 
 faces=(`ifconfig | grep -o 'wlan[0-9]'`)
-for x in "${faces[@]}"
-do
-    isused=`ifconfig "$x" | grep inet | wc -l`
-    if [[ "$isused" -eq 0 ]] && [[ "${#faces[@]}" -gt 1 ]]
-    then
-        foundface=$x
-        echo "Found unused interface: $foundface"
-        break
-    fi
-    lastface=$x
-done
-
-if [[ -z ${foundface+x} ]]
+if [[ "${#faces[@]}" -gt 1 ]]
 then
-    if [[ "${#faces[@]}" -gt 1 ]]
-    then
-        foundface=$lastface
-        echo "Found redundant interface: $foundface"
-        sudo nmcli d disconnect "$lastface"
-    elif [[ "$#" -gt 0 ]]
-    then
-        ifconfig "$1" &> /dev/null
-        if [ $? -eq 0 ]
+    for x in "${faces[@]}"
+    do
+        isused=`ifconfig "$x" | grep inet | wc -l`
+        if [[ "$isused" -eq 0 ]]
         then
-            foundface=$1
-            echo "Found argument-forced interface: $foundface"
-            sudo nmcli d disconnect "$lastface"
+            foundface=$x
+            echo "Found unused interface: $foundface"
+            break
         fi
+        lastface=$x
+    done
+fi
+
+if [[ -z ${foundface+x} ]] && [[ -n "$lastface"]]
+then
+    foundface=$lastface
+    echo "Found redundant interface: $foundface"
+    sudo nmcli d disconnect "$foundface"
+fi
+
+if [[ "$#" -gt 0 ]]
+then
+    ifconfig "$1" &> /dev/null
+    if [[ "$?" -eq 0 ]]
+    then
+        foundface=$1
+        echo "Found argument-forced interface: $foundface"
+        sudo nmcli d disconnect "$foundface"
     fi
 fi
 
