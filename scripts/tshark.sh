@@ -27,6 +27,7 @@ then
         then
             foundface=$1
             echo "Found argument-forced interface: $foundface"
+            sudo nmcli d disconnect "$lastface"
         fi
     fi
 fi
