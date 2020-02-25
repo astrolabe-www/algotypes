@@ -4,7 +4,7 @@ faces=(`ifconfig | grep -o 'wlan[0-9]'`)
 for x in "${faces[@]}"
 do
     isused=`ifconfig "$x" | grep inet | wc -l`
-    if [ "$isused" -eq 0 ]
+    if [[ "$isused" -eq 0 ]] && [[ "${#faces[@]}" -gt 1 ]]
     then
         foundface=$x
         echo "Found unused interface: $foundface"
