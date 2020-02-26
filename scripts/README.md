@@ -68,6 +68,7 @@ Comment=
 ```dconf write /org/mate/terminal/profiles/default/scrollbar-position "'hidden'"```
 - Change desktop background:  
 ```gsettings set org.mate.background picture-filename ''```  
-```gsettings set org.mate.background primary-color '#000'```
+```gsettings set org.mate.background primary-color '#000'```  
+```gsettings set org.mate.background color-shading-type 'solid'```
 - Restart desktop:  
 ```sudo /etc/init.d/lightdm restart```
