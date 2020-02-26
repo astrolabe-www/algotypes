@@ -24,6 +24,13 @@ PGraphics mpg;
 int OUT_SCALE = 1;
 int BORDER_WIDTH = 16;
 
+int COLOR_BACKGROUND = color(0);
+int COLOR_FRAME = color(16);
+int COLOR_FOREGROUND_ALPHA = 128;
+int COLOR_FOREGROUND_PRIMARY = color(200, COLOR_FOREGROUND_ALPHA);
+int COLOR_FOREGROUND_RED = color(200, 0, 0, COLOR_FOREGROUND_ALPHA);
+int COLOR_FOREGROUND_BLUE = color(8, 128, 255, COLOR_FOREGROUND_ALPHA);
+
 void setup() {
   size(469, 804);
   initInput();
@@ -31,20 +38,20 @@ void setup() {
   mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
   mpg.smooth(8);
   mpg.beginDraw();
-  mpg.background(255, 255);
+  mpg.background(COLOR_BACKGROUND, 255);
   mpg.endDraw();
 
   bpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
   bpg.smooth(8);
   bpg.beginDraw();
-  bpg.background(255, 0);
+  bpg.background(COLOR_BACKGROUND, 0);
   bpg.endDraw();
 
   drawBorders(bpg, OUT_SCALE * BORDER_WIDTH);
 }
 
 void draw() {
-  background(255);
+  background(COLOR_BACKGROUND);
   drawInput(mpg);
   image(mpg, 0, 0, width, height);
   image(bpg, 0, 0, width, height);
