@@ -16,7 +16,7 @@ then
     done
 fi
 
-if [[ -z ${foundface+x} ]] && [[ -n "$lastface"]]
+if [[ -z ${foundface+x} ]] && [[ -n "$lastface" ]]
 then
     foundface=$lastface
     echo "Found redundant interface: $foundface"
