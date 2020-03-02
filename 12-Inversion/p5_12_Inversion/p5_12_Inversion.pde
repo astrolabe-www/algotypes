@@ -76,9 +76,10 @@ void draw() {
   mpgF.popMatrix();
 
   mpgF.image(mpgB, 0, 0, mpgF.width, mpgF.height);
+
+  // mpgF.save(Card.filename + ".png");
+  // mpgF.save(Card.filename + ".jpg");
   mpgF.endDraw();
-  // mpg.save(Card.filename + ".png");
-  // mpg.save(Card.filename + ".jpg");
 
   image(mpgF, 0, 0, width, height);
 }
