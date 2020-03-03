@@ -6,6 +6,8 @@ CHANGED_FILES=`git diff --name-only master...${TRAVIS_COMMIT}`
 DEPLOY=False
 PAT="algotypes_bot"
 
+echo $CHANGED_FILES
+
 for CHANGED_FILE in $CHANGED_FILES; do
   if [[ $CHANGED_FILE =~ $PAT ]]; then
     DEPLOY=True
