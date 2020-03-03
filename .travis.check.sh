@@ -15,8 +15,8 @@ done
 
 if [[ $DEPLOY == False ]]; then
   echo "Don't deploy"
-  travis_terminate 0
-  exit 1
+  exit 0
 else
   echo "Deploy"
+  exit 1
 fi
