@@ -12,7 +12,7 @@ branches:
 
 script:
   - echo "test if deploy"
-  - if [[ `./.travis.check.sh` ]]; then >&2 echo "Don't Deploy"; exit 1; fi
+  - if [[ `./.travis.check.sh` ]]; then >&2 echo "Don't Deploy"; exit 0; fi
 
 before_deploy:
   - cd algotypes_bot
