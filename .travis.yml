@@ -14,7 +14,7 @@ script:
   - echo "test if deploy"
   - LATEST_COMMIT=$(git log -1 --format=format:%H --full-diff .)
   - LATEST_COMMIT_IN_PATH=$(git log -1 --format=format:%H --full-diff ./algotypes_bot)
-  - if [[ $LATEST_COMMIT != $LATEST_COMMIT_IN_PATH ]]; then >&2 echo "Don't Deploy"; exit 0; fi
+  - if [[ $LATEST_COMMIT != $LATEST_COMMIT_IN_PATH ]]; then echo "Don't Deploy"; exit 0; else echo "Deploy"; fi
 
 before_deploy:
   - cd algotypes_bot
