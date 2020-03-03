@@ -15,8 +15,8 @@ done
 
 if [[ $DEPLOY == False ]]; then
   echo "Don't deploy"
-  exit 0
+  exit 1
 else
   echo "Deploy"
-  exit 1
+  exit 0
 fi
