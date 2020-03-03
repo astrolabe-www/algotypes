@@ -10,9 +10,12 @@ branches:
   only:
     - master
 
+script:
+  - echo "test if deploy"
+  - ./.travis.check.sh
+
 before_deploy:
   - cd algotypes_bot
-  - ./.travis.check.sh
 
 deploy:
   provider: heroku
