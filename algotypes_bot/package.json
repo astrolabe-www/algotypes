@@ -1,0 +1,16 @@
+{
+  "name": "algotypes_bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for algotypes project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "telebot": "^1.2.6"
+  }
+}

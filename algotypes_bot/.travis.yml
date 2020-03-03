@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - 12
+
+notifications:
+  email: false
+
+branches:
+  only:
+    - master
+
+before_deploy:
+  - cd algotypes_bot
+  - ./.travis.check.sh
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_KEY
+  app: algotypes-bot
