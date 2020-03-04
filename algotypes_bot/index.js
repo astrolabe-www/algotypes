@@ -27,10 +27,10 @@ const bot = new TeleBot({
 bot.on(['/draw'], (msg) => {
   const mIndex = msg.from.id + dayOfYear();
   const mCard = cards[mIndex % cards.length];
-  msg.reply.text(`Your cards is:\n${mCard.name}`).then(() => {
+  msg.reply.text(`Your algorithm is:\n${mCard.name}`).then(() => {
     bot.sendSticker(msg.chat.id, mCard.sticker_id).then(() => {
       msg.reply.text(`${mCard.message}`).then(() => {
-        msg.reply.text('🔮 Come back tomorrow for a new card 🔮');
+        msg.reply.text('🔮 Come back tomorrow for a new algorithm 🔮');
       });
     });
   });
