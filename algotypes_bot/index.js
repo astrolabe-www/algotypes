@@ -1,5 +1,6 @@
 require('dotenv').config()
 const TeleBot = require('telebot');
+const { cards } = require('./cards.js');
 
 const bot = new TeleBot({
   token: process.env.API_TOKEN,
@@ -14,7 +15,12 @@ const bot = new TeleBot({
 });
 
 bot.on(['/draw'], (msg) => {
-  msg.reply.text('DRAW!');
+  const mCard = cards[Math.floor(Math.random() * cards.length)];
+  msg.reply.text(`Your cards is:\n${mCard.name}`).then(() => {
+    bot.sendSticker(msg.chat.id, mCard.sticker_id).then(() => {
+      msg.reply.text(`${mCard.message}`);
+    });
+  });
 });
 
 bot.start();
