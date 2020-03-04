@@ -13,7 +13,7 @@ exports.cards = [
   },
   {
     number: 0x02,
-    name: 'EIGENVALUES & PAGE RANK',
+    name: 'PAGERANK',
     sticker_id: 'CAACAgEAAxkBAANEXl7tkxZUf5d8yPSgr1lW4D08dakAAgQAA38pID6b4ntyRPbCaxgE',
     message: 'Inner knowledge and intuition. A way into the divine subconscious mind. Not all silence bears secrets.'
   },
@@ -25,7 +25,7 @@ exports.cards = [
   },
   {
     number: 0x09,
-    name: 'SHA3 ENCRYPTION',
+    name: 'SHA3-512 ENCRYPTION',
     sticker_id: 'CAACAgEAAxkBAANIXl7t3Bd2hY3RlNrXDx_ckyh-iQYAAgYAA38pID4wIzVNlmGGWBgE',
     message: 'Some answers come from within. Being alone is not the same as being lonely. It is what it is, but what is it? There might only be room for one. Close the door.'
   },
@@ -43,7 +43,7 @@ exports.cards = [
   },
   {
     number: 0x0C,
-    name: 'MATRIX INVERSIONS & TRANSFORMATIONS',
+    name: 'MATRIX INVERSION',
     sticker_id: 'CAACAgEAAxkBAANOXl7uDEbYHofGjkwqbYEuysQjlugAAgkAA38pID6nu9Y0w0h92BgE',
     message: 'Buy the ticket, take the ride. Things are out of your control for now. Breathe. It\'s an opportunity to see things from a different perspective.'
   },
@@ -67,7 +67,7 @@ exports.cards = [
   },
   {
     number: 0x15,
-    name: 'PROPORTIONAL-INTEGRAL-DERIVATIVE CONTROL',
+    name: 'PID CONTROL',
     sticker_id: 'CAACAgEAAxkBAANWXl7uTxNpTwABmHmsCb4q-vVBX9jCAAINAAN_KSA-T0cBtf3VLpMYBA',
     message: 'Integration. Looking back and walking forward. Looking for resolution and completeness. You\'ll relax when you realize you\'re in the right place.'
   }
