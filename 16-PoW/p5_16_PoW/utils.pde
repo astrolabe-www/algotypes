@@ -36,13 +36,16 @@ void drawOutput(PGraphics mpg) {
 
   mpg.beginDraw();
   mpg.fill(200, 0, 0, 16);
-  mpg.stroke(200, 0, 0, 64);
+  mpg.noFill();
+  mpg.stroke(200, 0, 0, 132);
   mpg.strokeWeight(1.2 * OUT_SCALE);
 
   for (int i = nonces.length - 1; i >= 0; i--) {
-    float noiseScale = map(max(nonces[i], 10e3), 0, maxNonce, 1024, 64);
-    float yScale = map(max(nonces[i], 10e3), minNonce, maxNonce, 1.0, 2.0);
-    float yc = mpg.height / 2;
+    float noiseScale = map(max(nonces[i], 10e3), 0, maxNonce, 1024, 64) * OUT_SCALE / 10.0;
+    // float yScale = map(max(nonces[i], 10e3), minNonce, maxNonce, 1.0, 2.0);
+    // float yc = mpg.height / 2;
+    float yScale = map(max(nonces[i], 10e3), minNonce, maxNonce, 1.0, 0.8);
+    float yc = (i + 0.5) * mpg.height / nonces.length;
 
     mpg.beginShape();
     mpg.vertex(0, yc);

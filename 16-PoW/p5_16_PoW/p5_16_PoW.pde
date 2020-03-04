@@ -36,7 +36,7 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x10";
-  static final public String name = "SHA-256";
+  static final public String name = "Blockchain";
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
