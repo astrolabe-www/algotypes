@@ -55,9 +55,9 @@ exports.cards = [
   },
   {
     number: 0x10,
-    name: 'SHA-256 ENCRYPTION',
-    sticker_id: 'CAACAgEAAxkBAANSXl7uIfUQEo9VV238kGByjGEVBmIAAgsAA38pID4U8goI7-epPBgE',
-    message: 'Uncontrolled energy. Sudden change. Revolution beats evolution. Past, present and future are superimposed all of a sudden. Beware of cognitive dissonance.'
+    name: 'Blockchain Proof-of-Work',
+    sticker_id: 'CAACAgEAAxkBAAIBEV5gHG_5ddlPkh8-DMPuGkmLvpF_AAIOAAN_KSA-62JtsJH8LmcYBA',
+    message: 'Uncontrolled energy. Sudden change. Revolution over evolution. Past, present and future are superimposed all of a sudden. Beware of cognitive dissonance.'
   },
   {
     number: 0x13,

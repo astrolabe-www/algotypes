@@ -24,6 +24,11 @@ const bot = new TeleBot({
   usePlugins: []
 });
 
+bot.on('sticker', (msg) => {
+  console.log(msg.sticker);
+  return msg.reply.text(msg.sticker.file_id);
+});
+
 bot.on(['/draw'], (msg) => {
   const mIndex = msg.from.id + dayOfYear();
   const mCard = cards[mIndex % cards.length];
