@@ -3,6 +3,15 @@
 // https://en.wikipedia.org/wiki/Determinant
 // https://en.wikipedia.org/wiki/LU_decomposition
 
+enum Output {
+  SCREEN,
+  PRINT,
+  TELEGRAM
+}
+
+Output OUTPUT = Output.SCREEN;
+PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
+
 String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
 int[] INPUT;
 
@@ -23,7 +32,7 @@ static class Card {
 LUPMatrix mLUPMatrix;
 
 void setup() {
-  size(469, 804, P3D);
+  size(804, 804, P3D);
   noLoop();
   mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   initInput();
@@ -31,7 +40,7 @@ void setup() {
   println(mLUPMatrix.inverted());
 }
 
-int OUT_SCALE = 10;
+int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
 int BORDER_WIDTH = 10;
 int FONT_SIZE = 32;
 PFont mFont;
@@ -46,13 +55,13 @@ void draw() {
 
   background(255);
 
-  PGraphics mpgI = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  PGraphics mpgI = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
   mpgI.smooth(8);
-  PGraphics mpgB = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  PGraphics mpgB = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
   mpgB.smooth(8);
-  PGraphics mpgO = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  PGraphics mpgO = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
   mpgO.smooth(8);
-  PGraphics mpgF = createGraphics(OUT_SCALE * width, OUT_SCALE * height, P3D);
+  PGraphics mpgF = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y), P3D);
   mpgF.smooth(8);
 
   drawInput(mpgI);
@@ -77,9 +86,17 @@ void draw() {
 
   mpgF.image(mpgB, 0, 0, mpgF.width, mpgF.height);
 
-  // mpgF.save(Card.filename + ".png");
-  // mpgF.save(Card.filename + ".jpg");
+  if (OUTPUT != Output.SCREEN) {
+    mpgF.save(Card.filename + ".png");
+    mpgF.save(Card.filename + ".jpg");
+  }
   mpgF.endDraw();
 
-  image(mpgF, 0, 0, width, height);
+  pushMatrix();
+  translate(width/ 2, height / 2);
+  scale(float(height) / float(mpgF.height));
+  imageMode(CENTER);
+  image(mpgF, 0, 0);
+  imageMode(CORNER);
+  popMatrix();
 }

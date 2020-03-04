@@ -1,4 +1,15 @@
-// input
+//
+//
+
+enum Output {
+  SCREEN,
+  PRINT,
+  TELEGRAM
+}
+
+Output OUTPUT = Output.SCREEN;
+PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
+
 String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
 int[] INPUT;
 
@@ -10,19 +21,25 @@ void initInput() {
   }
 }
 
+static class Card {
+  static final public String number = "0xFF";
+  static final public String name = "back";
+  static final public String filename = number + "_" + name.replace(" ", "_");
+}
+
 void setup() {
-  size(469, 804);
+  size(804, 804);
   noLoop();
   initInput();
 }
 
-int OUT_SCALE = 10;
+int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
 int BORDER_WIDTH = 10;
 
 void draw() {
   background(255);
 
-  PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  PGraphics mpg = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
   mpg.smooth(8);
   mpg.beginDraw();
   mpg.background(255, 255);
@@ -30,8 +47,17 @@ void draw() {
 
   drawInput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
-  // mpg.save("out.png");
-  // mpg.save("out.jpg");
 
-  image(mpg, 0, 0, width, height);
+  if (OUTPUT != Output.SCREEN) {
+    mpg.save(Card.filename + ".png");
+    mpg.save(Card.filename + ".jpg");
+  }
+
+  pushMatrix();
+  translate(width/ 2, height / 2);
+  scale(float(height) / float(mpg.height));
+  imageMode(CENTER);
+  image(mpg, 0, 0);
+  imageMode(CORNER);
+  popMatrix();
 }

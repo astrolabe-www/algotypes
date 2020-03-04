@@ -26,7 +26,7 @@ void drawOutput(PGraphics mpg) {
   mpg.noStroke();
   mpg.rectMode(CENTER);
 
-  float M = OUT_SCALE * 4;
+  float M = (OUTPUT != Output.TELEGRAM) ? OUT_SCALE * 4 : OUT_SCALE * 6.66;
   PVector m = new PVector(M, M * mpg.height / mpg.width);
   PVector xy;
 

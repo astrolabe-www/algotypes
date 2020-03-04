@@ -2,6 +2,15 @@
 // https://en.wikipedia.org/wiki/Discrete_Fourier_transform
 // https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm
 
+enum Output {
+  SCREEN,
+  PRINT,
+  TELEGRAM
+}
+
+Output OUTPUT = Output.SCREEN;
+PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
+
 String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
 int[] INPUT;
 
@@ -23,7 +32,7 @@ Complex[] OUTPUT_DFT;
 Complex[] OUTPUT_FFT;
 
 void setup() {
-  size(469, 804);
+  size(804, 804);
   noLoop();
   mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   initInput();
@@ -32,7 +41,7 @@ void setup() {
   Fourier.testFTs(OUTPUT_DFT, OUTPUT_FFT);
 }
 
-int OUT_SCALE = 10;
+int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
 int BORDER_WIDTH = 10;
 int FONT_SIZE = 32;
 PFont mFont;
@@ -40,7 +49,7 @@ PFont mFont;
 void draw() {
   background(255);
 
-  PGraphics mpg = createGraphics(OUT_SCALE * width, OUT_SCALE * height);
+  PGraphics mpg = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
   mpg.smooth(8);
   mpg.beginDraw();
   mpg.background(255);
@@ -50,8 +59,17 @@ void draw() {
   drawInputWave(mpg);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
-  // mpg.save(Card.filename + ".png");
-  // mpg.save(Card.filename + ".jpg");
 
-  image(mpg, 0, 0, width, height);
+  if (OUTPUT != Output.SCREEN) {
+    mpg.save(Card.filename + ".png");
+    mpg.save(Card.filename + ".jpg");
+  }
+
+  pushMatrix();
+  translate(width/ 2, height / 2);
+  scale(float(height) / float(mpg.height));
+  imageMode(CENTER);
+  image(mpg, 0, 0);
+  imageMode(CORNER);
+  popMatrix();
 }
