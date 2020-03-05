@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=mate-terminal --full-screen -e 'bash -c "sudo /home/odroid/algotypes/scripts/tshark.sh; bash"'
+Hidden=false
+NoDisplay=false
+X-MATE-Autostart-enabled=true
+Name[C]=tshark
+Name=tshark
+Comment[C]=
+Comment=

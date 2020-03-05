@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/odroid/algotypes/scripts/p5.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_NG]=Packet_Visualization
+Name=Packet_Visdualization
+Comment[en_NG]=
+Comment=
