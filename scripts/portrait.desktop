@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/odroid/algotypes/scripts/portrait.sh
+Hidden=false
+X-MATE-Autostart-enabled=true
+Name[C]=Portrait_Rotate
+Name=Portrait_Rotate
+Comment[C]=
+Comment=
