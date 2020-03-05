@@ -56,3 +56,25 @@ void draw() {
   image(mpg, 0, 0, width, height);
   image(bpg, 0, 0, width, height);
 }
+
+int mouseIndex = 0;
+int[] mouseClicks = {-1, -1, -1, -1};
+long lastClick = 0;
+
+void mouseReleased() {
+  if ((mouseX < width / 2) && (mouseY < height / 2)) mouseClicks[mouseIndex] = 0;
+  else if((mouseX > width / 2) && (mouseY < height / 2)) mouseClicks[mouseIndex] = 1;
+  else if((mouseX < width / 2) && (mouseY > height / 2)) mouseClicks[mouseIndex] = 2;
+  else mouseClicks[mouseIndex] = 3;
+  mouseIndex = (mouseIndex + 1) % mouseClicks.length;
+
+  if(millis() - lastClick > 500) mouseClicks[3] = mouseClicks[2] = mouseClicks[1] = -1;
+
+  lastClick = millis();
+
+  if((mouseClicks[1] == -1) || (mouseClicks[2] == -1) || (mouseClicks[3] == -1)) return;
+  if(mouseClicks[0] == mouseClicks[1] || mouseClicks[0] == mouseClicks[2]) return;
+  if(mouseClicks[1] == mouseClicks[2] || mouseClicks[1] == mouseClicks[3]) return;
+  if(mouseClicks[3] == mouseClicks[0] || mouseClicks[3] == mouseClicks[2]) return;
+  exit();
+}
