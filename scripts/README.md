@@ -59,7 +59,7 @@ Comment[en_NG]=
 Comment=
 ```
 - Enable gpu-composite window manager:  
-```gsettings set org.mate.session.required-components windowmanager marco-compton```
+```dconf write /org/mate/desktop/session/required-components/windowmanager "'marco-compton'"```
 - Change default terminal profile colors/transparency:  
 ```dconf write /org/mate/terminal/profiles/default/background-color "'#000000000000'"```  
 ```dconf write /org/mate/terminal/profiles/default/foreground-color "'#FFFFFFFFFFFF'"```  
@@ -67,8 +67,13 @@ Comment=
 ```dconf write /org/mate/terminal/profiles/default/background-darkness "0.0"```  
 ```dconf write /org/mate/terminal/profiles/default/scrollbar-position "'hidden'"```
 - Change desktop background:  
-```gsettings set org.mate.background picture-filename ''```  
-```gsettings set org.mate.background primary-color '#000'```  
-```gsettings set org.mate.background color-shading-type 'solid'```
+```dconf write /org/mate/desktop/background/picture-filename "''"```  
+```dconf write /org/mate/desktop/background/primary-color "'#000'"```  
+```dconf write /org/mate/desktop/background/color-shading-type "'solid'"```
+- Turn off screen saver and power management:  
+```dconf write /org/mate/power-manager/sleep-computer-ac 2147483647```  
+```dconf write /org/mate/power-manager/sleep-display-ac 2147483647```  
+```dconf write /org/mate/screensaver/power-management-delay 2147483647```  
+```dconf write /org/mate/screensaver/idle-activation-enabled "false"```
 - Restart desktop:  
 ```sudo /etc/init.d/lightdm restart```
