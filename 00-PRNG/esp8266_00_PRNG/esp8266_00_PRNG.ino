@@ -6,6 +6,7 @@
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
+#include "PRNG.cpp"
 #include "BeaconPacket.h"
 #include "sdk_structs.h"
 #include "ieee80211_structs.h"
@@ -23,9 +24,19 @@ const uint8_t mCHANNEL = 1;
 const String mSSID = "00-PRNG";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
+const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;
+const uint8_t BEACON_PACKET_INDEX_SSID = 38;
+const uint8_t BEACON_PACKET_INDEX_DATA = BEACON_PACKET_INDEX_CHANNEL + 1;
+const uint32_t BEACON_PACKET_DATA_SIZE = min(100u, BEACON_PACKET_SIZE - BEACON_PACKET_INDEX_DATA);
 
 uint32_t TX_PERIOD_MS = 100;
 uint32_t lastTxTime = 0;
+
+const int DATA_SIZE = 4096;
+int DATA_IN[DATA_SIZE];
+int DATA_IN_CNT = 0;
+
+uint8_t DATA_OUT[DATA_SIZE];
 
 void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   // First layer: type cast the received buffer into our generic SDK structure
@@ -47,7 +58,7 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   bool isCtrl = (buff_length == sizeof(wifi_pkt_rx_ctrl_t));
 
   if (isCtrl) return;
-  //if (!isData) return;
+  if (isData) return;
   //if (!isBeacon) return;
   //if (!isProbeR) return;
   //if (!(isData || isProbeR)) return;
@@ -99,6 +110,15 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
     }
     Serial.printf("%s", ssid);
   }
+
+  // copy payload to DATA
+  uint8_t* pload = ((wifi_promiscuous_pkt_t *)buff)->payload;
+  int bytes_to_copy = min((int)(payload_size), DATA_SIZE - DATA_IN_CNT);
+
+  for (int i = 0; i < bytes_to_copy; i++) {
+    DATA_IN[DATA_IN_CNT] = (int)(pload[i]) & 0xFF;
+    DATA_IN_CNT++;
+  }
 }
 
 void setup() {
@@ -114,25 +134,32 @@ void setup() {
   wifi_promiscuous_enable(1);
 
   // set SSID and channel in beacon packet
-  memcpy(&beaconPacket[38], mSSID.c_str(), mSSID.length());
-  beaconPacket[82] = mCHANNEL;
+  memcpy(&beaconPacket[BEACON_PACKET_INDEX_SSID], mSSID.c_str(), mSSID.length());
+  beaconPacket[BEACON_PACKET_INDEX_CHANNEL] = mCHANNEL;
 
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
-  if (millis() - lastTxTime > TX_PERIOD_MS) {
-    if ((millis() / TX_PERIOD_MS) % 10 == 0)
-      digitalWrite(LED_BUILTIN, LOW);
+  if (DATA_IN_CNT >= DATA_SIZE) {
+    Serial.printf("\n\nSEND!!!\n\n");
+    digitalWrite(LED_BUILTIN, LOW);
 
-    wifi_promiscuous_enable(0);
-    for (int k = 0; k < 32; k++) {
+    PRNG mPRNG(DATA_IN, DATA_SIZE);
+    for (int i = 0; i < DATA_SIZE; i++) {
+      DATA_OUT[i] = (uint8_t)(mPRNG.random() & 0xFF);
+    }
+    DATA_IN_CNT = 0;
+  }
+
+  if (millis() - lastTxTime > TX_PERIOD_MS) {
+    for (int k = 0; k < (DATA_SIZE / BEACON_PACKET_DATA_SIZE); k++) {
+      memcpy(&beaconPacket[BEACON_PACKET_INDEX_DATA], DATA_OUT + (k * BEACON_PACKET_DATA_SIZE), BEACON_PACKET_DATA_SIZE);
       wifi_send_pkt_freedom(beaconPacket, BEACON_PACKET_SIZE, 0);
       delay(1);
     }
+
     lastTxTime = millis();
     digitalWrite(LED_BUILTIN, HIGH);
-    wifi_set_promiscuous_rx_cb(wifi_sniffer_packet_handler);
-    wifi_promiscuous_enable(1);
   }
 }

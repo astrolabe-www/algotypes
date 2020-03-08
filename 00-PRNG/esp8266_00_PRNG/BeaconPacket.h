@@ -1,8 +1,8 @@
-uint8_t beaconPacket[109] = {
+uint8_t beaconPacket[184] = {
   /*  0 - 3  */ 0x80, 0x00, 0x00, 0x00, // Type/Subtype: managment beacon frame
   /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // Destination: broadcast
-  /* 10 - 15 */ 0xFC, 0xEC, 0xDA, 0x1B, 0xA6, 0x86, // Source
-  /* 16 - 21 */ 0xFC, 0xEC, 0xDA, 0x1B, 0xA6, 0x86, // Source
+  /* 10 - 15 */ 0xFC, 0xEC, 0xDA, 0x1C, 0xA6, 0x86, // Source
+  /* 16 - 21 */ 0xFC, 0xEC, 0xDA, 0x1C, 0xA6, 0x86, // Source
 
   // Fixed parameters
   /* 22 - 23 */ 0x00, 0x00, // Fragment & sequence number
@@ -37,4 +37,6 @@ uint8_t beaconPacket[109] = {
   // Current Channel
   /* 80 - 81 */ 0x03, 0x01, // Channel set, length
   /* 82 */      0x01        // Current Channel
+
+  /* 83 - 183 */            // Data
 };
