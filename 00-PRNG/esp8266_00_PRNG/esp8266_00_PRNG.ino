@@ -32,11 +32,15 @@ const uint32_t BEACON_PACKET_DATA_SIZE = min(100u, BEACON_PACKET_SIZE - BEACON_P
 uint32_t TX_PERIOD_MS = 100;
 uint32_t lastTxTime = 0;
 
-const int DATA_SIZE = 4096;
-int DATA_IN[DATA_SIZE];
+uint32_t COMPUTE_PERIOD_MS = 600;
+uint32_t lastComputeTime = 0;
+
+const int DATA_IN_SIZE = 4096;
+int DATA_IN[DATA_IN_SIZE];
 int DATA_IN_CNT = 0;
 
-uint8_t DATA_OUT[DATA_SIZE];
+const int DATA_OUT_SIZE = 4096;
+uint8_t DATA_OUT[DATA_OUT_SIZE];
 
 void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   // First layer: type cast the received buffer into our generic SDK structure
@@ -113,7 +117,7 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
 
   // copy payload to DATA
   uint8_t* pload = ((wifi_promiscuous_pkt_t *)buff)->payload;
-  int bytes_to_copy = min((int)(payload_size), DATA_SIZE - DATA_IN_CNT);
+  int bytes_to_copy = min((int)(payload_size), DATA_IN_SIZE - DATA_IN_CNT);
 
   for (int i = 0; i < bytes_to_copy; i++) {
     DATA_IN[DATA_IN_CNT] = (int)(pload[i]) & 0xFF;
@@ -141,19 +145,20 @@ void setup() {
 }
 
 void loop() {
-  if (DATA_IN_CNT >= DATA_SIZE) {
+  if ((DATA_IN_CNT >= DATA_IN_SIZE) && (millis() - lastComputeTime > COMPUTE_PERIOD_MS)) {
     Serial.printf("\n\nSEND!!!\n\n");
     digitalWrite(LED_BUILTIN, LOW);
 
-    PRNG mPRNG(DATA_IN, DATA_SIZE);
-    for (int i = 0; i < DATA_SIZE; i++) {
+    PRNG mPRNG(DATA_IN, DATA_IN_SIZE);
+    for (int i = 0; i < DATA_OUT_SIZE; i++) {
       DATA_OUT[i] = (uint8_t)(mPRNG.random() & 0xFF);
     }
     DATA_IN_CNT = 0;
+    lastComputeTime = millis();
   }
 
   if (millis() - lastTxTime > TX_PERIOD_MS) {
-    for (int k = 0; k < (DATA_SIZE / BEACON_PACKET_DATA_SIZE); k++) {
+    for (int k = 0; k < (DATA_OUT_SIZE / BEACON_PACKET_DATA_SIZE); k++) {
       memcpy(&beaconPacket[BEACON_PACKET_INDEX_DATA], DATA_OUT + (k * BEACON_PACKET_DATA_SIZE), BEACON_PACKET_DATA_SIZE);
       wifi_send_pkt_freedom(beaconPacket, BEACON_PACKET_SIZE, 0);
       delay(1);
