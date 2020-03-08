@@ -34,6 +34,9 @@ const uint32_t BEACON_PACKET_DATA_SIZE = min(100u, BEACON_PACKET_SIZE - BEACON_P
 uint32_t TX_PERIOD_MS = 100;
 uint32_t lastTxTime = 0;
 
+uint32_t FFT_PERIOD_MS = 600;
+uint32_t lastFftTime = 0;
+
 const int DATA_IN_SIZE = 256;
 int DATA_IN[DATA_IN_SIZE];
 int DATA_IN_CNT = 0;
@@ -144,7 +147,7 @@ void setup() {
 }
 
 void loop() {
-  if (DATA_IN_CNT >= DATA_IN_SIZE) {
+  if ((DATA_IN_CNT >= DATA_IN_SIZE) && (millis() - lastFftTime > FFT_PERIOD_MS)){
     Serial.printf("\n\nSEND!!!\n\n");
     digitalWrite(LED_BUILTIN, LOW);
 
@@ -155,6 +158,7 @@ void loop() {
       DATA_OUT[i] = (uint8_t)((int)(FFT_OUT[i % fft_out_size].magnitude()) & 0xFF);
     }
     DATA_IN_CNT = 0;
+    lastFftTime = millis();
   }
 
   if (millis() - lastTxTime > TX_PERIOD_MS) {
