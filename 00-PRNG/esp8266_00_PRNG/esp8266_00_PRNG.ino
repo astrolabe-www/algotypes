@@ -20,7 +20,7 @@ extern "C" {
   int wifi_send_pkt_freedom(uint8 *buf, int len, bool sys_seq);
 }
 
-const uint8_t mCHANNEL = 1;
+const uint8_t mCHANNEL = 12;
 const String mSSID = "00-PRNG";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
