@@ -155,7 +155,9 @@ void loop() {
     int mat_size = mQR.size;
 
     for (int i = 0; i < DATA_OUT_SIZE; i++) {
-      DATA_OUT[i] = (uint8_t)(0xFF);
+      int mi = (i / mat_size) % mat_size;
+      int mj = (i % mat_size);
+      DATA_OUT[i] = (uint8_t)((int)(mQR.value[mi][mj]) & 0xFF);
     }
     DATA_IN_CNT = 0;
     lastComputeTime = millis();
