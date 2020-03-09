@@ -1,5 +1,5 @@
-#ifndef _MATRIX_CLASS_
-#define _MATRIX_CLASS_
+#ifndef _GREEDY_CLASS_
+#define _GREEDY_CLASS_
 
 #include <vector>
 #include <math.h>
