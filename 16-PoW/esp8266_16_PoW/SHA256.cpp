@@ -35,28 +35,26 @@ class SHA256 {
     std::vector<uint8_t> out;
 
   public:
-    std::vector<uint8_t>* encode(int* in, int in_length) {
-      out.clear();
-
+    std::vector<uint8_t>* encode(std::vector<uint8_t>* in) {
       std::vector<uint32_t> H;
       for (int i = 0; i < H0.size(); i++) {
         H.push_back(H0[i]);
       }
 
-      uint32_t L = in_length * 8;
+      uint32_t L = in->size() * 8;
 
       // padding: L + 64 + Kb must be multiple of 512 bits
       int Kb = 512 - ((L + 64) % 512);
 
       std::vector<uint8_t> in_bytes;
-      for (int i = 0; i < in_length; i++) {
-        in_bytes.push_back(in[i]);
+      for (int i = 0; i < in->size(); i++) {
+        in_bytes.push_back((*in)[i]);
       }
       for (int i = 0; i < (Kb / 8 + 64 / 8); i++) {
         in_bytes.push_back(0x00);
       }
 
-      int in_index = in_length;
+      int in_index = in->size();
       for (int i = 0; i < Kb / 8; i++) {
         uint8_t b = (uint8_t)((i == 0) ? 0x80 : 0x00);
         in_bytes[in_index] = b;
@@ -74,12 +72,12 @@ class SHA256 {
       for (int c = 0; c < (in_bytes.size() * 8) / 512; c++) {
         int current_in_byte = c * 512 / 8;
 
-        std::vector<uint8_t> word;
+        std::vector<uint32_t> word;
         for (int i = 0; i < 64; i++) {
           word.push_back(0);
         }
 
-        std::vector<uint8_t> A;
+        std::vector<uint32_t> A;
         for (int i = 0; i < H.size(); i++) {
           A.push_back(0);
         }
@@ -128,6 +126,7 @@ class SHA256 {
         }
       }
 
+      out.clear();
       for (int i = 0; i < H.size(); i++) {
         for (int b = 0; b < sizeof(uint32_t); b++) {
           uint8_t ov = (uint8_t)((H[i] >> (8 * (7 - b))) & 0xFF);

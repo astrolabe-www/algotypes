@@ -7,7 +7,7 @@
 #include <vector>
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include "SHA256.cpp"
+#include "Block.cpp"
 #include "BeaconPacket.h"
 #include "sdk_structs.h"
 #include "ieee80211_structs.h"
@@ -33,15 +33,18 @@ const uint32_t BEACON_PACKET_DATA_SIZE = min(100u, BEACON_PACKET_SIZE - BEACON_P
 uint32_t TX_PERIOD_MS = 100;
 uint32_t lastTxTime = 0;
 
-uint32_t COMPUTE_PERIOD_MS = 300;
+uint32_t COMPUTE_PERIOD_MS = 900;
 uint32_t lastComputeTime = 0;
 
-const int DATA_IN_SIZE = 1024;
+const int DATA_IN_SIZE = 4096;
 int DATA_IN[DATA_IN_SIZE];
 int DATA_IN_CNT = 0;
 
 const int DATA_OUT_SIZE = 4096;
 uint8_t DATA_OUT[DATA_OUT_SIZE];
+
+std::vector<uint8_t> _h0;
+const int HASH_SIZE_BYTES = 32;
 
 void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   // First layer: type cast the received buffer into our generic SDK structure
@@ -143,6 +146,8 @@ void setup() {
   beaconPacket[BEACON_PACKET_INDEX_CHANNEL] = mCHANNEL;
 
   pinMode(LED_BUILTIN, OUTPUT);
+
+  for (int i = 0; i < HASH_SIZE_BYTES; i++) _h0.push_back(0x00);
 }
 
 void loop() {
@@ -150,11 +155,19 @@ void loop() {
     Serial.printf("\n\nSEND!!!\n\n");
     digitalWrite(LED_BUILTIN, LOW);
 
-    SHA256 mSHA256;
-    const std::vector<uint8_t>* mEncoded = mSHA256.encode(DATA_IN, DATA_IN_SIZE);
+    uint8_t nTarget = 0x7f;
+    std::vector<uint8_t>* h0 = &_h0;
+    int hash_size = h0->size();
 
-    for (int i = 0; i < DATA_OUT_SIZE; i++) {
-      DATA_OUT[i] = (*mEncoded)[i % mEncoded->size()];
+    for (int b = 0; b < (DATA_OUT_SIZE / hash_size); b++) {
+      Block mBlock(&DATA_IN[(hash_size * b) % DATA_IN_SIZE], hash_size, h0, nTarget);
+      std::vector<uint8_t>* hash = mBlock.getHash();
+
+      for (int i = 0; i < hash_size; i++) {
+        DATA_OUT[hash_size * b + i] = (*hash)[i];
+      }
+      h0 = hash;
+      nTarget = mBlock.getNextTarget();
     }
 
     DATA_IN_CNT = 0;
