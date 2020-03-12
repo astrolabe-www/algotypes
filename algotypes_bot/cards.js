@@ -45,7 +45,7 @@ exports.cards = [
     number: 0x0C,
     name: 'MATRIX INVERSION',
     sticker_id: 'CAACAgEAAxkBAANOXl7uDEbYHofGjkwqbYEuysQjlugAAgkAA38pID6nu9Y0w0h92BgE',
-    message: 'Buy the ticket, take the ride. Things are out of your control for now. Breathe. It\'s an opportunity to see things from a different perspective.'
+    message: 'Things are out of your control for now. Breathe. Take the ride. It\'s an opportunity to see things from a different perspective.'
   },
   {
     number: 0x0F,
