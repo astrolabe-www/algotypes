@@ -56,7 +56,7 @@ exports.cards = [
   {
     number: 0x10,
     name: 'Blockchain Proof-of-Work',
-    sticker_id: 'CAACAgEAAxkBAAIBEV5gHG_5ddlPkh8-DMPuGkmLvpF_AAIOAAN_KSA-62JtsJH8LmcYBA',
+    sticker_id: 'CAACAgEAAxkBAAIBdV5sEyzVZFC0DK45GpUPWO6YNBPGAAIPAAN_KSA-Dojtyp9aOgoYBA',
     message: 'Uncontrolled energy. Sudden change. Revolution over evolution. Past, present and future are superimposed all of a sudden. Beware of cognitive dissonance.'
   },
   {
