@@ -13,7 +13,7 @@ function dayOfYear() {
 }
 
 function dailyRandom(mSeed) {
-  var x = Math.sin(mSeed++) * 1e4;
+  const x = Math.sin(mSeed) * 1e4;
   return x - Math.floor(x);
 }
 
@@ -36,12 +36,6 @@ bot.on('sticker', (msg) => {
 
 bot.on(['/draw'], (msg) => {
   const mIndex = Math.floor(cards.length * dailyRandom(msg.from.id + dayOfYear()));
-  const mIndex1 = Math.floor(cards.length * dailyRandom(msg.from.id + dayOfYear() + 1));
-  const mIndex2 = Math.floor(cards.length * dailyRandom(msg.from.id + dayOfYear() + 2));
-  console.log(mIndex);
-  console.log(mIndex1);
-  console.log(mIndex2);
-
   const mCard = cards[mIndex];
   msg.reply.text(`Your algorithm is:\n${mCard.name}`).then(() => {
     bot.sendSticker(msg.chat.id, mCard.sticker_id).then(() => {
