@@ -12,6 +12,11 @@ function dayOfYear() {
   return day;
 }
 
+function dailyRandom(mSeed) {
+  var x = Math.sin(mSeed++) * 1e4;
+  return x - Math.floor(x);
+}
+
 const bot = new TeleBot({
   token: process.env.API_TOKEN,
   polling: {
@@ -30,8 +35,8 @@ bot.on('sticker', (msg) => {
 });
 
 bot.on(['/draw'], (msg) => {
-  const mIndex = msg.from.id + dayOfYear();
-  const mCard = cards[mIndex % cards.length];
+  const mIndex = Math.floor(cards.length * dailyRandom(msg.from.id + dayOfYear()));
+  const mCard = cards[mIndex];
   msg.reply.text(`Your algorithm is:\n${mCard.name}`).then(() => {
     bot.sendSticker(msg.chat.id, mCard.sticker_id).then(() => {
       msg.reply.text(`${mCard.message}`).then(() => {
