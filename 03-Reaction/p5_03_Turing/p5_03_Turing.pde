@@ -1,5 +1,5 @@
 // based on:
-// 
+// http://karlsims.com/rd.html
 
 enum Output {
   SCREEN, 
