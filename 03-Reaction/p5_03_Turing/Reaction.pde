@@ -78,13 +78,16 @@ class Reaction {
     mpg.strokeWeight(0);
 
     for (int y = 1; y < size - 1; y++) {
-      for (int x = 1; x < size - 1; x++) { 
-        mpg.fill(AB[x][y].x * 255, 0, 0, AB[x][y].x * 32);
-        mpg.stroke(AB[x][y].x * 255, 0, 0, AB[x][y].x * 32);
+      for (int x = 1; x < size - 1; x++) {
+        float redX = min(AB[x][y].x * 255, 200);
+        float redY = min(AB[x][y].y * 255, 200);
+
+        mpg.fill(redX, 0, 0, AB[x][y].x * 32);
+        mpg.stroke(redX, 0, 0, AB[x][y].x * 32);
         mpg.rect(x * drawDimesion, y * drawDimesion, drawDimesion, drawDimesion);
 
-        mpg.fill(AB[x][y].y * 255, 0, 0, AB[x][y].y * 8);
-        mpg.stroke(AB[x][y].y * 255, 0, 0, AB[x][y].y * 8);
+        mpg.fill(redY, 0, 0, AB[x][y].y * 8);
+        mpg.stroke(redY, 0, 0, AB[x][y].y * 8);
         mpg.rect(x * drawDimesion, y * drawDimesion, drawDimesion, drawDimesion);
       }
     }
