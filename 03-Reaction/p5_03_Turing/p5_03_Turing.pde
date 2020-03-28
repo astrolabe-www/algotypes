@@ -2,9 +2,9 @@
 // http://karlsims.com/rd.html
 
 enum Output {
-  SCREEN, 
-    PRINT, 
-    TELEGRAM
+  SCREEN,
+  PRINT,
+  TELEGRAM
 }
 
 Output OUTPUT = Output.SCREEN;
@@ -27,14 +27,14 @@ static class Card {
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
-Reaction rd;
+Reaction mRD;
 
 void setup() {
   size(804, 804);
   noLoop();
   mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   initInput();
-  rd = new Reaction(INPUT);
+  mRD = new Reaction(INPUT);
 }
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
@@ -52,7 +52,7 @@ void draw() {
   mpg.endDraw();
 
   drawInput(mpg);
-  drawOutput(mpg);
+  drawOutput(mpg, mRD);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
 
   if (OUTPUT != Output.SCREEN) {

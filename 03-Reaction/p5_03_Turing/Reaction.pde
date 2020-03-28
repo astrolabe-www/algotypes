@@ -1,10 +1,10 @@
 class Reaction {
   private final float DA = 1.0;
   private final float DB = 0.5;
-  private final float FEED = 0.055;
-  private final float KILL = 0.066;
-  private final int STEPS = 24;
-  
+  private final float FEED = 0.015;
+  private final float KILL = 0.015;
+  private final int STEPS = 13;
+
   private final float WEIGHT[][] = {
     {.05, .2, .05}, 
     {.2, -1, .2}, 
@@ -15,14 +15,16 @@ class Reaction {
   private int size;
 
   public Reaction(int[] input) {
-    size = floor(sqrt(input.length / 2.0));
+    size = 7 * int(sqrt(input.length));
     AB = new PVector[size][size];
 
-    for (int i = 0; i < (input.length / 2); i++) {
-      float A = map(input[(2 * i + 0) % input.length], 0, 255, 0, 1.0);
-      float B = map(input[(2 * i + 1) % input.length], 0, 255, 0, 1.0);
-
-      AB[(i / size) % size][i % size] = new PVector(A, B);
+    for (int y = 0; y < size; y++) {
+      for (int x = 0; x < size; x++) {
+        int i = (y * size + x);
+        float A = map(input[(2 * i + 0) % (input.length - 2)], 0, 255, 0, 1.0);
+        float B = map(input[(2 * i + 1) % (input.length - 1)], 0, 255, 0, 1.0);
+        AB[x][y] = new PVector(A, B);
+      }
     }
 
     for (int i = 0; i < STEPS; i++) {
@@ -61,7 +63,7 @@ class Reaction {
 
     for (int y = 1; y < size - 1; y++) {
       for (int x = 1; x < size - 1; x++) {
-        AB[x][y].set(min(AB_[x][y].x, 2.0), min(AB_[x][y].y, 2.0));
+        AB[x][y].set(AB_[x][y].x, AB_[x][y].y);
       }
     }
   }
@@ -70,13 +72,20 @@ class Reaction {
     float w = float(mpg.width) / (size - 2);
     float h = float(mpg.height) / (size - 2);
 
+    float drawDimesion = max(w, h);
+
     mpg.beginDraw();
-    mpg.noStroke();
+    mpg.strokeWeight(0);
 
     for (int y = 1; y < size - 1; y++) {
       for (int x = 1; x < size - 1; x++) { 
         mpg.fill(AB[x][y].x * 255, 0, 0, AB[x][y].x * 32);
-        mpg.rect(x * w, y * h, w, h);
+        mpg.stroke(AB[x][y].x * 255, 0, 0, AB[x][y].x * 32);
+        mpg.rect(x * drawDimesion, y * drawDimesion, drawDimesion, drawDimesion);
+
+        mpg.fill(AB[x][y].y * 255, 0, 0, AB[x][y].y * 8);
+        mpg.stroke(AB[x][y].y * 255, 0, 0, AB[x][y].y * 8);
+        mpg.rect(x * drawDimesion, y * drawDimesion, drawDimesion, drawDimesion);
       }
     }
     mpg.endDraw();

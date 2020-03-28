@@ -15,20 +15,7 @@ void drawInput(PGraphics mpg) {
   mpg.endDraw();
 }
 
-void drawOutput(PGraphics mpg) {
-  /*
-  mpg.beginDraw();
-   
-   mpg.fill(200, 0, 0, 16);
-   mpg.stroke(200, 0, 0, 128);
-   mpg.strokeWeight(OUT_SCALE * 1);
-   
-   mpg.pushMatrix();
-   mpg.translate(mpg.width / 2, 0);
-   mpg.popMatrix();
-   mpg.endDraw();
-   */
-
+void drawOutput(PGraphics mpg, Reaction rd) {
   rd.draw(mpg);
 }
 
