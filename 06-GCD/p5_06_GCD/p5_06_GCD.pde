@@ -1,5 +1,5 @@
 // based on:
-// https://rosettacode.org/wiki/Sorting_algorithms/Quicksort
+// https://en.wikipedia.org/wiki/Euclidean_algorithm
 
 enum Output {
   SCREEN,
@@ -13,25 +13,19 @@ PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804,
 String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
 int[] INPUT;
 
-int BYTES_PER_NUMBER = 1;
-int MAX_RANDOM_NUMBER = (int)pow(2, (BYTES_PER_NUMBER * 8)) - 1;
-
 void initInput() {
   randomSeed(1010);
   byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
   INPUT = new int[in.length];
   for (int i = 0; i < INPUT.length; i++) {
-    INPUT[i] = 0;
-    for (int b = 0; b < BYTES_PER_NUMBER; b++) {
-      INPUT[i] |= (in[(BYTES_PER_NUMBER * i + b) % in.length] & 0xff) << ((BYTES_PER_NUMBER - 1 - b) * 8);
-    }
-    INPUT[i] = ((INPUT[i] > 1) && (INPUT[i] < MAX_RANDOM_NUMBER)) ? INPUT[i] : (int)random(1, MAX_RANDOM_NUMBER);
+    INPUT[i] = in[i] & 0xff;
+    INPUT[i] = ((INPUT[i] > 1) && (INPUT[i] < 0xff)) ? INPUT[i] : (int)random(1, 0xff);
   }
 }
 
 static class Card {
   static final public String number = "0x06";
-  static final public String name = "GCD";
+  static final public String name = "Euclidean GCD";
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
