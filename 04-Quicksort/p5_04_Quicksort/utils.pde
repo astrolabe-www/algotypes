@@ -20,7 +20,7 @@ void drawOutput(PGraphics mpg) {
 
   mpg.beginDraw();
 
-  mpg.rectMode(CENTER);  
+  mpg.rectMode(CENTER);
   mpg.stroke(200, 0, 0, 8);
   mpg.fill(200, 0, 0, 32);
   mpg.strokeWeight(OUT_SCALE * 1);
