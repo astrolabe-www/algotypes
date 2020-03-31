@@ -3,7 +3,7 @@ exports.cards = [
     number: 0x00,
     name: 'PSEUDO-RANDOM NUMBER GENERATOR',
     sticker_id: 'CAACAgEAAxkBAAM4Xl7swchNlJwBmeeZKxDa4G0dRPgAAgIAA38pID7Fh9RJshKhqRgE',
-    message: 'Beginning of a journey. Every outcome is equaly likelly. But there is method to your madness.'
+    message: 'Beginning of a journey. Every outcome is equally likely. But there is method to your madness.'
   },
   {
     number: 0x01,
@@ -16,6 +16,31 @@ exports.cards = [
     name: 'PAGERANK',
     sticker_id: 'CAACAgEAAxkBAANEXl7tkxZUf5d8yPSgr1lW4D08dakAAgQAA38pID6b4ntyRPbCaxgE',
     message: 'Inner knowledge and intuition. A way into the divine subconscious mind. Not all silence bears secrets.'
+  },
+  {
+    number: 0x03,
+    name: 'TURING REACTION-DIFFUSION',
+    sticker_id: 'CAACAgEAAxkBAAIDBl6CK7c11M9lQjBHyVEv_mcKjW_xAAIQAAN_KSA-ByKnGrH0pmIYBA',
+    message: 'You can have both nature AND nurture in beautiful abundance. Just don\t waste your time looking for something that isn\t there. Movement doesn\'t equal progress.'
+  },
+  {
+    number: 0x04,
+    name: 'QUICKSORT',
+    sticker_id: 'CAACAgEAAxkBAAIDCF6CK83Rh-Ef5kim287gbxC2Pv6GAAIRAAN_KSA-ukSG_W9bJ1IYBA',
+    message: 'Material preoccupation with law and order. Don\'t inflate your ego with righteousness by ignoring social and community matters.'
+  },
+  {
+    number: 0x06,
+    name: 'EUCLIDEAN GCD',
+    sticker_id: 'CAACAgEAAxkBAAIDLF6Cr6W17EbQWP0GqPbDy3BBZi6bAAITAAN_KSA-_mNRAgm9LgYYBA',
+    message: 'Choice doesn\'t have to mean abdication. Synthesize. Figure out a way to integrate both sides, or let go of one.'
+  },
+
+  {
+    number: 0x07,
+    name: 'MAZE SEARCH',
+    sticker_id: 'CAACAgEAAxkBAAIDFF6Cc3Ss2Cpj7e6vFyqSE4rseleKAAISAAN_KSA-s22M-T5sfOcYBA',
+    message: 'One way to weather the storm is to step on the accelerator. Don\'t be afraid of making mistakes.'
   },
   {
     number: 0x08,
