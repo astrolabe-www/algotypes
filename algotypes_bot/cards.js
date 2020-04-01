@@ -35,7 +35,6 @@ exports.cards = [
     sticker_id: 'CAACAgEAAxkBAAIDLF6Cr6W17EbQWP0GqPbDy3BBZi6bAAITAAN_KSA-_mNRAgm9LgYYBA',
     message: 'Choice doesn\'t have to mean abdication. Synthesize. Figure out a way to integrate both sides, or let go of one.'
   },
-
   {
     number: 0x07,
     name: 'MAZE SEARCH',
@@ -80,9 +79,15 @@ exports.cards = [
   },
   {
     number: 0x10,
-    name: 'Blockchain Proof-of-Work',
+    name: 'BLOCKCHAIN PROOF-OF-WORK',
     sticker_id: 'CAACAgEAAxkBAAIBdV5sEyzVZFC0DK45GpUPWO6YNBPGAAIPAAN_KSA-Dojtyp9aOgoYBA',
     message: 'Uncontrolled energy. Sudden change. Revolution over evolution. Past, present and future are superimposed all of a sudden. Beware of cognitive dissonance.'
+  },
+  {
+    number: 0x11,
+    name: 'CORDIC',
+    sticker_id: 'CAACAgEAAxkBAAIDTl6EMroDSBxf1O7GzfXomW7_ia6yAAIUAAN_KSA-I0YDVGaPO0oYBA',
+    message: 'Channel your abilities and resources to transcend the limitations of earthly and material concerns. True power comes from the core.'
   },
   {
     number: 0x13,
