@@ -22,7 +22,7 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 11;
-const String mSSID = "11-Trees";
+const String mSSID = "0x0B-Trees";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;

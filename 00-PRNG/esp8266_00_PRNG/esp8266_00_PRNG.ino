@@ -21,7 +21,7 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 12;
-const String mSSID = "00-PRNG";
+const String mSSID = "0x00-PRNG";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;

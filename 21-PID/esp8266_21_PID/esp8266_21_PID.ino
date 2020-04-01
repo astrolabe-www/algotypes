@@ -22,7 +22,7 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 8; // 21 % 13;
-const String mSSID = "21-PID";
+const String mSSID = "0x15-PID";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;

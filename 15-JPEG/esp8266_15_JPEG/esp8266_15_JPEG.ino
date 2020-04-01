@@ -22,7 +22,7 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 2; // 15 % 13;
-const String mSSID = "15-JPEG";
+const String mSSID = "0x0F-JPEG";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;

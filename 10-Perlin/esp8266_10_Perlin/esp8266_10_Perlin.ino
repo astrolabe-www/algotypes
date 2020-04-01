@@ -22,7 +22,7 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 10;
-const String mSSID = "10-Perlin";
+const String mSSID = "0x0A-Perlin";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;

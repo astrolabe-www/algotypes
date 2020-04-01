@@ -22,7 +22,7 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 9;
-const String mSSID = "09-SHA3";
+const String mSSID = "0x09-SHA3";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;

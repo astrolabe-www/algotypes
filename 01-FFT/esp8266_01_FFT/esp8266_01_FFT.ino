@@ -23,7 +23,7 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 1;
-const String mSSID = "01-FFT";
+const String mSSID = "0x01-FFT";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;
