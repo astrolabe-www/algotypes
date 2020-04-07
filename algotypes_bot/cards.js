@@ -72,6 +72,12 @@ exports.cards = [
     message: 'Things are out of your control for now. Breathe. Take the ride. It\'s an opportunity to see things from a different perspective.'
   },
   {
+    number: 0x0E,
+    name: 'DIFFIE-HELLMAN KEY EXCHANGE',
+    sticker_id: 'CAACAgEAAxkBAAIDr16M93GdyOnjqzK71qpIS07L0lfyAAIYAAN_KSA-0O4vRbDYWxAYBA',
+    message: 'Be prepared: make sure you have all the pieces before starting to solve the puzzle. It might mean waiting for the moment with patience and moderation.'
+  },
+  {
     number: 0x0F,
     name: 'JPEG COMPRESSION',
     sticker_id: 'CAACAgEAAxkBAANQXl7uFmn0kry-QdTtFWrz0zs7nL0AAgoAA38pID50k5uolvhZURgE',
@@ -94,6 +100,12 @@ exports.cards = [
     name: 'PRIMALITY TEST',
     sticker_id: 'CAACAgEAAxkBAANUXl7uPsH4zmackTO_k_dq9VziMVUAAgwAA38pID6GM9eE56d2UxgE',
     message: 'Inner essence. Untraditional power centers. Reflected similarities are seen under a different light. Find the natural centers of resonance.'
+  },
+  {
+    number: 0x14,
+    name: 'HILBERT CURVES',
+    sticker_id: 'CAACAgEAAxkBAAIDf16GVzYISQtohVSr-3ft8YkKXJLWAAIWAAN_KSA-nxC70uvnOOgYBA',
+    message: 'Learn to listen for new callings and new journeys. With the right changes, you might discover you have unexpected abilities in other dimensions.'
   },
   {
     number: 0x15,
