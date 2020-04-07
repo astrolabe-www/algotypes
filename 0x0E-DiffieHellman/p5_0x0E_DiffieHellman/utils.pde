@@ -17,12 +17,14 @@ void drawInput(PGraphics mpg) {
 
 void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
-  mpg.fill(200, 0, 0, (OUT_SCALE > 1) ? 32 : 64);
+  mpg.fill(200, 0, 0, 32);
   mpg.noStroke();
 
-  float minI = -mpg.width / OUT_SCALE / 64;
-  float maxI = mpg.width / OUT_SCALE / 32;
-  float ellipseRadius = (OUT_SCALE > 1) ? (2 * OUT_SCALE) : (4 * OUT_SCALE);
+  float minX = (min(mpg.height, mpg.width) - max(mpg.height, mpg.width)) / 2.0;
+  float maxX = min(mpg.height, mpg.width) - minX;
+  float minY0 = -mpg.height / OUT_SCALE / 80;
+  float maxY0 = mpg.height / OUT_SCALE / 40;
+  float ellipseRadius = 2.0 * OUT_SCALE;
 
   randomSeed(1010);
   for (int n = 0; n < INPUT.length / 64; n++) {
@@ -44,29 +46,31 @@ void drawOutput(PGraphics mpg) {
 
     float a = float(alice.publicKey);
     float b = float(bbobb.publicKey);
-    float minJ = 10e4;
-    float maxJ = -10e4;
+    float minX0 = 10e4;
+    float maxX0 = -10e4;
 
-    float[] js = new float[mpg.width];
+    float[] x0s = new float[mpg.height];
 
-    for (int x = 0; x < mpg.width; x++) {
-      float i = map(x, 0, mpg.width, minI, maxI);
-      float j = float(int(sqrt(i*i*i + a*i + b)) % max(1, alice.fullKey));
-      if (j < minJ) minJ = j;
-      if (j > maxJ) maxJ = j;
-      if (-j < minJ) minJ = -j;
-      if (-j > maxJ) maxJ = -j;
-      js[x] = j;
+    for (int y = 0; y < mpg.height; y++) {
+      float y0 = map(y, 0, mpg.height, minY0, maxY0);
+      float x0 = sqrt(y0 * y0 * y0 + a * y0 + b) % max(1, alice.fullKey);
+      if (x0 < minX0) minX0 = x0;
+      if (x0 > maxX0) maxX0 = x0;
+      if (-x0 < minX0) minX0 = -x0;
+      if (-x0 > maxX0) maxX0 = -x0;
+      x0s[y] = x0;
     }
-    minJ = (abs(minJ) > 1e-5) ? minJ : -1e-5;
-    maxJ = (abs(maxJ) > 1e-5) ? maxJ : 1e-5;
+    minX0 = (abs(minX0) > 1e-5) ? minX0 : -1e-5;
+    maxX0 = (abs(maxX0) > 1e-5) ? maxX0 : 1e-5;
 
-    for (int x = 0; x < mpg.width; x++) {
-      float j = js[x];
-      float y = map(j, minJ, maxJ, 0, mpg.height);
-      float _y = map(-j, minJ, maxJ, 0, mpg.height);
-      mpg.ellipse(x, y, ellipseRadius, ellipseRadius);
-      mpg.ellipse(x, _y, ellipseRadius, ellipseRadius);
+    for (int y = 0; y < mpg.height; y++) {
+      float x0 = x0s[y];
+      if (x0 == x0) {
+        float x = map(x0, minX0, maxX0, minX, maxX);
+        float _x = map(-x0, minX0, maxX0, minX, maxX);
+        mpg.ellipse(x, y, ellipseRadius, ellipseRadius);
+        mpg.ellipse(_x, y, ellipseRadius, ellipseRadius);
+      }
     }
   }
   mpg.endDraw();
