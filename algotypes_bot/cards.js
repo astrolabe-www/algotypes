@@ -43,9 +43,9 @@ exports.cards = [
   },
   {
     number: 0x08,
-    name: 'TRAVELLING SALESPERSON',
-    sticker_id: 'CAACAgEAAxkBAANGXl7tz3gO1WpoFFqDLaJtFkINfloAAgUAA38pID5h0bl5BrBJxxgE',
-    message: 'Self-control, temperance and discipline. Nurture over nature. Eventually all roads go the same way. You might not be able to bruteforce your way out.'
+    name: 'PID CONTROL',
+    sticker_id: 'CAACAgEAAxkBAAID3l6PUTNHGioLs_MI8npsiznimymZAAIZAAN_KSA-BUxH-sc3RLMYBA',
+    message: 'Integration. Looking back and walking forward. Looking for resolution and completeness. You\'ll relax when you realize you\'re in the right place.'
   },
   {
     number: 0x09,
@@ -109,8 +109,8 @@ exports.cards = [
   },
   {
     number: 0x15,
-    name: 'PID CONTROL',
-    sticker_id: 'CAACAgEAAxkBAANWXl7uTxNpTwABmHmsCb4q-vVBX9jCAAINAAN_KSA-T0cBtf3VLpMYBA',
-    message: 'Integration. Looking back and walking forward. Looking for resolution and completeness. You\'ll relax when you realize you\'re in the right place.'
+    name: 'TRAVELLING SALESPERSON',
+    sticker_id: 'CAACAgEAAxkBAAID4F6PUUfBVzwduw-pgyOwSBpOvE38AAIaAAN_KSA-sm3jdpBuKxAYBA',
+    message: 'Self-control, temperance and discipline. Nurture over nature. Eventually all roads go the same way. You might not be able to bruteforce your way out.'
   }
 ];
