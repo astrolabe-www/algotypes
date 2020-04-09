@@ -1,7 +1,7 @@
 // Based on:
-// https://en.wikipedia.org/wiki/PID_controller
-// https://en.wikipedia.org/wiki/PID_controller#Discrete_implementation
-// https://www.csimn.com/CSI_pages/PIDforDummies.html
+// https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm
+// https://en.wikipedia.org/wiki/Travelling_salesman_problem#Heuristic_and_approximation_algorithms
+// https://en.wikipedia.org/wiki/Simulated_annealing
 
 enum Output {
   SCREEN,
@@ -16,29 +16,29 @@ String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
 int[] INPUT;
 
 void initInput() {
-  noiseSeed(1010);
   byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
   INPUT = new int[in.length];
   for (int i = 0; i < INPUT.length; i++) {
-    INPUT[i] = int(in[i] * noise(i/100.0));
+    INPUT[i] = (in[i] & 0xff) + 1;
   }
 }
 
 static class Card {
   static final public String number = "0x15";
-  static final public String name = "PID Control";
+  static final public String name = "Travelling Salesperson";
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
-PID mPID;
+Greedy mGreedy;
+Annealing mAnnealing;
 
 void setup() {
   size(804, 804);
   noLoop();
   mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   initInput();
-  mPID = new PID(INPUT);
-  println("Error: " + mPID.getError());
+  mGreedy = new Greedy(INPUT);
+  mAnnealing = new Annealing(INPUT);
 }
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
@@ -56,7 +56,7 @@ void draw() {
   mpg.endDraw();
 
   drawInput(mpg);
-  drawOutput(mpg);
+  drawOutput(mpg, OUT_SCALE * BORDER_WIDTH);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
 
   if (OUTPUT != Output.SCREEN) {
