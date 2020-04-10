@@ -16,14 +16,14 @@ void drawInput(PGraphics mpg) {
 }
 
 void drawOutput(PGraphics mpg) {
-  mFSM.calculate(INPUT);
-
   mpg.beginDraw();
 
-  mpg.rectMode(CORNER);
-  mpg.fill(200, 0, 0, 64);
-  mpg.stroke(200, 0, 0, 64);
+  mpg.noFill();
   mpg.strokeWeight(OUT_SCALE * 1);
+  float alphaMultipplier = 2.0;
+  int middleSections = 3;
+
+  mFSM.calculate(INPUT);
 
   for (int s = 1; s < mFSM.F.length; s++) {
     for (int f = 0; f < mFSM.NUMBER_STATES; f++) {
@@ -33,17 +33,16 @@ void drawOutput(PGraphics mpg) {
         float x1 = map(t, 0, mFSM.NUMBER_STATES - 1, OUT_SCALE * BORDER_WIDTH, mpg.width - OUT_SCALE * BORDER_WIDTH);
         float y1 = map(s, 0, mFSM.out.length - 1, OUT_SCALE * BORDER_WIDTH, mpg.height - OUT_SCALE * BORDER_WIDTH);
 
-        if (!((s >= mFSM.F.length / 2 - 1) && (s <= mFSM.F.length / 2 + 1))) {
-        //if (s % 2 == 0) {
-          float a = map(mFSM.transition[s][f][t], 0, 1, 0, 96 * 2);
+        if ((s >= mFSM.F.length / 2 - middleSections / 2) && (s <= mFSM.F.length / 2 + middleSections / 2)) {
+          float a = map(mFSM.transition[s][f][t], 0, 1, 0, alphaMultipplier * 80);
           mpg.stroke(200, 0, 0, a);
           mpg.line(x0, y0, x1, y1);
 
-          a = map(mFSM.transitionProbability[f][t], 0, 1, 0, 255 * 2);
+          a = map(mFSM.transitionProbability[f][t], 0, 1, 0, alphaMultipplier * 255);
           mpg.stroke(200, 0, 0, a);
           mpg.line(x0, y0, x1, y1);
         } else {
-          float a = 32 * 2;
+          float a = alphaMultipplier * 32;
           mpg.stroke(200, 0, 0, a);
           mpg.line(x0, y0, x1, y1);
         }

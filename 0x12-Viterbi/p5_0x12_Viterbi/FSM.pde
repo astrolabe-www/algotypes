@@ -1,5 +1,4 @@
 public class FSM {
-  private static final boolean DEBUG = false;
   public static final int NUMBER_STATES = 16;
   public static final int MAX_STAGES = 8;
   public float[][] transitionProbability;
@@ -30,15 +29,6 @@ public class FSM {
     for (int i = 0; i < transitionProbability.length; i++) {
       for (int j = 0; j < transitionProbability[i].length; j++) {
         transitionProbability[i][j] /= (fromSum[i] > 0) ? fromSum[i] : 1e9;
-      }
-    }
-
-    if (DEBUG) {
-      for (int i = 0; i < transitionProbability.length; i++) {
-        for (int j = 0; j < transitionProbability[i].length; j++) {
-          System.out.printf("%.8f ", transitionProbability[i][j]);
-        }
-        println();
       }
     }
   }
@@ -111,24 +101,6 @@ public class FSM {
     for (int i = stages - 2; i >= 0; i--) {
       out[i] = F[i + 1][out[i + 1]];
     }
-
-    if (DEBUG) {
-      for (int i = 0; i < stages; i++) {
-        for (int j = 0; j < P[i].length; j++) {
-          System.out.printf("%.8f ", P[i][j]);
-        }
-        println();
-      }
-
-      println();
-      for (int i = 0; i < stages; i++) {
-        for (int j = 0; j < P[i].length; j++) {
-          System.out.printf("%d ", F[i][j]);
-        }
-        println();
-      }
-    }
-
     return out;
   }
 }
