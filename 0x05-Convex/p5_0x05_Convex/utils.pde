@@ -19,8 +19,8 @@ void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.noFill();
-  mpg.stroke(200, 0, 0, 128);
-  mpg.strokeWeight(OUT_SCALE * 1);
+  mpg.stroke(200, 0, 0, 200);
+  mpg.strokeWeight(OUT_SCALE * 1.333);
 
   int maxD = max(mpg.height, mpg.width);
   int RBWIDTH = OUT_SCALE * BORDER_WIDTH;
@@ -32,8 +32,9 @@ void drawOutput(PGraphics mpg) {
     inPoints[p] = new Point(x, y);
   }
 
-  final int NUM_COL = 8;
+  randomSeed(101010);
   final int NUM_ROW = 8;
+  final int NUM_COL = NUM_ROW * mpg.width / mpg.height;
   final float gridW = mpg.width / NUM_COL;
   final float gridH = mpg.height / NUM_ROW;
 
@@ -42,18 +43,16 @@ void drawOutput(PGraphics mpg) {
 
   for (int i = 0; i < NUM_ROW; i++) {
     for (int j = 0; j < NUM_COL; j++) {
-      float xMult = 1.0 / (j + 1);
-      float yMult = 1.0 / (i + 1);
-      float xMin = (0.333 * xMult * mpg.width) * (0.333 * xMult * mpg.width);
-      float xMax = (0.666 * xMult * mpg.width) * (0.666 * xMult * mpg.width);
-      float yMin = (0.333 * yMult * mpg.height) * (0.333 * yMult * mpg.height);
-      float yMax = (0.666 * yMult * mpg.height) * (0.666 * yMult * mpg.height);
+      float xMin = (j + 0) * gridW + random(-gridW / 10.0, 0);
+      float xMax = (j + 1) * gridW + random(0, gridW/ 10.0);
+      float yMin = (i + 0) * gridH + random(-gridH / 10.0, 0);
+      float yMax = (i + 1) * gridH + random(0, gridH / 10.0);
 
       int pCount = 0;
 
       for (int p = 0; p < inPoints.length; p++) {
-        float xDist = (mpg.width / 2.0 - inPoints[p].x) * (mpg.width / 2.0 - inPoints[p].x);
-        float yDist = (mpg.height / 2.0 - inPoints[p].y) * (mpg.height / 2.0 - inPoints[p].y);
+        float xDist = inPoints[p].x;
+        float yDist = inPoints[p].y;
         if (xDist >= xMin && xDist <= xMax && yDist >= yMin && yDist <= yMax) {
           inPolygon[pCount].x = inPoints[p].x;
           inPolygon[pCount].y = inPoints[p].y;
