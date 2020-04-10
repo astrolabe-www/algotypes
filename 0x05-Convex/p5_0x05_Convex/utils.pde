@@ -18,39 +18,57 @@ void drawInput(PGraphics mpg) {
 void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
 
-  mpg.noStroke();
-  mpg.fill(200, 0, 0, 16);
+  mpg.noFill();
+  mpg.stroke(200, 0, 0, 128);
   mpg.strokeWeight(OUT_SCALE * 1);
 
   int maxD = max(mpg.height, mpg.width);
   int RBWIDTH = OUT_SCALE * BORDER_WIDTH;
   Point[] inPoints = new Point[INPUT.length / 2];
 
-  for (int p = 0; p < INPUT.length / 2; p++) {
+  for (int p = 0; p < inPoints.length; p++) {
     float x = ((map(INPUT[2 * p + 0], 0, 255, 0, 2.0 * maxD)) % (mpg.width - 2.0 * RBWIDTH)) + 1.1 * RBWIDTH;
     float y = ((map(INPUT[2 * p + 1], 0, 255, 0, 2.0 * maxD)) % (mpg.height - 2.0 * RBWIDTH)) + 1.1 * RBWIDTH;
     inPoints[p] = new Point(x, y);
-    mpg.ellipse(x, y, 4, 4);
   }
 
-  final int NUMBER_OF_POLYGONS = 16;
-  final int pointsPerPolygon = inPoints.length / NUMBER_OF_POLYGONS;
-  Point[] inPolygon = new Point[pointsPerPolygon];
+  final int NUM_COL = 8;
+  final int NUM_ROW = 8;
+  final float gridW = mpg.width / NUM_COL;
+  final float gridH = mpg.height / NUM_ROW;
 
-  for (int polygon = 0; polygon < NUMBER_OF_POLYGONS; polygon++) {
-    for (int point = 0; point < pointsPerPolygon; point++) {
-      inPolygon[point] = inPoints[polygon * pointsPerPolygon + point];
+  Point[] inPolygon = new Point[INPUT.length];
+  for (int p = 0; p < inPolygon.length; p++) inPolygon[p] = new Point(0, 0);
+
+  for (int i = 0; i < NUM_ROW; i++) {
+    for (int j = 0; j < NUM_COL; j++) {
+      float xMult = 1.0 / (j + 1);
+      float yMult = 1.0 / (i + 1);
+      float xMin = (0.333 * xMult * mpg.width) * (0.333 * xMult * mpg.width);
+      float xMax = (0.666 * xMult * mpg.width) * (0.666 * xMult * mpg.width);
+      float yMin = (0.333 * yMult * mpg.height) * (0.333 * yMult * mpg.height);
+      float yMax = (0.666 * yMult * mpg.height) * (0.666 * yMult * mpg.height);
+
+      int pCount = 0;
+
+      for (int p = 0; p < inPoints.length; p++) {
+        float xDist = (mpg.width / 2.0 - inPoints[p].x) * (mpg.width / 2.0 - inPoints[p].x);
+        float yDist = (mpg.height / 2.0 - inPoints[p].y) * (mpg.height / 2.0 - inPoints[p].y);
+        if (xDist >= xMin && xDist <= xMax && yDist >= yMin && yDist <= yMax) {
+          inPolygon[pCount].x = inPoints[p].x;
+          inPolygon[pCount].y = inPoints[p].y;
+          pCount++;
+        }
+      }
+
+      Point[] prunedInPolygon = new Point[pCount];
+      for (int p = 0; p < prunedInPolygon.length; p++) prunedInPolygon[p] = inPolygon[p];
+      Point[] outPolygon = Convex.Hull(prunedInPolygon);
+
+      mpg.beginShape();
+      for (int p = 0; p < outPolygon.length; p++) mpg.vertex(outPolygon[p].x, outPolygon[p].y);
+      mpg.endShape(CLOSE);
     }
-
-    Point[] outPolygon = Convex.Hull(inPolygon);
-
-    mpg.beginShape();
-    for (int point = 0; point < pointsPerPolygon; point++) {
-      float x = outPolygon[point].x;
-      float y = outPolygon[point].y;
-      if (x != 0 || y != 0) mpg.vertex(x, y);
-    }
-    mpg.endShape(CLOSE);
   }
 
   mpg.endDraw();

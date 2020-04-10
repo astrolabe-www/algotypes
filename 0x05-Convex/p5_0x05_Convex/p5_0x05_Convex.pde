@@ -1,6 +1,6 @@
 // based on:
-//
-//
+// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
+// http://rosettacode.org/wiki/Convex_hull
 
 enum Output {
   SCREEN, 
