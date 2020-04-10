@@ -1,6 +1,6 @@
 // based on:
 // https://www.youtube.com/watch?v=dKIf6mQUfnY
-//
+// http://www.scholarpedia.org/article/Viterbi_algorithm
 
 enum Output {
   SCREEN, 
