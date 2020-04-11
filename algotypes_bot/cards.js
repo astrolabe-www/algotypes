@@ -30,6 +30,12 @@ exports.cards = [
     message: 'Material preoccupation with law and order. Don\'t inflate your ego with righteousness by ignoring social and community matters.'
   },
   {
+    number: 0x05,
+    name: 'CONVEX HULL',
+    sticker_id: 'CAACAgEAAxkBAAIEEV6RA9jgLWjAEp0OimIRD0hPt_P9AAIdAAN_KSA-dtG2GSOn3wUYBA',
+    message: 'Judiciously gather wisdom from tradition and customs. Be mindful of walls and enclosures. Design your own rituals to strengthen the non-material aspects of your life.'
+  },
+  {
     number: 0x06,
     name: 'EUCLIDEAN GCD',
     sticker_id: 'CAACAgEAAxkBAAIDLF6Cr6W17EbQWP0GqPbDy3BBZi6bAAITAAN_KSA-_mNRAgm9LgYYBA',
@@ -96,6 +102,12 @@ exports.cards = [
     message: 'Channel your abilities and resources to transcend the limitations of earthly and material concerns. True power comes from the core.'
   },
   {
+    number: 0x12,
+    name: 'VITERBI ENCODING',
+    sticker_id: 'CAACAgEAAxkBAAID-V6QFbhD6pDIz5mG3XA-xdrdCnM9AAIbAAN_KSA-UMmjGawqoBwYBA',
+    message: 'Daily routine is just a set up for your dreams. Trust your subconscious and resensitize yourself to the meaning of hidden states.'
+  },
+  {
     number: 0x13,
     name: 'PRIMALITY TEST',
     sticker_id: 'CAACAgEAAxkBAANUXl7uPsH4zmackTO_k_dq9VziMVUAAgwAA38pID6GM9eE56d2UxgE',
@@ -105,7 +117,7 @@ exports.cards = [
     number: 0x14,
     name: 'HILBERT CURVES',
     sticker_id: 'CAACAgEAAxkBAAIDf16GVzYISQtohVSr-3ft8YkKXJLWAAIWAAN_KSA-nxC70uvnOOgYBA',
-    message: 'Learn to listen for new callings and new journeys. With the right changes, you might discover you have unexpected abilities in other dimensions.'
+    message: 'Turn, turn, turn. Change direction. Learn to listen for new callings and new journeys. With the right changes, you might discover you have unexpected abilities in other dimensions.'
   },
   {
     number: 0x15,
