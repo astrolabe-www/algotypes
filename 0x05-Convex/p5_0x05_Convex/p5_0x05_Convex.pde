@@ -3,9 +3,9 @@
 // http://rosettacode.org/wiki/Convex_hull
 
 enum Output {
-  SCREEN, 
-    PRINT, 
-    TELEGRAM
+  SCREEN,
+  PRINT,
+  TELEGRAM
 }
 
 Output OUTPUT = Output.SCREEN;

@@ -3,9 +3,9 @@
 // http://www.scholarpedia.org/article/Viterbi_algorithm
 
 enum Output {
-  SCREEN, 
-    PRINT, 
-    TELEGRAM
+  SCREEN,
+  PRINT,
+  TELEGRAM
 }
 
 Output OUTPUT = Output.SCREEN;
