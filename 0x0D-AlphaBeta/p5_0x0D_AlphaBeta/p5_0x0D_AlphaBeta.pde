@@ -3,9 +3,9 @@
 // https://en.wikipedia.org/wiki/Alpha–beta_pruning
 
 enum Output {
-  SCREEN, 
-    PRINT, 
-    TELEGRAM
+  SCREEN,
+  PRINT,
+  TELEGRAM
 }
 
 Output OUTPUT = Output.SCREEN;
@@ -28,12 +28,14 @@ static class Card {
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
+Board mBoard;
+
 void setup() {
   size(804, 804);
   noLoop();
-
   mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
   initInput();
+  mBoard = new Board();
 }
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;

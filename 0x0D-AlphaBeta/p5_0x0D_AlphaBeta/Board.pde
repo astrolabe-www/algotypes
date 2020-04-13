@@ -1,11 +1,24 @@
+public static final byte PLAYER_ALPHABETA = (byte)0x1;
+public static final byte PLAYER_INPUT = (byte)0x2;
+
 public class Board {
   private byte[][] square;
+
+  public int lastMoveFromFile;
+  public int lastMoveFromRank;
+  public int lastMoveToFile;
+  public int lastMoveToRank;
 
   public Board() {
     square = new byte[8][8];
 
+    lastMoveFromFile = 0;
+    lastMoveFromRank = 0;
+    lastMoveToFile = 0;
+    lastMoveToRank = 0;
+
     for (int i = 0; i < square.length; i++) {
-      byte piece = (byte)((i < 2) ? 0x1 : (i > square.length - 3 ? 0x2 : 0x0));
+      byte piece = (i < 2) ? PLAYER_ALPHABETA : (i > square.length - 3 ? PLAYER_INPUT : 0x0);
       for (int j = 0; j < square[i].length; j++) {
         square[i][j] = piece;
       }
@@ -26,6 +39,26 @@ public class Board {
     return (i >= 0) && (i < square.length) &&
       (j >= 0) && (j < square[0].length) &&
       (square[i][j] != player);
+  }
+
+  public void makeMove(byte player, int fromFile, int fromRank, int toFile, int toRank) {
+    square[fromRank][fromFile] = 0x0;
+    square[toRank][toFile] = player;
+
+    lastMoveFromFile = fromFile;
+    lastMoveFromRank = fromRank;
+    lastMoveToFile = toFile;
+    lastMoveToRank = toRank;
+  }
+
+  public void drawLastMove(PGraphics mpg, int bwidth) {
+    float fromX = map(lastMoveFromFile, 0, 7, bwidth, mpg.width - bwidth);
+    float fromY = map(lastMoveFromRank, 0, 7, bwidth, mpg.height - bwidth);
+
+    float toX = map(lastMoveToFile, 0, 7, bwidth, mpg.width - bwidth);
+    float toY = map(lastMoveToRank, 0, 7, bwidth, mpg.height - bwidth);
+
+    mpg.line(fromX, fromY, toX, toY);
   }
 
   public int score(byte player) {
@@ -54,8 +87,7 @@ public class Board {
               if ((abs(x) != abs(y)) && (x != 0) && (y !=0)) {
                 if (isMove(player, i + y, j + x)) {
                   temp[moveCount] = new Board(this);
-                  temp[moveCount].square[i][j] = 0x0;
-                  temp[moveCount].square[i + y][j + x] = player;
+                  temp[moveCount].makeMove(player, j, i, j + x, i + y);
                   moveCount += 1;
                 }
               }
@@ -74,9 +106,8 @@ public class Board {
 }
 
 public static class AlphaBeta {
-
   public static int minimax(Board b, int depth, int alpha, int beta, boolean maximizingPlayer, byte scorePlayer) {
-    Board[] moves = b.moves((byte)(maximizingPlayer ? 0x1 : 0x2));
+    Board[] moves = b.moves(maximizingPlayer ? PLAYER_ALPHABETA : PLAYER_INPUT);
 
     if (depth == 0 || moves.length == 0) {
       return b.score(scorePlayer);
