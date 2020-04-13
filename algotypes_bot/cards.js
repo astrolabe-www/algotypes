@@ -78,6 +78,12 @@ exports.cards = [
     message: 'Things are out of your control for now. Breathe. Take the ride. It\'s an opportunity to see things from a different perspective.'
   },
   {
+    number: 0x0D,
+    name: 'ALPHA-BETA PRUNING',
+    sticker_id: 'CAACAgEAAxkBAAIEUF6UnfG6G_kHQ95oDQV4JhzATBpUAAIfAAN_KSA-g7AkMY1eTD4YBA',
+    message: 'Consider all your possibilities before clearing up space for new beginnings. Be aware of rules, patterns and time restrictions related to your ventures.'
+  },
+  {
     number: 0x0E,
     name: 'DIFFIE-HELLMAN KEY EXCHANGE',
     sticker_id: 'CAACAgEAAxkBAAIDr16M93GdyOnjqzK71qpIS07L0lfyAAIYAAN_KSA-0O4vRbDYWxAYBA',
