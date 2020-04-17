@@ -32,7 +32,7 @@ const uint32_t BEACON_PACKET_DATA_SIZE = min(100u, BEACON_PACKET_SIZE - BEACON_P
 uint32_t TX_PERIOD_MS = 100;
 uint32_t lastTxTime = 0;
 
-uint32_t COMPUTE_PERIOD_MS = 600;
+uint32_t COMPUTE_PERIOD_MS = 2000;
 uint32_t lastComputeTime = 0;
 
 const int DATA_IN_SIZE = 4096;
