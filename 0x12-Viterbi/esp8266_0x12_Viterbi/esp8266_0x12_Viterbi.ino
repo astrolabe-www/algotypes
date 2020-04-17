@@ -161,7 +161,6 @@ void loop() {
         int v = ((out[2 * i + 0] & 0x7) << 4) | ((out[2 * i + 1] & 0x7) << 0);
         DATA_OUT[oI++] = (uint8_t)(v & 0xFF);
       }
-
     }
 
     DATA_IN_CNT = 0;
