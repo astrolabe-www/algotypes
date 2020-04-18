@@ -4,6 +4,8 @@
 // https://carvesystems.com/news/writing-a-simple-esp8266-based-sniffer/
 // https://www.danielcasner.org/guidelines-for-writing-code-for-the-esp8266/
 
+// make sure there's a link Documents/Arduino/libraries/algotypes_utils -> esp8266/algotypes_utils
+
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include "PRNG.cpp"
