@@ -21,10 +21,12 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 1; // 14 % 13
+const uint8_t mMAC = 0x4E;
 const String mSSID = "0x0E-Diffie-Hellman";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;
+const uint8_t BEACON_PACKET_INDEX_SOURCE = 15;
 const uint8_t BEACON_PACKET_INDEX_SSID = 38;
 const uint8_t BEACON_PACKET_INDEX_DATA = BEACON_PACKET_INDEX_CHANNEL + 1;
 const uint32_t BEACON_PACKET_DATA_SIZE = min(100u, BEACON_PACKET_SIZE - BEACON_PACKET_INDEX_DATA);
@@ -140,6 +142,8 @@ void setup() {
   // set SSID and channel in beacon packet
   memcpy(&beaconPacket[BEACON_PACKET_INDEX_SSID], mSSID.c_str(), mSSID.length());
   beaconPacket[BEACON_PACKET_INDEX_CHANNEL] = mCHANNEL;
+  beaconPacket[BEACON_PACKET_INDEX_SOURCE + 0] = mMAC;
+  beaconPacket[BEACON_PACKET_INDEX_SOURCE + 6] = mMAC;
 
   pinMode(LED_BUILTIN, OUTPUT);
 }
