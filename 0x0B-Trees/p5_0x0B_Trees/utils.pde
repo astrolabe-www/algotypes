@@ -1,30 +1,19 @@
-void drawInput(PGraphics mpg) {
-  mpg.beginDraw();
+void drawInput(PGraphics mpg, String fileName) {
+  byte in[] = loadBytes(fileName);
 
+  mpg.beginDraw();
   mpg.rectMode(CENTER);
   mpg.stroke(0, 32);
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
-  for (int i = 0; i < INPUT.length; i += 4) {
-    float x = map(INPUT[i+0], 0, 256, 0, mpg.width);
-    float y = map(INPUT[i+1], 0, 256, 0, mpg.height);
-    float w = map(INPUT[i+2], 0, 256, mpg.width/20, mpg.width/4);
-    float h = map(INPUT[i+3], 0, 256, mpg.height/20, mpg.height/4);
+  for (int i = 0; i < in.length; i += 4) {
+    float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);
+    float y = map(in[i+1] & 0xff, 0, 256, 0, mpg.height);
+    float w = map(in[i+2] & 0xff, 0, 256, mpg.width/20, mpg.width/4);
+    float h = map(in[i+3] & 0xff, 0, 256, mpg.height/20, mpg.height/4);
     mpg.rect(x, y, w, h);
   }
   mpg.endDraw();
-}
-
-void drawOutput(PGraphics mpg) {
-  randomSeed(1212);
-  for (int i = 0; i < 100; i++) {
-    noiseSeed((long)(random(123456789)));
-    mpg.stroke(200, 0, 0, 32);
-    mpg.strokeWeight(OUT_SCALE);
-    mpg.fill(200, 0, 0, 16);
-    mSplayTree.draw(mpg);
-    mTree.draw(mpg);
-  }
 }
 
 void drawBorders(PGraphics mpg, int bwidth) {

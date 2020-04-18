@@ -1,13 +1,11 @@
-void drawInput(PGraphics mpg) {
-  mpg.beginDraw();
+void drawInput(PGraphics mpg, String fileName) {
+  byte in[] = loadBytes(fileName);
 
+  mpg.beginDraw();
   mpg.rectMode(CENTER);
   mpg.stroke(0, 32);
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
-
-  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
-
   for (int i = 0; i < in.length; i += 4) {
     float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);
     float y = map(in[i+1] & 0xff, 0, 256, 0, mpg.height);
@@ -16,11 +14,6 @@ void drawInput(PGraphics mpg) {
     mpg.rect(x, y, w, h);
   }
   mpg.endDraw();
-}
-
-void drawOutput(PGraphics mpg, int bwidth) {
-  mGreedy.drawCities(mpg, bwidth);
-  mAnnealing.drawCities(mpg, bwidth);
 }
 
 void drawBorders(PGraphics mpg, int bwidth) {

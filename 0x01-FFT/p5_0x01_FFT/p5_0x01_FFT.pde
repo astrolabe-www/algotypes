@@ -12,10 +12,11 @@ Output OUTPUT = Output.SCREEN;
 PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
 
 String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
+String INPUT_FILEPATH;
 int[] INPUT;
 
 void initInput() {
-  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME));
+  byte in[] = loadBytes(INPUT_FILEPATH);
   INPUT = new int[in.length];
   for (int i = 0; i < INPUT.length; i++) {
     INPUT[i] = 2 * (in[i] & 0xff) - 256;
@@ -35,6 +36,7 @@ void setup() {
   size(804, 804);
   noLoop();
   mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
+  INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();
   OUTPUT_DFT = Fourier.DFT(INPUT);
   OUTPUT_FFT = Fourier.FFT(INPUT);
@@ -55,7 +57,7 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInput(mpg);
+  drawInput(mpg, INPUT_FILEPATH);
   drawInputWave(mpg);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);

@@ -1,60 +1,18 @@
-void drawInput(PGraphics mpg) {
-  mpg.beginDraw();
+void drawInput(PGraphics mpg, String fileName) {
+  byte in[] = loadBytes(fileName);
 
+  mpg.beginDraw();
   mpg.rectMode(CENTER);
   mpg.stroke(0, 32);
   mpg.fill(0, 0, 200, 16);
   mpg.fill(0, 16);
-  for (int i = 0; i < INPUT.length; i += 4) {
-    float x = map(INPUT[i+0], 0, 256, 0, mpg.width);
-    float y = map(INPUT[i+1], 0, 256, 0, mpg.height);
-    float w = map(INPUT[i+2], 0, 256, mpg.width/20, mpg.width/4);
-    float h = map(INPUT[i+3], 0, 256, mpg.height/20, mpg.height/4);
+  for (int i = 0; i < in.length; i += 4) {
+    float x = map(in[i+0] & 0xff, 0, 256, 0, mpg.width);
+    float y = map(in[i+1] & 0xff, 0, 256, 0, mpg.height);
+    float w = map(in[i+2] & 0xff, 0, 256, mpg.width/20, mpg.width/4);
+    float h = map(in[i+3] & 0xff, 0, 256, mpg.height/20, mpg.height/4);
     mpg.rect(x, y, w, h);
   }
-  mpg.endDraw();
-}
-
-void drawOutput(PGraphics mpg) {
-  float R = mpg.width / 2.0;
-
-  mpg.beginDraw();
-  mpg.fill(200, 0, 0, 40);
-  mpg.stroke(200, 0, 0, 80);
-  mpg.strokeWeight(OUT_SCALE);
-
-  mpg.push();
-  mpg.translate(mpg.width / 2.0, mpg.height / 2.0);
-
-  mpg.beginShape();
-  for (int i = 0; i < INPUT.length; i++) {
-    float B = TWO_PI * i / INPUT.length;
-    float[] c = CORDIC.cossin(B);
-    float[] p = {cos(B), sin(B)};
-    mpg.vertex(R * (p[0] - c[0]), R * (p[0] - c[1]));
-  }
-  mpg.endShape(CLOSE);
-
-  mpg.beginShape();
-  for (int i = 0; i < INPUT.length; i++) {
-    float B = TWO_PI * i / INPUT.length;
-    float[] c = CORDIC.cossin(B);
-    float[] p = {cos(B), sin(B)};
-    mpg.vertex(R * (p[0] - c[0]), R * (p[1] - c[0]));
-  }
-  mpg.endShape(CLOSE);
-
-  mpg.beginShape();
-  for (int i = 0; i < INPUT.length; i++) {
-    float B = TWO_PI * i / INPUT.length;
-    float rs = INPUT[i] / 255.0; 
-    float[] c = CORDIC.cossin(B);
-    float[] p = {cos(B), sin(B)};
-    mpg.vertex(rs * R * (p[0] - c[0]), rs * R * (p[1] - c[1]));
-  }
-  mpg.endShape(CLOSE);
-
-  mpg.pop();
   mpg.endDraw();
 }
 

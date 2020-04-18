@@ -22,6 +22,7 @@ String[] INPUT_FILENAME = {
   "frames_20200207-0010.raw",
   "frames_20200207-0012.raw"
 };
+String INPUT_FILEPATH;
 int[] INPUT;
 int BYTES_PER_PRIME = 2;
 
@@ -58,6 +59,7 @@ void setup() {
   size(804, 804);
   noLoop();
   mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
+  INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME[2]);
   initInput();
   mPrimes = Primal.primes(INPUT);
 }
@@ -76,7 +78,7 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInput(mpg);
+  drawInput(mpg, INPUT_FILEPATH);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
 
