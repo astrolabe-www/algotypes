@@ -91,6 +91,7 @@ void draw() {
   if (OUTPUT != Output.SCREEN) {
     mpgF.save(Card.filename + ".png");
     mpgF.save(Card.filename + ".jpg");
+    exit();
   }
   mpgF.endDraw();
 

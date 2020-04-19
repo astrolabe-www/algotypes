@@ -68,6 +68,7 @@ void draw() {
   if (OUTPUT != Output.SCREEN) {
     mpg.save(Card.filename + ".png");
     mpg.save(Card.filename + ".jpg");
+    exit();
   }
 
   pushMatrix();
