@@ -13,7 +13,7 @@ void drawOutput(PGraphics mpg) {
 
   for (int i = out.length - 1; i >= 0; i--) {
     float h = 32.0 * out[i] * mpg.height;
-    mpg.ellipse(mpg.width / 2.0 - h / 2.0, mpg.height / 4.0 - i, h, h);
+    mpg.ellipse(mpg.width / 2.0 - h / 2.0, mpg.height / 4.0 - OUT_SCALE * i, h, h);
   }
   mpg.endDraw();
 }
