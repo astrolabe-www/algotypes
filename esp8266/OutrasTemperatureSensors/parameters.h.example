@@ -1,0 +1,5 @@
+String WIFI_SSID = "my-network";
+String WIFI_PASS = "my-password";
+String API_URL = "sub.domain.com";
+int API_PORT = 443;
+const char API_FINGERPRINT[] PROGMEM = "12 1C 4E AD 29 E8 DD 26 87 31 81 35 33 4F BC AA 21 22 52 AD";
