@@ -19,8 +19,10 @@ const int NUM_CHANNELS = 13;
 int channelCount[NUM_CHANNELS];
 int channelSum[NUM_CHANNELS];
 
-int const SCAN_DELAY = 5000;
+int const SCAN_DELAY = 30000;
 long lastScanMillis = 0;
+
+char API_SIGNAL_NAME[] = "/WIFI_00";
 
 WiFiClientSecure httpsClient;
 
@@ -40,12 +42,12 @@ void loop() {
     connectToWiFi();
 
     for (int c = 1; c < NUM_CHANNELS; c++) {
-      String API_SIGNAL_NAME = (c < 10 ? "/WIFI_0" : "/WIFI_") + c;
+      sprintf(API_SIGNAL_NAME, "/WIFI_%02d", c);
 
       float avg = float(channelSum[c]) / max(1.0f, float(channelCount[c]));
       // TODO: map the average to [0,1]
       float val = random(100) / 100.0;
-      writeSignal(httpsClient, API_SIGNAL_NAME, val);
+      writeSignal(httpsClient, String(API_SIGNAL_NAME), val);
     }
     lastScanMillis = millis();
   }

@@ -91,8 +91,6 @@ void readTemperatures() {
   avgIndex = (avgIndex + 1) % TEMP_AVG_SIZE;
 }
 
-
-
 void printAverages() {
   for (int i = 0; i < TEMP_SENSOR_COUNT; i++) {
     Serial.printf("[%d]: Temp(%.2f) | Avg(%.2f)\n",
