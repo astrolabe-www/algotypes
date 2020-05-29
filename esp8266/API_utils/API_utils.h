@@ -34,7 +34,7 @@ void writeSignal(WiFiClientSecure& httpsClient, String API_SIGNAL_NAME, float si
   String postURL = API_ENDPOINT + API_SIGNAL_NAME + API_SIGNAL_VALUE;
   Serial.printf("%s%s\n", API_URL.c_str(), postURL.c_str());
 
-  Serial.printf("\n\nConnecting to API...");
+  Serial.printf("\nConnecting to API...");
   for (int counter = 0; (!httpsClient.connect(API_URL, API_PORT)) && (counter < 32); counter++) {
     delay(100);
     Serial.print(".");
@@ -51,6 +51,36 @@ void writeSignal(WiFiClientSecure& httpsClient, String API_SIGNAL_NAME, float si
   while (httpsClient.connected() || httpsClient.available()) {
     httpsClientResponseLine = httpsClient.readStringUntil('\n');
   }
+}
+
+void writeAllSignals(WiFiClientSecure& httpsClient,
+                     const String SIGNAL_NAMES[], float* avgs,
+                     int initial_signal, int num_signals) {
+
+  Serial.printf("\n\nConnecting to API...");
+  for (int counter = 0; (!httpsClient.connect(API_URL, API_PORT)) && (counter < 32); counter++) {
+    delay(100);
+    Serial.print(".");
+  }
+  Serial.println(".");
+
+  for (int i = initial_signal; i < (initial_signal + num_signals); i++) {
+    String API_SIGNAL_VALUE = '/' + String(avgs[i], 2);
+    String postURL = API_ENDPOINT + SIGNAL_NAMES[i] + API_SIGNAL_VALUE;
+    Serial.printf("%s%s\n", API_URL.c_str(), postURL.c_str());
+
+    httpsClient.print(String("POST ") + postURL + " HTTP/1.1\r\n" +
+                      "Host: " + API_URL + "\r\n" +
+                      "Content-Type: application/x-www-form-urlencoded" + "\r\n" +
+                      "Content-Length: 3" + "\r\n\r\n" +
+                      "a=b" + "\r\n");
+  }
+  httpsClient.print("Connection: close\r\n\r\n");
+
+  while (httpsClient.connected() || httpsClient.available()) {
+    httpsClientResponseLine = httpsClient.readStringUntil('\n');
+  }
+  Serial.printf("done\n");
 }
 
 #endif
