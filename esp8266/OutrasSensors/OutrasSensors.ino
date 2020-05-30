@@ -22,16 +22,15 @@ String const API_SIGNAL_NAME[] = {
   "/HEART_BEAT"
 };
 
-float avgs[NUM_SENSORS];
-
 WiFiClientSecure httpsClient;
 
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
-int avgIndex = 0;
+int rawReadingIndex = 0;
+float rawReadings[NUM_SENSORS][TEMP_AVG_SIZE];
 float avgSum[] = { 0, 0, 0 };
-float avgValues[NUM_SENSORS][TEMP_AVG_SIZE];
+float avgs[NUM_SENSORS];
 
 long lastReadMillis = 0;
 long lastWriteMillis = 0;
@@ -72,8 +71,7 @@ void loop(void) {
   if (millis() > (lastWriteMillis + TEMP_WRITE_DELAY)) {
     for (int i = 0; i < NUM_SENSORS; i++) {
       float avg = avgSum[i] / TEMP_AVG_SIZE;
-      // TODO: map the average to [0,1]
-      avgs[i] = random(100) / 100.0;
+      avgs[i] = fmap(avg, 35, 41, 0.0, 1.0);
     }
     writeAllSignals(httpsClient, API_SIGNAL_NAME, avgs, 0, 3);
     lastWriteMillis = millis();
@@ -88,19 +86,19 @@ void readTemperatures() {
 
   for (int i = 0; i < NUM_SENSORS; i++) {
     tempC = sensors.getTempCByIndex(i);
-    avgSum[i] -= avgValues[i][avgIndex];
-    avgValues[i][avgIndex] = tempC;
-    avgSum[i] += avgValues[i][avgIndex];
+    avgSum[i] -= rawReadings[i][rawReadingIndex];
+    rawReadings[i][rawReadingIndex] = tempC;
+    avgSum[i] += rawReadings[i][rawReadingIndex];
   }
 
-  avgIndex = (avgIndex + 1) % TEMP_AVG_SIZE;
+  rawReadingIndex = (rawReadingIndex + 1) % TEMP_AVG_SIZE;
 }
 
 void printAverages() {
   for (int i = 0; i < NUM_SENSORS; i++) {
     Serial.printf("[%d]: Temp(%.2f) | Avg(%.2f)\n",
                   i,
-                  avgValues[i][(avgIndex + TEMP_AVG_SIZE - 1) % TEMP_AVG_SIZE],
+                  rawReadings[i][(rawReadingIndex + TEMP_AVG_SIZE - 1) % TEMP_AVG_SIZE],
                   avgSum[i] / TEMP_AVG_SIZE);
   }
   Serial.println();

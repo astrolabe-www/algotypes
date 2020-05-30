@@ -6,6 +6,13 @@
 
 #include "parameters.h"
 
+float fmap(float x, float in_min, float in_max, float out_min, float out_max) {
+  float cx = x;
+  if (cx < in_min) cx = in_min;
+  if (cx > in_max) cx = in_max;
+  return (cx - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 void connectToWiFi() {
   Serial.printf("\n\nConnecting to WiFi ...");
   WiFi.mode(WIFI_OFF);

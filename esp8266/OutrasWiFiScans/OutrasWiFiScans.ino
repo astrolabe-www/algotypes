@@ -59,8 +59,7 @@ void loop() {
 
     for (int c = 1; c < NUM_CHANNELS; c++) {
       float avg = float(channelSum[c]) / max(1.0f, float(channelCount[c]));
-      // TODO: map the average to [0,1]
-      avgs[c] = random(100) / 100.0;
+      avgs[c] = fmap(avg, -100.0, -40.0, 0.0, 1.0);
     }
     writeAllSignals(httpsClient, API_SIGNAL_NAME, avgs, 1, 12);
     lastScanMillis = millis();
