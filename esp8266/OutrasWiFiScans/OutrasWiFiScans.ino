@@ -6,15 +6,6 @@
 
 #include "API_utils.h"
 
-/*
-
-  RSSIMAX = -50
-  RSSMIN = -100
-
-  => dbt2percent = 2*(db+100)
-
-*/
-
 const int NUM_CHANNELS = 13;
 int channelCount[NUM_CHANNELS];
 int channelSum[NUM_CHANNELS];
@@ -59,7 +50,7 @@ void loop() {
 
     for (int c = 1; c < NUM_CHANNELS; c++) {
       float avg = float(channelSum[c]) / max(1.0f, float(channelCount[c]));
-      avgs[c] = fmap(avg, -100.0, -40.0, 0.0, 1.0);
+      avgs[c] = (avg == 0.0) ? 0.0 : fmap(avg, -100.0, -40.0, 0.0, 1.0);
     }
     writeAllSignals(httpsClient, API_SIGNAL_NAME, avgs, 1, 12);
     lastScanMillis = millis();
