@@ -13,6 +13,10 @@
 
 #include "API_utils.h"
 
+extern "C" {
+#include "user_interface.h"
+}
+
 const int NUM_CHANNELS = 13;
 int rssiSum[NUM_CHANNELS];
 int packetCount[NUM_CHANNELS];
@@ -45,10 +49,6 @@ bool stopSniffing = false;
 
 WiFiClientSecure httpsClient;
 
-extern "C" {
-#include "user_interface.h"
-}
-
 void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   if (!isSniffing) return;
 
@@ -75,7 +75,8 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   payloadSum[mChannel] += payload_size;
   payloadTotal += payload_size;
 
-  Serial.printf("\n%2u | %03d | %4u | ", mChannel, mRssi, payload_size);
+  if (packetCount[mChannel] < 5)
+    Serial.printf("\n%2u | %03d | %4u | ", mChannel, mRssi, payload_size);
 }
 
 void channelHop() {
