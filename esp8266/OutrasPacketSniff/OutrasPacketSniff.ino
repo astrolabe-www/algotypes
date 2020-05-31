@@ -38,7 +38,7 @@ String const API_SIGNAL_NAME[] = {
 };
 
 uint8 cchannel = 0;
-unsigned short CHANNEL_HOP_INTERVAL_MS = 400;
+unsigned short CHANNEL_HOP_INTERVAL_MS = 4000;
 static os_timer_t channelHop_timer;
 bool isSniffing;
 bool stopSniffing = false;
@@ -67,17 +67,8 @@ void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   const uint8_t mChannel = wifi_get_channel();
   const int16_t mRssi = ppkt->rx_ctrl.rssi;
 
-  bool isBeacon = (frame_ctrl->type == WIFI_PKT_MGMT && frame_ctrl->subtype == BEACON);
-  bool isProbeR = (frame_ctrl->type == WIFI_PKT_MGMT && frame_ctrl->subtype == PROBE_REQ);
-  bool isData = (frame_ctrl->type == WIFI_PKT_DATA);
   bool isCtrl = (buff_length == sizeof(wifi_pkt_rx_ctrl_t));
-
   if (isCtrl) return;
-  //if (!isData) return;
-  //if (!isBeacon) return;
-  //if (!isProbeR) return;
-  //if (!(isData || isProbeR)) return;
-  //if (!(isBeacon || isData || isProbeR)) return;
 
   rssiSum[mChannel] += mRssi;
   packetCount[mChannel] += 1;
@@ -132,7 +123,7 @@ void loop() {
       avgRssi = (avgRssi == 0.0) ? 0.0 : fmap(avgRssi, -100.0, -50.0, 0.0, 1.0);
       float avgPayload = float(payloadSum[c]) / max(1.0f, float(maxPayloadSum));
 
-      avgs[c] = 0.2 * avgRssi + 0.8 * avgPayload;
+      avgs[c] = 0.1 * avgRssi + 0.9 * avgPayload;
 
       Serial.printf(" c(%d) packets: %u, payload: %u, rssi: %d ==> %f\n",
                     c, packetCount[c], payloadSum[c], rssiSum[c], avgs[c]);
