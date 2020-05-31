@@ -107,7 +107,7 @@ void setup() {
   httpsClient.setFingerprint(API_FINGERPRINT);
   httpsClient.setTimeout(10000);
 
-  resetCounter();
+  resetCounters();
   setupSniff();
 }
 
@@ -120,22 +120,33 @@ void loop() {
   if (isSniffing) {
     delay(10);
   } else {
-    // TODO: calculate avgs etc
-    // TODOwriteAllSignals(httpsClient, API_SIGNAL_NAME, avgs, 1, 12);
-    // setupSniff();
-
     Serial.printf("\n\ntotal payload: %u\n", payloadTotal);
+
+    uint16_t maxPayloadSum = 0;
     for (int c = 0; c < NUM_CHANNELS; c++) {
-      Serial.printf(" c(%d) packets: %u, payload: %u, rssi: %d \n",
-                    c, packetCount[c], payloadSum[c], rssiSum[c]);
+      if (payloadSum[c] > maxPayloadSum) maxPayloadSum = payloadSum[c];
     }
-    delay(1000);
-    resetCounter();
+
+    for (int c = 0; c < NUM_CHANNELS; c++) {
+      float avgRssi = float(rssiSum[c]) / max(1.0f, float(packetCount[c]));
+      avgRssi = (avgRssi == 0.0) ? 0.0 : fmap(avgRssi, -100.0, -50.0, 0.0, 1.0);
+      float avgPayload = float(payloadSum[c]) / max(1.0f, float(maxPayloadSum));
+
+      avgs[c] = 0.2 * avgRssi + 0.8 * avgPayload;
+
+      Serial.printf(" c(%d) packets: %u, payload: %u, rssi: %d ==> %f\n",
+                    c, packetCount[c], payloadSum[c], rssiSum[c], avgs[c]);
+    }
+
+    writeAllSignals(httpsClient, API_SIGNAL_NAME, avgs, 1, 12);
+    delay(100);
+
+    resetCounters();
     setupSniff();
   }
 }
 
-void resetCounter() {
+void resetCounters() {
   for (int c = 0; c < NUM_CHANNELS; c++) {
     rssiSum[c] = 0;
     packetCount[c] = 0;
