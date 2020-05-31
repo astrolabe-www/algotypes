@@ -1,18 +1,26 @@
-// https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/scan-examples.html
-// https://github.com/esp8266/Arduino/hardware/esp8266com/esp8266/libraries/ESP8266WiFi/src/ESP8266WiFi.h
+// references:
+// https://witestlab.poly.edu/blog/802-11-wireless-lan-2/
+// https://en.wikipedia.org/wiki/802.11_Frame_Types
+// https://carvesystems.com/news/writing-a-simple-esp8266-based-sniffer/
+// https://www.danielcasner.org/guidelines-for-writing-code-for-the-esp8266/
 
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
+#include "sdk_structs.h"
+#include "ieee80211_structs.h"
+#include "string_utils.h"
 
 #include "API_utils.h"
 
 const int NUM_CHANNELS = 13;
-int channelCount[NUM_CHANNELS];
-int channelSum[NUM_CHANNELS];
+int rssiSum[NUM_CHANNELS];
+int packetCount[NUM_CHANNELS];
+uint16_t payloadSum[NUM_CHANNELS];
 
-int const SCAN_DELAY = 30000;
-long lastScanMillis = 0;
+uint16_t payloadTotal = 0;
 
+float avgs[NUM_CHANNELS];
 String const API_SIGNAL_NAME[] = {
   "/WIFI_00",
   "/WIFI_01",
@@ -29,67 +37,139 @@ String const API_SIGNAL_NAME[] = {
   "/WIFI_12"
 };
 
-float avgs[NUM_CHANNELS];
+uint8 cchannel = 0;
+unsigned short CHANNEL_HOP_INTERVAL_MS = 400;
+static os_timer_t channelHop_timer;
+bool isSniffing;
+bool stopSniffing = false;
 
 WiFiClientSecure httpsClient;
 
+extern "C" {
+#include "user_interface.h"
+}
+
+void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
+  if (!isSniffing) return;
+
+  // First layer: type cast the received buffer into our generic SDK structure
+  const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buff;
+  // Second layer: define pointer to where the actual 802.11 packet is within the structure
+  const wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
+  // Third layer: define pointers to the 802.11 packet header
+  const wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
+
+  // Pointer to the frame control section within the packet header
+  const wifi_header_frame_control_t *frame_ctrl = (wifi_header_frame_control_t *)&hdr->frame_ctrl;
+
+  // payload size and other infos
+  const uint16_t payload_size = (uint16_t)(ppkt->rx_ctrl.sig_mode ? ppkt->rx_ctrl.HT_length : ppkt->rx_ctrl.legacy_length);
+  const uint8_t mChannel = wifi_get_channel();
+  const int16_t mRssi = ppkt->rx_ctrl.rssi;
+
+  bool isBeacon = (frame_ctrl->type == WIFI_PKT_MGMT && frame_ctrl->subtype == BEACON);
+  bool isProbeR = (frame_ctrl->type == WIFI_PKT_MGMT && frame_ctrl->subtype == PROBE_REQ);
+  bool isData = (frame_ctrl->type == WIFI_PKT_DATA);
+  bool isCtrl = (buff_length == sizeof(wifi_pkt_rx_ctrl_t));
+
+  if (isCtrl) return;
+  //if (!isData) return;
+  //if (!isBeacon) return;
+  //if (!isProbeR) return;
+  //if (!(isData || isProbeR)) return;
+  //if (!(isBeacon || isData || isProbeR)) return;
+
+  rssiSum[mChannel] += mRssi;
+  packetCount[mChannel] += 1;
+  payloadSum[mChannel] += payload_size;
+  payloadTotal += payload_size;
+
+  Serial.printf("\n%2u | %03d | %4u | ", mChannel, mRssi, payload_size);
+}
+
+void channelHop() {
+  if (!isSniffing) return;
+
+  if (cchannel == 11) {
+    isSniffing = false;
+    stopSniffing = true;
+    return;
+  }
+
+  cchannel = (cchannel + 1) % 12; // [0, 11]
+  wifi_set_channel(cchannel + 1); // [1, 12]
+}
+
 void setup() {
   Serial.begin(115200);
-
-  disconnectFromWiFi();
+  delay(10);
 
   httpsClient.setFingerprint(API_FINGERPRINT);
   httpsClient.setTimeout(10000);
+
+  resetCounter();
+  setupSniff();
 }
 
 void loop() {
-  if (millis() > (lastScanMillis + SCAN_DELAY)) {
-    scanRssi();
-    printCounters();
-    connectToWiFi();
+  if (stopSniffing) {
+    stopSniff();
+    return;
+  }
 
-    for (int c = 1; c < NUM_CHANNELS; c++) {
-      float avg = float(channelSum[c]) / max(1.0f, float(channelCount[c]));
-      avgs[c] = (avg == 0.0) ? 0.0 : fmap(avg, -100.0, -40.0, 0.0, 1.0);
+  if (isSniffing) {
+    delay(10);
+  } else {
+    // TODO: calculate avgs etc
+    // TODOwriteAllSignals(httpsClient, API_SIGNAL_NAME, avgs, 1, 12);
+    // setupSniff();
+
+    Serial.printf("\n\ntotal payload: %u\n", payloadTotal);
+    for (int c = 0; c < NUM_CHANNELS; c++) {
+      Serial.printf(" c(%d) packets: %u, payload: %u, rssi: %d \n",
+                    c, packetCount[c], payloadSum[c], rssiSum[c]);
     }
-    writeAllSignals(httpsClient, API_SIGNAL_NAME, avgs, 1, 12);
-    lastScanMillis = millis();
+    delay(1000);
+    resetCounter();
+    setupSniff();
   }
 }
 
-void scanRssi() {
-  WiFi.mode(WIFI_OFF);
-  delay(100);
-  WiFi.mode(WIFI_STA);
-  WiFi.disconnect();
-  delay(100);
-  clearCounters();
-  Serial.print("Scanning ... ");
-  int n = WiFi.scanNetworks();
-  Serial.printf("%d network(s) found\n", n);
-  for (int i = 0; i < n; i++) {
-    int mCHNL =  WiFi.channel(i);
-    int mRSSI = WiFi.RSSI(i);
-    channelCount[mCHNL] += 1;
-    channelSum[mCHNL] += mRSSI;
-  }
-  WiFi.scanDelete();
-}
-
-void clearCounters() {
+void resetCounter() {
   for (int c = 0; c < NUM_CHANNELS; c++) {
-    channelCount[c] = 0;
-    channelSum[c] = 0;
+    rssiSum[c] = 0;
+    packetCount[c] = 0;
+    payloadSum[c] = 0;
+    avgs[c] = 0;
   }
+  payloadTotal = 0;
 }
 
-void printCounters() {
-  for (int c = 0; c < NUM_CHANNELS; c++) {
-    Serial.printf("ch: %d , sum: %d , cnt: %d, avg: %.2f\n",
-                  c,
-                  channelSum[c],
-                  channelCount[c],
-                  float(channelSum[c]) / max(1.0f, float(channelCount[c])));
-  }
-  Serial.println();
+void setupSniff() {
+  cchannel = 0;
+
+  wifi_station_disconnect();
+  wifi_set_opmode(STATION_MODE);
+  wifi_set_channel(cchannel + 1);
+  wifi_promiscuous_enable(0);
+  wifi_set_promiscuous_rx_cb(wifi_sniffer_packet_handler);
+  wifi_promiscuous_enable(1);
+
+  os_timer_disarm(&channelHop_timer);
+  os_timer_setfn(&channelHop_timer, (os_timer_func_t *) channelHop, NULL);
+  os_timer_arm(&channelHop_timer, CHANNEL_HOP_INTERVAL_MS, 1);
+
+  isSniffing = true;
+}
+
+void stopSniff() {
+  wifi_promiscuous_enable(0);
+  os_timer_disarm(&channelHop_timer);
+  wifi_station_disconnect();
+  delay(100);
+
+  connectToWiFi();
+
+  isSniffing = false;
+  stopSniffing = false;
 }
