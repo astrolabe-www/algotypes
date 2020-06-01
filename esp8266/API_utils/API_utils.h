@@ -49,7 +49,7 @@ void writeAllSignals(WiFiClientSecure& httpsClient,
 
   for (int i = initial_signal; i < (initial_signal + num_signals); i++) {
     String API_SIGNAL_VALUE = '/' + String(val[i], 2);
-    String postURL = API_ENDPOINT + SIGNAL_NAME[i] + API_SIGNAL_VALUE;
+    String postURL = API_ENDPOINT + API_TOKEN + SIGNAL_NAME[i] + API_SIGNAL_VALUE;
     Serial.printf("%s%s\n", API_URL.c_str(), postURL.c_str());
 
     httpsClient.print(String("POST ") + postURL + " HTTP/1.1\r\n" +

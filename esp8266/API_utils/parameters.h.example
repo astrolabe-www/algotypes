@@ -6,6 +6,7 @@ String const WIFI_PASS = "my-password";
 
 String const API_URL = "sub.domain.com";
 String const API_ENDPOINT = "/endpoint";
+String const API_TOKEN = "/token";
 int const API_PORT = 443;
 const char API_FINGERPRINT[] PROGMEM = "80 55 5B BC DE 33 55 BB 21 13 12 41 AB 9F FF 31 C6 BA 11 24";
 
