@@ -41,7 +41,7 @@ void writeAllSignals(WiFiClientSecure& httpsClient,
                      int initial_signal, int num_signals) {
 
   Serial.printf("\n\nConnecting to API...");
-  for (int counter = 0; (!httpsClient.connect(API_URL, API_PORT)) && (counter < 32); counter++) {
+  for (int counter = 0; (!httpsClient.connect(API_URL, API_PORT)) && (counter < 128); counter++) {
     delay(100);
     Serial.print(".");
   }
