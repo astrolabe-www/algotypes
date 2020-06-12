@@ -7,3 +7,4 @@ out.jpg
 .env
 node_modules
 parameters.h
+esp8266/OutrasSensors/data
