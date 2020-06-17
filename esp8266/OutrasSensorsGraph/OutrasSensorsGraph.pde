@@ -34,7 +34,7 @@ void drawGraph(JSONArray mValues, String mName) {
   mPG.textSize(32);
   mPG.text(mName, 0,0, mPG.width, 80); 
 
-  int AVERAGE_SIZE = 400;
+  int AVERAGE_SIZE = 128;
   float[] avgVals = new float[AVERAGE_SIZE];
   float avgSum = 0;
   int currAvgIndex = 0;
