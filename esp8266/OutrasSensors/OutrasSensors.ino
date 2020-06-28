@@ -89,7 +89,7 @@ void loop(void) {
   if (millis() > (lastWriteMillis + TEMP_WRITE_DELAY)) {
     for (int i = 0; i < TEMP_SENSOR_COUNT; i++) {
       float avg = avgSum[i] / TEMP_AVG_SIZE;
-      avgs[i] = fmap(avg, 30, 41, 0.0, 1.0);
+      avgs[i] = fmap(avg, 35, 41, 0.0, 1.0);
     }
     float avg = avgSum[TEMP_SENSOR_COUNT] / TEMP_AVG_SIZE;
     avgs[TEMP_SENSOR_COUNT] = fmap(avg, 50, 120, 0.0, 1.0);
