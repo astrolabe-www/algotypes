@@ -39,7 +39,7 @@ exports.cards = [
     number: 0x06,
     name: 'EUCLIDEAN GCD',
     sticker_id: 'CAACAgEAAxkBAAIDLF6Cr6W17EbQWP0GqPbDy3BBZi6bAAITAAN_KSA-_mNRAgm9LgYYBA',
-    message: 'Choice doesn\'t have to mean abdication. Synthesize. Figure out a way to integrate both sides, or let go of one.'
+    message: 'Choice doesn\'t have to mean abdication. Synthesize. Figure out a way to integrate both sides, or keep one for later.'
   },
   {
     number: 0x07,
