@@ -34,12 +34,12 @@ void drawBorders(PGraphics mpg, int bwidth) {
   mpg.fill(255);
   mpg.rect(mpg.width/2, bwidth, mpg.width - 2 * bwidth + 1, 2 * OUT_SCALE * FONT_SIZE);
   mpg.fill(0);
-  mpg.text(Card.number, mpg.width/2, OUT_SCALE * FONT_SIZE / 2);
+  mpg.text(Card.number, mpg.width/2, OUT_SCALE * FONT_SIZE / 1.666);
 
   mpg.fill(255);
   mpg.rect(mpg.width/2, mpg.height - bwidth, mpg.width - 2 * bwidth + 1, 2 * OUT_SCALE * FONT_SIZE);
   mpg.fill(0);
-  mpg.text(Card.name, mpg.width/2, mpg.height - OUT_SCALE * FONT_SIZE);
+  mpg.text(Card.name, mpg.width/2, mpg.height - (OUT_SCALE * 0.8 * FONT_SIZE));
 
   mpg.rectMode(CORNER);
   mpg.noFill();

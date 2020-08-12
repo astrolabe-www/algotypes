@@ -33,7 +33,7 @@ Reaction mRD;
 void setup() {
   size(804, 804);
   noLoop();
-  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
+  mFont = createFont("Montserrat-Thin", OUT_SCALE * FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();
   mRD = new Reaction(INPUT);

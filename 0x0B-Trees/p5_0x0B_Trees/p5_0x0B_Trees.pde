@@ -35,7 +35,7 @@ Tree mSplayTree;
 
 void setup() {
   size(804, 804);
-  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
+  mFont = createFont("Montserrat-Thin", OUT_SCALE * FONT_SIZE);
   noLoop();
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();

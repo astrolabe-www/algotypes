@@ -35,7 +35,7 @@ PRNG mPRNG;
 void setup() {
   size(804, 804);
   noLoop();
-  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
+  mFont = createFont("Montserrat-Thin", OUT_SCALE * FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();
   mPRNG = new PRNG(INPUT);
@@ -43,7 +43,7 @@ void setup() {
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
 int BORDER_WIDTH = 10;
-int FONT_SIZE = 26;
+int FONT_SIZE = 24;
 PFont mFont;
 
 void draw() {

@@ -35,7 +35,7 @@ LUPMatrix mLUPMatrix;
 void setup() {
   size(804, 804, P3D);
   noLoop();
-  mFont = createFont("Ogg-Roman", OUT_SCALE * FONT_SIZE);
+  mFont = createFont("Montserrat-Thin", OUT_SCALE * FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();
   mLUPMatrix = new LUPMatrix(INPUT);
