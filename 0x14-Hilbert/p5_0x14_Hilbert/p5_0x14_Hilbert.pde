@@ -52,7 +52,6 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInput(mpg, INPUT_FILEPATH);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
 

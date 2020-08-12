@@ -3,7 +3,7 @@ void drawOutput(PGraphics mpg) {
 
   mpg.noFill();
   mpg.stroke(200, 0, 0, 200);
-  mpg.strokeWeight(OUT_SCALE * 1.333);
+  mpg.strokeWeight(OUT_SCALE * 3.333);
 
   int maxD = max(mpg.height, mpg.width);
   int RBWIDTH = OUT_SCALE * BORDER_WIDTH;

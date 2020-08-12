@@ -66,7 +66,6 @@ void draw() {
   PGraphics mpgF = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y), P3D);
   mpgF.smooth(8);
 
-  drawInput(mpgI, INPUT_FILEPATH);
   drawOutput(mpgO);
   drawBorders(mpgB, OUT_SCALE * BORDER_WIDTH);
 
@@ -74,7 +73,6 @@ void draw() {
   mpgF.hint(DISABLE_DEPTH_MASK);
   mpgF.hint(DISABLE_DEPTH_TEST);
   mpgF.background(255);
-  mpgF.image(mpgI, 0, 0, mpgF.width, mpgF.height);
 
   mpgF.pushMatrix();
   mpgF.translate(mpgF.width / 2, mpgF.height / 2);

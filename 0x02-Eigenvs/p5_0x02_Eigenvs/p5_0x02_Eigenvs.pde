@@ -27,7 +27,7 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x02";
-  static final public String name = "Page Rank";
+  static final public String name = "PageRank";
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
@@ -57,7 +57,6 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInput(mpg, INPUT_FILEPATH);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
 

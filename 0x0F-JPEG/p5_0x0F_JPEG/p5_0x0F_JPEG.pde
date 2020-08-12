@@ -26,7 +26,7 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x0F";
-  static final public String name = "JPEG";
+  static final public String name = "JPEG Compression";
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
@@ -55,7 +55,6 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInput(mpg, INPUT_FILEPATH);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
 

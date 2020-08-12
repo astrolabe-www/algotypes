@@ -1,6 +1,6 @@
 void drawOutput(PGraphics mpg) {
-  int PWIDTH = OUT_SCALE * 3;
-  float NOISE_SCALE = 1.0 / (OUT_SCALE * 128f);
+  int PWIDTH = OUT_SCALE * 12;
+  float NOISE_SCALE = 1.0 / (OUT_SCALE * 64f);
 
   mpg.beginDraw();
   mpg.rectMode(CENTER);

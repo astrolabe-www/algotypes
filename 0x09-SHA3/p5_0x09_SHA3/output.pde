@@ -4,7 +4,7 @@ void drawOutput(PGraphics mpg, int bwidth) {
   Keccak mKeccak = new Keccak(576, 1024);
 
   mpg.beginDraw();
-  mpg.strokeWeight(OUT_SCALE / 2);
+  mpg.strokeWeight(OUT_SCALE);
   mpg.stroke(200, 0, 0, 8);
   mpg.noFill();
 

@@ -37,7 +37,7 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x10";
-  static final public String name = "Blockchain";
+  static final public String name = "Blockchain Proof-of-Work";
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
@@ -71,7 +71,6 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInput(mpg, INPUT_FILEPATH);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
 

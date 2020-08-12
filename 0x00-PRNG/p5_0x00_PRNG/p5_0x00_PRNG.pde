@@ -26,7 +26,7 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x00";
-  static final public String name = "PRNG";
+  static final public String name = "Pseudo-Random Number Generator";
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
@@ -43,7 +43,7 @@ void setup() {
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
 int BORDER_WIDTH = 10;
-int FONT_SIZE = 32;
+int FONT_SIZE = 26;
 PFont mFont;
 
 void draw() {
@@ -55,7 +55,6 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawInput(mpg, INPUT_FILEPATH);
   drawOutput(mpg);
   drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
 
