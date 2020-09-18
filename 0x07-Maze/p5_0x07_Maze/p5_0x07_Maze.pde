@@ -42,7 +42,8 @@ void setup() {
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
 int BORDER_WIDTH = 10;
-int FONT_SIZE = 32;
+int FONT_SIZE = 18;
+float FONT_PADDING_FACTOR = 2.6;
 PFont mFont;
 
 void draw() {

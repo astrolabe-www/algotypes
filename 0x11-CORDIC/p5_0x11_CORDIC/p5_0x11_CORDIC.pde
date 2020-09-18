@@ -24,7 +24,7 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x11";
-  static final public String name = "CORDIC Trigonometric Functions";
+  static final public String name = "CORDIC";
   static final public String filename = number + "_" + name.replace(" ", "_");
 }
 
@@ -38,7 +38,8 @@ void setup() {
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
 int BORDER_WIDTH = 10;
-int FONT_SIZE = 28;
+int FONT_SIZE = 18;
+float FONT_PADDING_FACTOR = 2.6;
 PFont mFont;
 
 void draw() {
