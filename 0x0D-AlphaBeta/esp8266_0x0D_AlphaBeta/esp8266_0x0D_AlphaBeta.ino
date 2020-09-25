@@ -41,7 +41,7 @@ const int DATA_IN_SIZE = 2048;
 int DATA_IN[DATA_IN_SIZE];
 int DATA_IN_CNT = 0;
 
-const int DATA_OUT_SIZE = 1024;
+const int DATA_OUT_SIZE = 2048;
 uint8_t DATA_OUT[DATA_OUT_SIZE];
 
 void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
