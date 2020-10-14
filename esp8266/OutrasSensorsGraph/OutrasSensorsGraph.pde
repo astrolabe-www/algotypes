@@ -11,9 +11,7 @@ void setup() {
     String mName = mSignal.getString("name");
     JSONArray mValues = mSignal.getJSONArray("values");
 
-    if (!mName.contains("HACKRF")) {
-      drawGraph(mValues, mName);
-    }
+    drawGraph(mValues, mName);
   }
 }
 
@@ -32,7 +30,7 @@ void drawGraph(JSONArray mValues, String mName) {
   mPG.fill(4);
   mPG.textAlign(CENTER);
   mPG.textSize(32);
-  mPG.text(mName, 0,0, mPG.width, 80); 
+  mPG.text(mName, 0, 0, mPG.width, 80);
 
   int AVERAGE_SIZE = 128;
   float[] avgVals = new float[AVERAGE_SIZE];
@@ -57,7 +55,7 @@ void drawGraph(JSONArray mValues, String mName) {
     float y0 = mPG.height -  lastAvg * mPG.height;
     float y1 = mPG.height -  avgSum / AVERAGE_SIZE * mPG.height;
     mPG.line(x0, y0, x1, y1);
-    
+
     lastAvg = avgSum / AVERAGE_SIZE;
   }
   mPG.endDraw();
