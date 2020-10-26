@@ -21,7 +21,7 @@ exports.cards = [
     number: 0x03,
     name: 'TURING REACTION-DIFFUSION',
     sticker_id: 'CAACAgEAAxkBAAIDBl6CK7c11M9lQjBHyVEv_mcKjW_xAAIQAAN_KSA-ByKnGrH0pmIYBA',
-    message: 'You can have both nature AND nurture in beautiful abundance. Just don\t waste your time looking for something that isn\t there. Movement doesn\'t equal progress.'
+    message: 'You can have both nature AND nurture in beautiful abundance. Just don\'t waste your time looking for something that isn\'t there. Movement doesn\'t equal progress.'
   },
   {
     number: 0x04,
