@@ -61,7 +61,6 @@ void draw() {
     mpg.save(Card.filename + ".png");
     mpg.save(Card.filename + ".jpg");
     exit();
-    // saveOutput(Card.filename + ".raw");
   }
 
   pushMatrix();
