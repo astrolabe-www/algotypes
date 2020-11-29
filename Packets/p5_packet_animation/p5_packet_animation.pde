@@ -47,7 +47,7 @@ void setup() {
   bpg.background(COLOR_BACKGROUND, 0);
   bpg.endDraw();
 
-  drawBorders(bpg, OUT_SCALE * BORDER_WIDTH);
+  drawBorders(bpg, BORDER_WIDTH);
 }
 
 void draw() {

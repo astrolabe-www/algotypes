@@ -34,7 +34,7 @@ void setup() {
 }
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-int BORDER_WIDTH = 10;
+int BORDER_WIDTH = 10 * OUT_SCALE;
 
 void draw() {
   background(255);
@@ -46,7 +46,7 @@ void draw() {
   mpg.endDraw();
 
   drawInput(mpg);
-  drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
+  drawBorders(mpg, BORDER_WIDTH);
 
   if (OUTPUT != Output.SCREEN) {
     mpg.save(Card.filename + ".png");

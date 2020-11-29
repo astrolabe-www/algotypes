@@ -15,7 +15,7 @@ void drawOutput(PGraphics mpg) {
       break;
     }
     mBoard = inputMoves[INPUT[i] % inputMoves.length];
-    mBoard.drawLastMove(mpg, OUT_SCALE * BORDER_WIDTH);
+    mBoard.drawLastMove(mpg, BORDER_WIDTH);
 
     // ALPHABETA player
     inputMoves = mBoard.moves(PLAYER_ALPHABETA);
@@ -33,7 +33,7 @@ void drawOutput(PGraphics mpg) {
         }
       }
       mBoard = inputMoves[maxM];
-      mBoard.drawLastMove(mpg, OUT_SCALE * BORDER_WIDTH);
+      mBoard.drawLastMove(mpg, BORDER_WIDTH);
     }
   }
 

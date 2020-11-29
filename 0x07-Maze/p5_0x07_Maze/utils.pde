@@ -28,25 +28,25 @@ void drawBorders(PGraphics mpg, int bwidth) {
 
   mpg.noStroke();
   mpg.textFont(mFont);
-  mpg.textSize(OUT_SCALE * FONT_SIZE);
+  mpg.textSize(FONT_SIZE);
   mpg.rectMode(CENTER);
   mpg.textAlign(CENTER, CENTER);
   mpg.fill(255);
-  mpg.rect(mpg.width/2, bwidth, mpg.width - 2 * bwidth + 1, FONT_PADDING_FACTOR * OUT_SCALE * FONT_SIZE);
+  mpg.rect(mpg.width/2, bwidth, mpg.width - 2 * bwidth + 1, FONT_PADDING_FACTOR * FONT_SIZE);
   mpg.fill(0);
-  mpg.text(Card.number, mpg.width/2, OUT_SCALE * FONT_SIZE / 1.15);
+  mpg.text(Card.number, mpg.width/2, FONT_SIZE / 1.15f);
 
   mpg.fill(255);
-  mpg.rect(mpg.width/2, mpg.height - bwidth, mpg.width - 2 * bwidth + 1, FONT_PADDING_FACTOR * OUT_SCALE * FONT_SIZE);
+  mpg.rect(mpg.width/2, mpg.height - bwidth, mpg.width - 2 * bwidth + 1, FONT_PADDING_FACTOR * FONT_SIZE);
   mpg.fill(0);
-  mpg.text(Card.name, mpg.width/2, mpg.height - (OUT_SCALE * FONT_SIZE / 0.92));
+  mpg.text(Card.name, mpg.width/2, mpg.height - (FONT_SIZE / 0.92f));
 
   mpg.rectMode(CORNER);
   mpg.noFill();
   mpg.stroke(10);
   mpg.strokeWeight(OUT_SCALE);
   mpg.rect(1, 1, mpg.width - 2, mpg.height - 2);
-  mpg.rect(bwidth, bwidth + OUT_SCALE * (FONT_PADDING_FACTOR / 2.0) * FONT_SIZE, mpg.width - 2 * bwidth, mpg.height - 2 * bwidth - FONT_PADDING_FACTOR * OUT_SCALE * FONT_SIZE);
+  mpg.rect(bwidth, bwidth + FONT_SIZE * (FONT_PADDING_FACTOR / 2.0f), mpg.width - 2 * bwidth, mpg.height - 2 * bwidth - FONT_PADDING_FACTOR * FONT_SIZE);
 
   mpg.endDraw();
 }

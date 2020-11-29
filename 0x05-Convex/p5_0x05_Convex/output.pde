@@ -6,7 +6,7 @@ void drawOutput(PGraphics mpg) {
   mpg.strokeWeight(OUT_SCALE * 3.333);
 
   int maxD = max(mpg.height, mpg.width);
-  int RBWIDTH = OUT_SCALE * BORDER_WIDTH;
+  int RBWIDTH = BORDER_WIDTH;
   Point[] inPoints = new Point[INPUT.length / 2];
 
   for (int p = 0; p < inPoints.length; p++) {

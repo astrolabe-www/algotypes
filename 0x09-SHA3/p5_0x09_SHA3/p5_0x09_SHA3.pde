@@ -34,7 +34,7 @@ Keccak mKeccak;
 void setup() {
   size(804, 804);
   noLoop();
-  mFont = createFont("Montserrat-Thin", OUT_SCALE * FONT_SIZE);
+  mFont = createFont("Montserrat-Thin", FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();
   mKeccak = new Keccak(576, 1024);
@@ -43,8 +43,8 @@ void setup() {
 }
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-int BORDER_WIDTH = 10;
-int FONT_SIZE = 18;
+int BORDER_WIDTH = 10 * OUT_SCALE;
+int FONT_SIZE = 18 * OUT_SCALE;
 float FONT_PADDING_FACTOR = 2.6;
 PFont mFont;
 
@@ -57,8 +57,8 @@ void draw() {
   mpg.background(255);
   mpg.endDraw();
 
-  drawOutput(mpg, OUT_SCALE * BORDER_WIDTH);
-  drawBorders(mpg, OUT_SCALE * BORDER_WIDTH);
+  drawOutput(mpg, BORDER_WIDTH);
+  drawBorders(mpg, BORDER_WIDTH);
 
   if (OUTPUT != Output.SCREEN) {
     mpg.save(Card.filename + ".png");

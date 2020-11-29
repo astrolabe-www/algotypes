@@ -35,7 +35,7 @@ LUPMatrix mLUPMatrix;
 void setup() {
   size(804, 804, P3D);
   noLoop();
-  mFont = createFont("Montserrat-Thin", OUT_SCALE * FONT_SIZE);
+  mFont = createFont("Montserrat-Thin", FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();
   mLUPMatrix = new LUPMatrix(INPUT);
@@ -43,8 +43,8 @@ void setup() {
 }
 
 int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-int BORDER_WIDTH = 10;
-int FONT_SIZE = 18;
+int BORDER_WIDTH = 10 * OUT_SCALE;
+int FONT_SIZE = 18 * OUT_SCALE;
 float FONT_PADDING_FACTOR = 2.6;
 PFont mFont;
 
@@ -68,7 +68,7 @@ void draw() {
   mpgF.smooth(8);
 
   drawOutput(mpgO);
-  drawBorders(mpgB, OUT_SCALE * BORDER_WIDTH);
+  drawBorders(mpgB, BORDER_WIDTH);
 
   mpgF.beginDraw();
   mpgF.hint(DISABLE_DEPTH_MASK);
