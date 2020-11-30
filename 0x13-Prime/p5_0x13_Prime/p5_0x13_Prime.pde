@@ -4,33 +4,13 @@
 
 import java.util.Arrays;
 
-enum Output {
-  SCREEN,
-  PRINT,
-  TELEGRAM
-}
-
-Output OUTPUT = Output.SCREEN;
-PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
-
-String[] INPUT_FILENAME = {
-  "frames_20200206-2351.raw",
-  "frames_20200206-2357.raw",
-  "frames_20200207-0004_reqs.raw",
-  "frames_20200207-0006_beacons.raw",
-  "frames_20200207-0008_data.raw",
-  "frames_20200207-0010.raw",
-  "frames_20200207-0012.raw"
-};
-String INPUT_FILEPATH;
-int[] INPUT;
 int BYTES_PER_PRIME = 2;
 
 void initInput() {
   byte in[] = new byte[0];
 
-  for (int i = 0; i < INPUT_FILENAME.length; i++) {
-    byte file[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME[i]));
+  for (int i = 0; i < INPUT_FILENAME_LIST.length; i++) {
+    byte file[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME_LIST[i]));
     in = Arrays.copyOf(in, in.length + file.length);
     arraycopy(file, 0, in, in.length - file.length, file.length);
   }
@@ -57,18 +37,9 @@ int[] mPrimes;
 
 void setup() {
   size(804, 804);
-  noLoop();
-  mFont = createFont("Montserrat-Thin", FONT_SIZE);
-  INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME[2]);
-  initInput();
+  mSetup();
   mPrimes = Primal.primes(INPUT);
 }
-
-int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-int BORDER_WIDTH = 10 * OUT_SCALE;
-int FONT_SIZE = 18 * OUT_SCALE;
-float FONT_PADDING_FACTOR = 2.6;
-PFont mFont;
 
 void draw() {
   background(255);

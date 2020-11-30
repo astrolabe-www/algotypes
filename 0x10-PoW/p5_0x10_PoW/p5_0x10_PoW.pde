@@ -3,34 +3,15 @@
 // https://en.bitcoin.it/wiki/Target
 // https://en.wikipedia.org/wiki/SHA-2
 
-enum Output {
-  SCREEN,
-  PRINT,
-  TELEGRAM
-}
-
-Output OUTPUT = Output.SCREEN;
-PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
-
-String[] INPUT_FILENAME = {
-  "frames_20200206-2351.raw",
-  "frames_20200206-2357.raw",
-  "frames_20200207-0004_reqs.raw",
-  "frames_20200207-0006_beacons.raw",
-  "frames_20200207-0008_data.raw",
-  "frames_20200207-0010.raw",
-  "frames_20200207-0012.raw"
-};
-String INPUT_FILEPATH;
-byte[][] INPUT;
+byte[][] INPUT_LIST;
 
 void initInput() {
-  INPUT = new byte[INPUT_FILENAME.length][];
-  for (int i = 0; i < INPUT_FILENAME.length; i++) {
-    byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME[i]));
-    INPUT[i] = new byte[in.length];
-    for (int b = 0; b < INPUT[i].length; b++) {
-      INPUT[i][b] = byte(in[b] & 0xff);
+  INPUT_LIST = new byte[INPUT_FILENAME_LIST.length][];
+  for (int i = 0; i < INPUT_FILENAME_LIST.length; i++) {
+    byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME_LIST[i]));
+    INPUT_LIST[i] = new byte[in.length];
+    for (int b = 0; b < INPUT_LIST[i].length; b++) {
+      INPUT_LIST[i][b] = byte(in[b] & 0xff);
     }
   }
 }
@@ -45,23 +26,15 @@ Block[] chain;
 
 void setup() {
   size(804, 804);
-  noLoop();
-  mFont = createFont("Montserrat-Thin", FONT_SIZE);
-  INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME[2]);
-  initInput();
-  chain = new Block[INPUT.length];
+  mSetup();
 
-  chain[0] = new Block(INPUT[0]);
+  chain = new Block[INPUT_LIST.length];
+
+  chain[0] = new Block(INPUT_LIST[0]);
   for (int i = 1; i < chain.length; i++) {
-    chain[i] = new Block(INPUT[i], chain[i-1].hash(), chain[i-1].nextTarget());
+    chain[i] = new Block(INPUT_LIST[i], chain[i-1].hash(), chain[i-1].nextTarget());
   }
 }
-
-int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-int BORDER_WIDTH = 10 * OUT_SCALE;
-int FONT_SIZE = 18 * OUT_SCALE;
-float FONT_PADDING_FACTOR = 2.6;
-PFont mFont;
 
 void draw() {
   background(255);

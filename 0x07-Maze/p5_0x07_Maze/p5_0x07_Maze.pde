@@ -2,19 +2,6 @@
 // https://en.wikipedia.org/wiki/Maze_generation_algorithm
 // https://en.wikipedia.org/wiki/Breadth-first_search
 
-enum Output {
-  SCREEN,
-  PRINT,
-  TELEGRAM
-}
-
-Output OUTPUT = Output.SCREEN;
-PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
-
-String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
-String INPUT_FILEPATH;
-int[] INPUT;
-
 void initInput() {
   byte in[] = loadBytes(INPUT_FILEPATH);
   INPUT = new int[in.length];
@@ -33,18 +20,9 @@ Maze mMaze;
 
 void setup() {
   size(804, 804);
-  noLoop();
-  mFont = createFont("Montserrat-Thin", FONT_SIZE);
-  INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
-  initInput();
+  mSetup();
   mMaze = new Maze(INPUT);
 }
-
-int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-int BORDER_WIDTH = 10 * OUT_SCALE;
-int FONT_SIZE = 18 * OUT_SCALE;
-float FONT_PADDING_FACTOR = 2.6;
-PFont mFont;
 
 void draw() {
   background(255);

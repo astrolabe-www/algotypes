@@ -3,19 +3,6 @@
 // https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree
 // https://en.wikipedia.org/wiki/Splay_tree
 
-enum Output {
-  SCREEN,
-  PRINT,
-  TELEGRAM
-}
-
-Output OUTPUT = Output.SCREEN;
-PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
-
-String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
-String INPUT_FILEPATH;
-int[] INPUT;
-
 void initInput() {
   byte in[] = loadBytes(INPUT_FILEPATH);
   INPUT = new int[in.length];
@@ -35,10 +22,7 @@ Tree mSplayTree;
 
 void setup() {
   size(804, 804);
-  mFont = createFont("Montserrat-Thin", FONT_SIZE);
-  noLoop();
-  INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
-  initInput();
+  mSetup();
   mTree = new Tree();
   mSplayTree = new SplayTree();
   for (int i = 0; i < INPUT.length; i++) {
@@ -46,12 +30,6 @@ void setup() {
     mSplayTree.insert(new Node(INPUT[i]));
   }
 }
-
-int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-int BORDER_WIDTH = 10 * OUT_SCALE;
-int FONT_SIZE = 18 * OUT_SCALE;
-float FONT_PADDING_FACTOR = 2.6;
-PFont mFont;
 
 void draw() {
   background(255);

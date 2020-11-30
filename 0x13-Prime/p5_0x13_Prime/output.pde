@@ -24,7 +24,7 @@ void drawOutput(PGraphics mpg) {
 }
 
 void saveOutput(String filename) {
-  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME[2]));
+  byte in[] = loadBytes(sketchPath("../../Packets/in/" + INPUT_FILENAME_LIST[2]));
   byte[] out = new byte[in.length];
   for (int i = 0; i < out.length / 2; i += 1) {
     out[2 * i + 0] = (byte)((mPrimes[i] << 8) & 0xff);

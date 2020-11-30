@@ -1,3 +1,52 @@
+enum Output {
+  SCREEN,
+  PRINT,
+  TELEGRAM
+}
+
+Output OUTPUT = Output.SCREEN;
+PVector OUTPUT_DIMENSIONS;
+int OUT_SCALE;
+int BORDER_WIDTH;
+int FONT_SIZE;
+float FONT_PADDING_FACTOR = 2.6;
+PFont mFont;
+
+String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
+String[] INPUT_FILENAME_LIST = {
+  "frames_20200206-2351.raw",
+  "frames_20200206-2357.raw",
+  "frames_20200207-0004_reqs.raw",
+  "frames_20200207-0006_beacons.raw",
+  "frames_20200207-0008_data.raw",
+  "frames_20200207-0010.raw",
+  "frames_20200207-0012.raw"
+};
+
+String INPUT_FILEPATH;
+int[] INPUT;
+
+void mSetup() {
+  noLoop();
+
+  if (args == null) {
+    OUTPUT = Output.SCREEN;
+  } else if (args[0].equals("PRINT")) {
+    OUTPUT = Output.PRINT;
+  } else if (args[0].equals("TELEGRAM")) {
+    OUTPUT = Output.TELEGRAM;
+  }
+
+  OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
+  OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
+  BORDER_WIDTH = 10 * OUT_SCALE;
+  FONT_SIZE = 18 * OUT_SCALE;
+
+  mFont = createFont("Montserrat-Thin", FONT_SIZE);
+  INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
+  initInput();
+}
+
 void drawInput(PGraphics mpg, String fileName) {
   byte in[] = loadBytes(fileName);
 
