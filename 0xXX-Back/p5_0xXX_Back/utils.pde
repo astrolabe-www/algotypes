@@ -30,7 +30,7 @@ void mSetup() {
   noLoop();
 
   if (args == null) {
-    OUTPUT = Output.PRINT;
+    OUTPUT = Output.SCREEN;
   } else if (args[0].equals("PRINT")) {
     OUTPUT = Output.PRINT;
   } else if (args[0].equals("TELEGRAM")) {
