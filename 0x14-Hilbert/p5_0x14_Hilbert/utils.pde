@@ -60,7 +60,7 @@ void mDraw() {
   drawBorders(mpg, BORDER_WIDTH);
 
   mpg.save(Card.filename + ".png");
-  if (OUTPUT != Output.SCREEN) {
+  if (args != null) {
     exit();
   }
 
