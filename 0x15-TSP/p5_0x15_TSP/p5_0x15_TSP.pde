@@ -14,7 +14,7 @@ void initInput() {
 static class Card {
   static final public String number = "0x15";
   static final public String name = "Travelling Salesperson";
-  static final public String filename = number + "_" + name.replace(" ", "_");
+  static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
 }
 
 Greedy mGreedy;

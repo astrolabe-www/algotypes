@@ -14,7 +14,7 @@ void initInput() {
 static class Card {
   static final public String number = "0x0C";
   static final public String name = "Matrix Inversion";
-  static final public String filename = number + "_" + name.replace(" ", "_");
+  static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
 }
 
 LUPMatrix mLUPMatrix;

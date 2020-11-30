@@ -14,7 +14,7 @@ void initInput() {
 static class Card {
   static final public String number = "0x0E";
   static final public String name = "Diffie-Hellman Keys";
-  static final public String filename = number + "_" + name.replace(" ", "_");
+  static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
 }
 
 void setup() {

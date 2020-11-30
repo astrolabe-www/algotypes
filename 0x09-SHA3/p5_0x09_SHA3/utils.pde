@@ -4,7 +4,7 @@ enum Output {
   TELEGRAM
 }
 
-Output OUTPUT = Output.SCREEN;
+static Output OUTPUT = Output.SCREEN;
 PVector OUTPUT_DIMENSIONS;
 int OUT_SCALE;
 int BORDER_WIDTH;
@@ -45,6 +45,32 @@ void mSetup() {
   mFont = createFont("Montserrat-Thin", FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();
+}
+
+void mDraw() {
+  background(255);
+
+  PGraphics mpg = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
+  mpg.smooth(8);
+  mpg.beginDraw();
+  mpg.background(255);
+  mpg.endDraw();
+
+  drawOutput(mpg);
+  drawBorders(mpg, BORDER_WIDTH);
+
+  mpg.save(Card.filename + ".png");
+  if (OUTPUT != Output.SCREEN) {
+    exit();
+  }
+
+  pushMatrix();
+  translate(width/ 2, height / 2);
+  scale(float(height) / float(mpg.height));
+  imageMode(CENTER);
+  image(mpg, 0, 0);
+  imageMode(CORNER);
+  popMatrix();
 }
 
 void drawInput(PGraphics mpg, String fileName) {

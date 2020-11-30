@@ -7,7 +7,7 @@ enum Output {
   TELEGRAM
 }
 
-Output OUTPUT = Output.SCREEN;
+static Output OUTPUT = Output.SCREEN;
 PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
 
 String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
@@ -24,7 +24,7 @@ void initInput() {
 static class Card {
   static final public String number = "0xFF";
   static final public String name = "back";
-  static final public String filename = number + "_" + name.replace(" ", "_");
+  static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
 }
 
 void setup() {
