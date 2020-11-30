@@ -1,3 +1,3 @@
-void drawOutput(PGraphics mpg, Reaction rd) {
-  rd.draw(mpg);
+void drawOutput(PGraphics mpg) {
+  mRD.draw(mpg);
 }

@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-void drawOutput(PGraphics mpg, int bwidth) {
+void drawOutput(PGraphics mpg) {
   Keccak mKeccak = new Keccak(576, 1024);
 
   mpg.beginDraw();
@@ -13,15 +13,15 @@ void drawOutput(PGraphics mpg, int bwidth) {
     byte[] out = mKeccak.SHA3(iin);
 
     for (int j = 0; j < min(iin.length, out.length); j+=2) {
-      float iinX = map(iin[j], -128, 127, bwidth, mpg.width - bwidth);
-      float outX = map(out[j], -128, 127, bwidth, mpg.width - bwidth);
+      float iinX = map(iin[j], -128, 127, BORDER_WIDTH, mpg.width - BORDER_WIDTH);
+      float outX = map(out[j], -128, 127, BORDER_WIDTH, mpg.width - BORDER_WIDTH);
       float outX2x = map(out[j], -128, 127, -mpg.width, 2 * mpg.width);
 
       mpg.beginShape();
-      mpg.vertex(iinX, mpg.height - bwidth);
-      mpg.vertex(outX, bwidth);
-      mpg.vertex(outX2x, bwidth);
-      mpg.vertex(iinX, mpg.height - bwidth);
+      mpg.vertex(iinX, mpg.height - BORDER_WIDTH);
+      mpg.vertex(outX, BORDER_WIDTH);
+      mpg.vertex(outX2x, BORDER_WIDTH);
+      mpg.vertex(iinX, mpg.height - BORDER_WIDTH);
       mpg.endShape();
     }
   }

@@ -20,7 +20,7 @@ void drawInputWave(PGraphics mpg) {
   mpg.endDraw();
 }
 
-void drawOutput(PGraphics mpg) {
+void drawOutputWave(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.fill(200, 0, 0, 16);
@@ -38,4 +38,9 @@ void drawOutput(PGraphics mpg) {
   }
   mpg.popMatrix();
   mpg.endDraw();
+}
+
+void drawOutput(PGraphics mpg) {
+  drawInputWave(mpg);
+  drawOutputWave(mpg);
 }

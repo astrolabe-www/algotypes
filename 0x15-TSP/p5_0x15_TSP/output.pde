@@ -1,4 +1,4 @@
-void drawOutput(PGraphics mpg, int bwidth) {
-  mGreedy.drawCities(mpg, bwidth);
-  mAnnealing.drawCities(mpg, bwidth);
+void drawOutput(PGraphics mpg) {
+  mGreedy.drawCities(mpg, BORDER_WIDTH);
+  mAnnealing.drawCities(mpg, BORDER_WIDTH);
 }

@@ -33,16 +33,19 @@ void draw() {
   float SLIDEX = 0.18;
   float SLIDEY = 0.55;
 
-  background(255);
+  PVector SCALED_OUTPUT_DIMENSIONS = new PVector(OUT_SCALE * OUTPUT_DIMENSIONS.x, OUT_SCALE * OUTPUT_DIMENSIONS.y);
 
-  PGraphics mpgI = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
+  PGraphics mpgI = createGraphics(int(SCALED_OUTPUT_DIMENSIONS.x), int(SCALED_OUTPUT_DIMENSIONS.y));
+  PGraphics mpgB = createGraphics(int(SCALED_OUTPUT_DIMENSIONS.x), int(SCALED_OUTPUT_DIMENSIONS.y));
+  PGraphics mpgO = createGraphics(int(SCALED_OUTPUT_DIMENSIONS.x), int(SCALED_OUTPUT_DIMENSIONS.y));
+  PGraphics mpgF = createGraphics(int(SCALED_OUTPUT_DIMENSIONS.x), int(SCALED_OUTPUT_DIMENSIONS.y), P3D);
+
   mpgI.smooth(8);
-  PGraphics mpgB = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
   mpgB.smooth(8);
-  PGraphics mpgO = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
   mpgO.smooth(8);
-  PGraphics mpgF = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y), P3D);
   mpgF.smooth(8);
+
+  background(255);
 
   drawOutput(mpgO);
   drawBorders(mpgB, BORDER_WIDTH);
@@ -64,9 +67,8 @@ void draw() {
 
   mpgF.image(mpgB, 0, 0, mpgF.width, mpgF.height);
 
+  mpgF.save(Card.filename + ".png");
   if (OUTPUT != Output.SCREEN) {
-    mpgF.save(Card.filename + ".png");
-    mpgF.save(Card.filename + ".jpg");
     exit();
   }
   mpgF.endDraw();
