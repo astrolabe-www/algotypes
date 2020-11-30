@@ -8,8 +8,8 @@ void drawOutput(PGraphics mpg, int bwidth) {
   mpg.stroke(200, 0, 0, 8);
   mpg.noFill();
 
-  for (int i = 0; i < INPUT.length / 64; i++) {
-    byte[] iin = Arrays.copyOfRange(INPUT, i * 64, (i + 1) * 64);
+  for (int i = 0; i < INPUT_BYTES.length / 64; i++) {
+    byte[] iin = Arrays.copyOfRange(INPUT_BYTES, i * 64, (i + 1) * 64);
     byte[] out = mKeccak.SHA3(iin);
 
     for (int j = 0; j < min(iin.length, out.length); j+=2) {

@@ -2,24 +2,13 @@
 // https://keccak.team/keccak_specs_summary.html
 // https://github.com/XKCP/XKCP/blob/master/Standalone/CompactFIPS202/Python/CompactFIPS202.py
 
-enum Output {
-  SCREEN,
-  PRINT,
-  TELEGRAM
-}
-
-Output OUTPUT = Output.SCREEN;
-PVector OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? 469 : 804, 804);
-
-String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
-String INPUT_FILEPATH;
-byte[] INPUT;
+byte[] INPUT_BYTES;
 
 void initInput() {
   byte in[] = loadBytes(INPUT_FILEPATH);
-  INPUT = new byte[in.length];
-  for (int i = 0; i < INPUT.length; i++) {
-    INPUT[i] = byte(in[i] & 0xff);
+  INPUT_BYTES = new byte[in.length];
+  for (int i = 0; i < INPUT_BYTES.length; i++) {
+    INPUT_BYTES[i] = byte(in[i] & 0xff);
   }
 }
 
@@ -33,20 +22,11 @@ Keccak mKeccak;
 
 void setup() {
   size(804, 804);
-  noLoop();
-  mFont = createFont("Montserrat-Thin", FONT_SIZE);
-  INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
-  initInput();
+  mSetup();
   mKeccak = new Keccak(576, 1024);
   byte[] r = mKeccak.SHA3("hello world".getBytes());
   println(hexString(r));
 }
-
-int OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-int BORDER_WIDTH = 10 * OUT_SCALE;
-int FONT_SIZE = 18 * OUT_SCALE;
-float FONT_PADDING_FACTOR = 2.6;
-PFont mFont;
 
 void draw() {
   background(255);
