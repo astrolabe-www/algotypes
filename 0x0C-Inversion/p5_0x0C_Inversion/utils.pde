@@ -6,6 +6,7 @@ enum Output {
 
 static Output OUTPUT = Output.SCREEN;
 PVector OUTPUT_DIMENSIONS;
+PVector OUTPUT_GRAPHICS_DIMENSIONS;
 int OUT_SCALE;
 int BORDER_WIDTH;
 int FONT_SIZE;
@@ -41,6 +42,8 @@ void mSetup() {
   OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
   BORDER_WIDTH = 10 * OUT_SCALE;
   FONT_SIZE = 18 * OUT_SCALE;
+  OUTPUT_GRAPHICS_DIMENSIONS = new PVector(OUT_SCALE * OUTPUT_DIMENSIONS.x - 2 * BORDER_WIDTH,
+  OUT_SCALE * OUTPUT_DIMENSIONS.y - 2 * BORDER_WIDTH - FONT_PADDING_FACTOR * FONT_SIZE);
 
   mFont = createFont("Montserrat-Thin", FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
@@ -51,13 +54,14 @@ void mDraw() {
   background(255);
 
   PGraphics mpg = createGraphics(int(OUT_SCALE * OUTPUT_DIMENSIONS.x), int(OUT_SCALE * OUTPUT_DIMENSIONS.y));
+  PGraphics mpo = createGraphics(int(OUTPUT_GRAPHICS_DIMENSIONS.x), int(OUTPUT_GRAPHICS_DIMENSIONS.y));
   mpg.smooth(8);
   mpg.beginDraw();
   mpg.background(255);
   mpg.endDraw();
 
-  drawOutput(mpg);
-  drawBorders(mpg, BORDER_WIDTH);
+  drawOutput(mpo);
+  drawOutputAndBorders(mpo, mpg);
 
   mpg.save(Card.filename + ".png");
   if (args != null) {
@@ -91,15 +95,23 @@ void drawInput(PGraphics mpg, String fileName) {
   mpg.endDraw();
 }
 
-void drawBorders(PGraphics mpg, int bwidth) {
+void drawOutputAndBorders(PGraphics mpo, PGraphics mpg) {
   mpg.beginDraw();
+
+  mpg.pushMatrix();
+  mpg.translate(mpg.width/ 2, mpg.height / 2);
+  mpg.imageMode(CENTER);
+  mpg.image(mpo, 0, 0);
+  mpg.imageMode(CORNER);
+  mpg.popMatrix();
+
   mpg.rectMode(CORNER);
   mpg.stroke(255);
   mpg.fill(255);
-  mpg.rect(0, 0, mpg.width, bwidth);
-  mpg.rect(0, mpg.height - bwidth, mpg.width, bwidth);
-  mpg.rect(0, 0, bwidth, mpg.height);
-  mpg.rect(mpg.width - bwidth, 0, bwidth, mpg.height);
+  mpg.rect(0, 0, mpg.width, BORDER_WIDTH);
+  mpg.rect(0, mpg.height - BORDER_WIDTH, mpg.width, BORDER_WIDTH);
+  mpg.rect(0, 0, BORDER_WIDTH, mpg.height);
+  mpg.rect(mpg.width - BORDER_WIDTH, 0, BORDER_WIDTH, mpg.height);
 
   mpg.noStroke();
   mpg.textFont(mFont);
@@ -107,12 +119,12 @@ void drawBorders(PGraphics mpg, int bwidth) {
   mpg.rectMode(CENTER);
   mpg.textAlign(CENTER, CENTER);
   mpg.fill(255);
-  mpg.rect(mpg.width/2, bwidth, mpg.width - 2 * bwidth + 1, FONT_PADDING_FACTOR * FONT_SIZE);
+  mpg.rect(mpg.width/2, BORDER_WIDTH, mpg.width - 2 * BORDER_WIDTH + 1, FONT_PADDING_FACTOR * FONT_SIZE);
   mpg.fill(0);
   mpg.text(Card.number, mpg.width/2, FONT_SIZE / 1.15f);
 
   mpg.fill(255);
-  mpg.rect(mpg.width/2, mpg.height - bwidth, mpg.width - 2 * bwidth + 1, FONT_PADDING_FACTOR * FONT_SIZE);
+  mpg.rect(mpg.width/2, mpg.height - BORDER_WIDTH, mpg.width - 2 * BORDER_WIDTH + 1, FONT_PADDING_FACTOR * FONT_SIZE);
   mpg.fill(0);
   mpg.text(Card.name, mpg.width/2, mpg.height - (FONT_SIZE / 0.92f));
 
@@ -121,7 +133,7 @@ void drawBorders(PGraphics mpg, int bwidth) {
   mpg.stroke(10);
   mpg.strokeWeight(OUT_SCALE);
   mpg.rect(1, 1, mpg.width - 2, mpg.height - 2);
-  mpg.rect(bwidth, bwidth + FONT_SIZE * (FONT_PADDING_FACTOR / 2.0f), mpg.width - 2 * bwidth, mpg.height - 2 * bwidth - FONT_PADDING_FACTOR * FONT_SIZE);
+  mpg.rect(BORDER_WIDTH, BORDER_WIDTH + FONT_SIZE * (FONT_PADDING_FACTOR / 2.0f), mpg.width - 2 * BORDER_WIDTH, mpg.height - 2 * BORDER_WIDTH - FONT_PADDING_FACTOR * FONT_SIZE);
 
   mpg.endDraw();
 }
