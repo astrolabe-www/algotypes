@@ -8,3 +8,4 @@ out.jpg
 node_modules
 parameters.h
 esp8266/OutrasGraph/data
+out/*png
