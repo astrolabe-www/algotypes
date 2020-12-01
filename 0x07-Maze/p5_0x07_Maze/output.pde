@@ -22,7 +22,7 @@ void drawOutput(PGraphics mpg) {
     }
   }
 
-  randomSeed(101010);
+  randomSeed(101);
 
   for (int p = 0; p < 70; p++) {
     Queue mQueue = new Queue();

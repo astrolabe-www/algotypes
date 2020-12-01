@@ -51,12 +51,12 @@ public class Board {
     lastMoveToRank = toRank;
   }
 
-  public void drawLastMove(PGraphics mpg, int bwidth) {
-    float fromX = map(lastMoveFromFile, 0, 7, bwidth, mpg.width - bwidth);
-    float fromY = map(lastMoveFromRank, 0, 7, bwidth, mpg.height - bwidth);
+  public void drawLastMove(PGraphics mpg) {
+    float fromX = map(lastMoveFromFile, 0, 7, 0, mpg.width);
+    float fromY = map(lastMoveFromRank, 0, 7, 0, mpg.height);
 
-    float toX = map(lastMoveToFile, 0, 7, bwidth, mpg.width - bwidth);
-    float toY = map(lastMoveToRank, 0, 7, bwidth, mpg.height - bwidth);
+    float toX = map(lastMoveToFile, 0, 7, 0, mpg.width);
+    float toY = map(lastMoveToRank, 0, 7, 0, mpg.height);
 
     mpg.line(fromX, fromY, toX, toY);
   }

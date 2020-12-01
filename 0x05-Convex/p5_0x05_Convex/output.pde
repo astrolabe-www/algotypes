@@ -6,16 +6,15 @@ void drawOutput(PGraphics mpg) {
   mpg.strokeWeight(OUT_SCALE * 3.333);
 
   int maxD = max(mpg.height, mpg.width);
-  int RBWIDTH = BORDER_WIDTH;
   Point[] inPoints = new Point[INPUT.length / 2];
 
   for (int p = 0; p < inPoints.length; p++) {
-    float x = ((map(INPUT[2 * p + 0], 0, 255, 0, 2.0 * maxD)) % (mpg.width - 2.0 * RBWIDTH)) + 1.1 * RBWIDTH;
-    float y = ((map(INPUT[2 * p + 1], 0, 255, 0, 2.0 * maxD)) % (mpg.height - 2.0 * RBWIDTH)) + 1.1 * RBWIDTH;
+    float x = ((map(INPUT[2 * p + 0], 0, 255, 1, 2.0 * maxD)) % (mpg.width - 1.0));
+    float y = ((map(INPUT[2 * p + 1], 0, 255, 1, 2.0 * maxD)) % (mpg.height - 1.0));
     inPoints[p] = new Point(x, y);
   }
 
-  randomSeed(101010);
+  randomSeed(10100010);
   final int NUM_ROW = 8;
   final int NUM_COL = NUM_ROW * mpg.width / mpg.height;
   final float gridW = mpg.width / NUM_COL;

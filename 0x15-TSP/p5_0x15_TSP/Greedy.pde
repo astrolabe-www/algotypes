@@ -63,7 +63,7 @@ class Greedy {
   }
 
 
-  public void drawCities(PGraphics mpg, int bwidth) {
+  public void drawCities(PGraphics mpg) {
     if (tour == null) this.solve();
 
     randomSeed(1010);
@@ -79,15 +79,15 @@ class Greedy {
     mpg.beginShape();
     mpg.vertex(location[tour[0]].x, location[tour[0]].y);
     for (int i = 1; i < num_cities; i++) {
-      float d = map(path[tour[i-1]][tour[i]], 0, 0xff, bwidth, 32 * mpg.height);
+      float d = map(path[tour[i-1]][tour[i]], 0, 0xff, 0, 32 * mpg.height);
       float a = random(0, TWO_PI);
 
       float mx = location[tour[i-1]].x + d * cos(a);
       float my = location[tour[i-1]].y + d * sin(a);
 
       location[tour[i]] = new PVector(
-        constrain(mx, bwidth + 2, mpg.width - bwidth - OUT_SCALE * 2),
-        constrain(my, bwidth + 2, mpg.height - bwidth - OUT_SCALE * 2));
+        constrain(mx, 0, mpg.width),
+        constrain(my, 0, mpg.height));
 
       mpg.vertex(location[tour[i]].x, location[tour[i]].y);
     }

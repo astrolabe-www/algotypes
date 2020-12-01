@@ -27,6 +27,17 @@ void drawOutput(PGraphics mpg) {
       mpg.stroke(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
       mpg.rect(w*x, h*y, w, h);
     }
+    mpg.rect(w*mjpeg[y].length, h*y, w, h);
   }
+
+  int y = mjpeg.length;
+  for (int x = 0; x < mjpeg[0].length; x++) {
+    int red = (int)map((mjpeg[0][x] - mluminance[0][x]), minDiff, maxDiff, 0, 255);
+    mpg.fill(red, 0, 0, (mjpeg[0][x] - mluminance[0][x]));
+    mpg.stroke(red, 0, 0, (mjpeg[0][x] - mluminance[0][x]));
+    mpg.rect(w*x, h*y, w, h);
+  }
+  mpg.rect(w*mjpeg[0].length, h*y, w, h);
+
   mpg.endDraw();
 }

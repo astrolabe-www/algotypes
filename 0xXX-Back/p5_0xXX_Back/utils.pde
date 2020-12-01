@@ -95,21 +95,11 @@ void drawInput(PGraphics mpg, String fileName) {
   mpg.endDraw();
 }
 
-void drawOutputAndBorders(PGraphics mpo, PGraphics mpg) {
+void drawBorders(PGraphics mpg) {
   mpg.beginDraw();
-
-  mpg.pushMatrix();
-  mpg.translate(mpg.width/ 2, mpg.height / 2);
-  mpg.imageMode(CENTER);
-  mpg.image(mpo, 0, 0);
-  mpg.imageMode(CORNER);
-  mpg.popMatrix();
-
   mpg.rectMode(CORNER);
   mpg.stroke(255);
   mpg.fill(255);
-  mpg.rect(0, 0, mpg.width, BORDER_WIDTH);
-  mpg.rect(0, mpg.height - BORDER_WIDTH, mpg.width, BORDER_WIDTH);
   mpg.rect(0, 0, BORDER_WIDTH, mpg.height);
   mpg.rect(mpg.width - BORDER_WIDTH, 0, BORDER_WIDTH, mpg.height);
 
@@ -136,4 +126,19 @@ void drawOutputAndBorders(PGraphics mpo, PGraphics mpg) {
   mpg.rect(BORDER_WIDTH, BORDER_WIDTH + FONT_SIZE * (FONT_PADDING_FACTOR / 2.0f), mpg.width - 2 * BORDER_WIDTH, mpg.height - 2 * BORDER_WIDTH - FONT_PADDING_FACTOR * FONT_SIZE);
 
   mpg.endDraw();
+}
+
+void drawOutputAndBorders(PGraphics mpo, PGraphics mpg) {
+  mpg.beginDraw();
+  mpg.background(255);
+
+  mpg.pushMatrix();
+  mpg.translate(mpg.width/ 2, mpg.height / 2);
+  mpg.imageMode(CENTER);
+  mpg.image(mpo, 0, 0);
+  mpg.imageMode(CORNER);
+  mpg.popMatrix();
+  mpg.endDraw();
+
+  drawBorders(mpg);
 }

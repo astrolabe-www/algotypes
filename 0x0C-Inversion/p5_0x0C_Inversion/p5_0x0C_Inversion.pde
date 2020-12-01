@@ -48,7 +48,7 @@ void draw() {
   background(255);
 
   drawOutput(mpgO);
-  drawBorders(mpgB, BORDER_WIDTH);
+  drawBorders(mpgB);
 
   mpgF.beginDraw();
   mpgF.hint(DISABLE_DEPTH_MASK);

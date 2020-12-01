@@ -1,5 +1,5 @@
 void drawOutput(PGraphics mpg) {
-  float R = mpg.width / 2.0;
+  float R = mpg.width / 1.9;
 
   mpg.beginDraw();
   mpg.fill(200, 0, 0, 40);

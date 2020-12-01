@@ -11,10 +11,10 @@ void drawOutput(PGraphics mpg) {
   for (int s = 1; s < mFSM.F.length; s++) {
     for (int f = 0; f < mFSM.NUMBER_STATES; f++) {
       for (int t = 0; t < mFSM.NUMBER_STATES; t++) {
-        float x0 = map(f, 0, mFSM.NUMBER_STATES - 1, BORDER_WIDTH, mpg.width - BORDER_WIDTH);
-        float y0 = map(s - 1, 0, mFSM.out.length - 1, BORDER_WIDTH, mpg.height - BORDER_WIDTH);
-        float x1 = map(t, 0, mFSM.NUMBER_STATES - 1, BORDER_WIDTH, mpg.width - BORDER_WIDTH);
-        float y1 = map(s, 0, mFSM.out.length - 1, BORDER_WIDTH, mpg.height - BORDER_WIDTH);
+        float x0 = map(f, 0, mFSM.NUMBER_STATES - 1, 0, mpg.width);
+        float y0 = map(s - 1, 0, mFSM.out.length - 1, 0, mpg.height);
+        float x1 = map(t, 0, mFSM.NUMBER_STATES - 1, 0, mpg.width);
+        float y1 = map(s, 0, mFSM.out.length - 1, 0, mpg.height);
 
         if ((s >= mFSM.F.length / 2 - middleSections / 2) && (s <= mFSM.F.length / 2 + middleSections / 2)) {
           float a = map(mFSM.transition[s][f][t], 0, 1, 0, alphaMultipplier * 80);
