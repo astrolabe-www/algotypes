@@ -24,7 +24,7 @@ void setup() {
   mSetup();
   OUTPUT_DFT = Fourier.DFT(INPUT);
   OUTPUT_FFT = Fourier.FFT(INPUT);
-  Fourier.testFTs(OUTPUT_DFT, OUTPUT_FFT);
+  //Fourier.testFTs(OUTPUT_DFT, OUTPUT_FFT);
 }
 
 void draw() {
