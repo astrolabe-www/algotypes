@@ -21,9 +21,9 @@ extern "C" {
   int wifi_send_pkt_freedom(uint8 *buf, int len, bool sys_seq);
 }
 
-const uint8_t mCHANNEL = 8;
-const uint8_t mMAC = 0x48;
-const String mSSID = "0x08-PID";
+const uint8_t mCHANNEL = 11;
+const uint8_t mMAC = 0x6B;
+const String mSSID = "0x0B-PID";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;

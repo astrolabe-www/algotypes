@@ -13,7 +13,7 @@ void initInput() {
 }
 
 static class Card {
-  static final public String number = "0x08";
+  static final public String number = "0x0B";
   static final public String name = "PID Control";
   static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
 }
