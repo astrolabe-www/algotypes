@@ -5,6 +5,9 @@ enum Output {
 }
 
 static Output OUTPUT = Output.SCREEN;
+
+final boolean BLEED_WIDTH = false;
+
 PVector OUTPUT_DIMENSIONS;
 PVector OUTPUT_GRAPHICS_DIMENSIONS;
 int CARD_HEIGHT;
@@ -45,8 +48,9 @@ void mSetup() {
   OUT_SCALE = (OUTPUT == Output.PRINT) ? 2 : 1;
   BORDER_WIDTH = int(0.076 * OUT_SCALE * CARD_HEIGHT);
   FONT_SIZE = 18 * OUT_SCALE;
-  OUTPUT_GRAPHICS_DIMENSIONS = new PVector(OUT_SCALE * OUTPUT_DIMENSIONS.x - 2 * BORDER_WIDTH,
-  OUT_SCALE * OUTPUT_DIMENSIONS.y - 2 * BORDER_WIDTH);
+
+  OUTPUT_GRAPHICS_DIMENSIONS = PVector.mult(OUTPUT_DIMENSIONS, OUT_SCALE).sub(2 * BORDER_WIDTH, 2 * BORDER_WIDTH, 0);
+  if (BLEED_WIDTH) OUTPUT_GRAPHICS_DIMENSIONS = PVector.mult(OUTPUT_DIMENSIONS, OUT_SCALE).sub(0, 3 * BORDER_WIDTH, 0);
 
   mFont = createFont("Montserrat-Thin", FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
@@ -98,6 +102,36 @@ void drawInput(PGraphics mpg, String fileName) {
   mpg.endDraw();
 }
 
+void drawBordersBleedWidth(PGraphics mpg) {
+  mpg.beginDraw();
+
+  mpg.noStroke();
+  mpg.textFont(mFont);
+  mpg.textSize(FONT_SIZE);
+  mpg.rectMode(CENTER);
+  mpg.fill(255);
+  mpg.rect(mpg.width/2, 1.5 * BORDER_WIDTH / 2, mpg.width - 2 * BORDER_WIDTH + 1, 1.5 * BORDER_WIDTH);
+  mpg.fill(0);
+  mpg.textAlign(CENTER, BOTTOM);
+  mpg.text(Card.number, mpg.width/2, 1.25 * BORDER_WIDTH);
+
+  mpg.fill(255);
+  mpg.rect(mpg.width/2, mpg.height - 1.5 * BORDER_WIDTH / 2, mpg.width - 2 * BORDER_WIDTH + 1, 1.5 * BORDER_WIDTH);
+  mpg.fill(0);
+  mpg.textAlign(CENTER, TOP);
+  mpg.text(Card.name, mpg.width/2, mpg.height - 1.25 * BORDER_WIDTH);
+
+  mpg.rectMode(CORNER);
+  mpg.noFill();
+  mpg.stroke(10);
+  mpg.strokeWeight(OUT_SCALE);
+  mpg.rect(0, 1, mpg.width - 1, mpg.height - 2);
+  mpg.line(0, 1.5 * BORDER_WIDTH, mpg.width, 1.5 * BORDER_WIDTH);
+  mpg.line(0, mpg.height - 1.5 * BORDER_WIDTH, mpg.width, mpg.height - 1.5 * BORDER_WIDTH);
+
+  mpg.endDraw();
+}
+
 void drawBorders(PGraphics mpg) {
   mpg.beginDraw();
   mpg.rectMode(CORNER);
@@ -144,5 +178,6 @@ void drawOutputAndBorders(PGraphics mpo, PGraphics mpg) {
   mpg.popMatrix();
   mpg.endDraw();
 
-  drawBorders(mpg);
+  if (BLEED_WIDTH) drawBordersBleedWidth(mpg);
+  else drawBorders(mpg);
 }
