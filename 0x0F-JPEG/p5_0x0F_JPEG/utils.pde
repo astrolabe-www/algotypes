@@ -5,8 +5,7 @@ enum Output {
 }
 
 static Output OUTPUT = Output.SCREEN;
-
-final boolean BLEED_WIDTH = false;
+static boolean BLEED_WIDTH = false;
 
 PVector OUTPUT_DIMENSIONS;
 PVector OUTPUT_GRAPHICS_DIMENSIONS;
@@ -41,6 +40,8 @@ void mSetup() {
   } else if (args[0].equals("TELEGRAM")) {
     OUTPUT = Output.TELEGRAM;
   }
+
+  if(args != null && args.length > 1 && args[1].equals("BLEED")) BLEED_WIDTH = true;
 
   CARD_HEIGHT = 840;
   CARD_WIDTH = int(0.6 * CARD_HEIGHT);
