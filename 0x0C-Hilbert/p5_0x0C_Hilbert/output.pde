@@ -4,7 +4,7 @@ void drawOutput(PGraphics mpg) {
   float mX[] = { max(mpg.width, mpg.height) };
   float mY[] = { max(mpg.width, mpg.height) };
   int borderOffset = 2 * OUT_SCALE;
-  int rness = 4;
+  int rness = 4 * OUT_SCALE;
 
   int N[][] = {
     { 16 },
