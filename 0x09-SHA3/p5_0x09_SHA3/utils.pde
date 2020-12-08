@@ -12,7 +12,6 @@ int CARD_WIDTH;
 int OUT_SCALE;
 int BORDER_WIDTH;
 int FONT_SIZE;
-float FONT_PADDING_FACTOR;
 PFont mFont;
 
 String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
@@ -43,12 +42,11 @@ void mSetup() {
   CARD_HEIGHT = 840;
   CARD_WIDTH = int(0.6 * CARD_HEIGHT);
   OUTPUT_DIMENSIONS = new PVector((OUTPUT != Output.TELEGRAM) ? CARD_WIDTH : CARD_HEIGHT, CARD_HEIGHT);
-  OUT_SCALE = (OUTPUT == Output.PRINT) ? 10 : 1;
-  BORDER_WIDTH = 10 * OUT_SCALE;
+  OUT_SCALE = (OUTPUT == Output.PRINT) ? 2 : 1;
+  BORDER_WIDTH = int(0.076 * OUT_SCALE * CARD_HEIGHT);
   FONT_SIZE = 18 * OUT_SCALE;
-  FONT_PADDING_FACTOR = 2.6;
   OUTPUT_GRAPHICS_DIMENSIONS = new PVector(OUT_SCALE * OUTPUT_DIMENSIONS.x - 2 * BORDER_WIDTH,
-  OUT_SCALE * OUTPUT_DIMENSIONS.y - 2 * BORDER_WIDTH - FONT_PADDING_FACTOR * FONT_SIZE);
+  OUT_SCALE * OUTPUT_DIMENSIONS.y - 2 * BORDER_WIDTH);
 
   mFont = createFont("Montserrat-Thin", FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
@@ -112,23 +110,24 @@ void drawBorders(PGraphics mpg) {
   mpg.textFont(mFont);
   mpg.textSize(FONT_SIZE);
   mpg.rectMode(CENTER);
-  mpg.textAlign(CENTER, CENTER);
   mpg.fill(255);
-  mpg.rect(mpg.width/2, BORDER_WIDTH, mpg.width - 2 * BORDER_WIDTH + 1, FONT_PADDING_FACTOR * FONT_SIZE);
+  mpg.rect(mpg.width/2, BORDER_WIDTH / 2, mpg.width - 2 * BORDER_WIDTH + 1, BORDER_WIDTH);
   mpg.fill(0);
-  mpg.text(Card.number, mpg.width/2, FONT_SIZE / 1.15f);
+  mpg.textAlign(CENTER, BOTTOM);
+  mpg.text(Card.number, mpg.width/2, BORDER_WIDTH);
 
   mpg.fill(255);
-  mpg.rect(mpg.width/2, mpg.height - BORDER_WIDTH, mpg.width - 2 * BORDER_WIDTH + 1, FONT_PADDING_FACTOR * FONT_SIZE);
+  mpg.rect(mpg.width/2, mpg.height - BORDER_WIDTH / 2, mpg.width - 2 * BORDER_WIDTH + 1, BORDER_WIDTH);
   mpg.fill(0);
-  mpg.text(Card.name, mpg.width/2, mpg.height - (FONT_SIZE / 0.92f));
+  mpg.textAlign(CENTER, TOP);
+  mpg.text(Card.name, mpg.width/2, mpg.height - BORDER_WIDTH);
 
   mpg.rectMode(CORNER);
   mpg.noFill();
   mpg.stroke(10);
   mpg.strokeWeight(OUT_SCALE);
   mpg.rect(1, 1, mpg.width - 2, mpg.height - 2);
-  mpg.rect(BORDER_WIDTH, BORDER_WIDTH + FONT_SIZE * (FONT_PADDING_FACTOR / 2.0f), mpg.width - 2 * BORDER_WIDTH, mpg.height - 2 * BORDER_WIDTH - FONT_PADDING_FACTOR * FONT_SIZE);
+  mpg.rect(BORDER_WIDTH, BORDER_WIDTH, mpg.width - 2 * BORDER_WIDTH, mpg.height - 2 * BORDER_WIDTH);
 
   mpg.endDraw();
 }
