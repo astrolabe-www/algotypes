@@ -11,7 +11,7 @@ void initInput() {
 }
 
 static class Card {
-  static final public String number = "0x0ZY";
+  static final public String number = "0xZY";
   static final public String name = "Convex Hull";
   static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
 }

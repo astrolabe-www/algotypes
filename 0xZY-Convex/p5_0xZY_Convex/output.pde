@@ -15,20 +15,21 @@ void drawOutput(PGraphics mpg) {
   }
 
   randomSeed(10100010);
-  final int NUM_ROW = 8;
+  final int NUM_ROW = 7;
   final int NUM_COL = NUM_ROW * mpg.width / mpg.height;
   final float gridW = mpg.width / NUM_COL;
   final float gridH = mpg.height / NUM_ROW;
+  final float gridScale = 4.0;
 
   Point[] inPolygon = new Point[INPUT.length];
   for (int p = 0; p < inPolygon.length; p++) inPolygon[p] = new Point(0, 0);
 
   for (int i = 0; i < NUM_ROW; i++) {
     for (int j = 0; j < NUM_COL; j++) {
-      float xMin = (j + 0) * gridW + random(-gridW / 10.0, 0);
-      float xMax = (j + 1) * gridW + random(0, gridW/ 10.0);
-      float yMin = (i + 0) * gridH + random(-gridH / 10.0, 0);
-      float yMax = (i + 1) * gridH + random(0, gridH / 10.0);
+      float xMin = (j + 0) * gridW + random(-gridW / gridScale, 0);
+      float xMax = (j + 1) * gridW + random(0, gridW/ gridScale);
+      float yMin = (i + 0) * gridH + random(-gridH / gridScale, 0);
+      float yMax = (i + 1) * gridH + random(0, gridH / gridScale);
 
       int pCount = 0;
 
