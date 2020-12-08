@@ -21,7 +21,7 @@ static class Card {
 PID mPID;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mPID = new PID(INPUT);
 }

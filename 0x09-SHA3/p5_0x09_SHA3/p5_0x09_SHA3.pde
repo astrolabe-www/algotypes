@@ -21,7 +21,7 @@ static class Card {
 Keccak mKeccak;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mKeccak = new Keccak(576, 1024);
   byte[] r = mKeccak.SHA3("hello world".getBytes());

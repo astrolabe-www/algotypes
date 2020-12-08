@@ -20,7 +20,7 @@ static class Card {
 PRNG mPRNG;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mPRNG = new PRNG(INPUT);
 }

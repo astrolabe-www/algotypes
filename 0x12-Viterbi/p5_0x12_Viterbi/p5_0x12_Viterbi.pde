@@ -19,7 +19,7 @@ static class Card {
 FSM mFSM;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mFSM = new FSM(INPUT);
 }

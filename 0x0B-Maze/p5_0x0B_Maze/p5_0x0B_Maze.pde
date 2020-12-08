@@ -19,7 +19,7 @@ static class Card {
 Maze mMaze;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mMaze = new Maze(INPUT);
 }

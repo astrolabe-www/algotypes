@@ -18,7 +18,7 @@ static class Card {
 Reaction mRD;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mRD = new Reaction(INPUT);
 }

@@ -25,7 +25,7 @@ static class Card {
 Block[] chain;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
 
   chain = new Block[INPUT_LIST.length];

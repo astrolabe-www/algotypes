@@ -19,7 +19,7 @@ static class Card {
 Board mBoard;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mBoard = new Board();
 }

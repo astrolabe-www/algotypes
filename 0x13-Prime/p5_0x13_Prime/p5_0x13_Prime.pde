@@ -36,7 +36,7 @@ static class Card {
 int[] mPrimes;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mPrimes = Primal.primes(INPUT);
 }

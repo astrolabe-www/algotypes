@@ -21,7 +21,7 @@ Tree mTree;
 Tree mSplayTree;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   mTree = new Tree();
   mSplayTree = new SplayTree();

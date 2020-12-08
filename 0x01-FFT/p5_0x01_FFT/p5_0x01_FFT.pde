@@ -20,7 +20,7 @@ Complex[] OUTPUT_DFT;
 Complex[] OUTPUT_FFT;
 
 void setup() {
-  size(804, 804);
+  size(840, 840);
   mSetup();
   OUTPUT_DFT = Fourier.DFT(INPUT);
   OUTPUT_FFT = Fourier.FFT(INPUT);
