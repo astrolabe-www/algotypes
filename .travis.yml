@@ -25,20 +25,22 @@ script:
     if [[ $LATEST_COMMIT == $LATEST_BOT_COMMIT ]]; then
       echo "Deploy Heroku";
       DEPLOY_BOT=true;
-    else
-      DEPLOY_BOT=true;
     fi
   - |
     if [[ $LATEST_COMMIT == $LATEST_P5_COMMIT ]]; then
       echo "Deploy P5";
       DEPLOY_P5=true;
     fi
-  - echo $DEPLOY_BOT $DEPLOY_P5
 
 before_deploy:
-  - if [[ $DEPLOY_BOT = true ]]; then cd algotypes_bot; fi
+  - |
+    if [[ $DEPLOY_BOT = true ]]; then
+      echo "Deploy Bots";
+      cd algotypes_bot;
+    fi
   - |
     if [[ $DEPLOY_P5 = true ]]; then
+      echo "Deploy P5 cards";
       wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz;
       PATH=$PATH:./processing-3.5.4;
       mkdir out;
