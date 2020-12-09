@@ -114,51 +114,10 @@ class Node {
   }
 
   private PVector drawNode(PGraphics mpg, int treeHeight) {
-    return drawNode0(mpg, treeHeight);
-  }
-
-  private PVector drawNode0(PGraphics mpg, int treeHeight) {
     float dx = location.x * mpg.width;
     float dy = (location.y / (treeHeight - 1)) * mpg.height;
 
-    dx *= map(noise(location.x, location.y/(OUT_SCALE * 1000f)), 0, 1, -0.5, 2.5);
-    mpg.ellipse(dx, dy, OUT_SCALE * 2, 0);
-
-    if (left != null) {
-      PVector leftDrawLocation = left.drawNode(mpg, treeHeight);
-      mpg.line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
-    }
-    if (right != null) {
-      PVector rightDrawLocation = right.drawNode(mpg, treeHeight);
-      mpg.line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
-    }
-
-    return new PVector(dx, dy);
-  }
-
-  private PVector drawNode1(PGraphics mpg, int treeHeight) {
-    float dx = location.x * mpg.width;
-    float dy = (location.y / (treeHeight - 1)) * mpg.height;
-
-    dy *= map(noise(location.y, location.x/(OUT_SCALE * 100f)), 0, 1, -500 * OUT_SCALE, 500 * OUT_SCALE);
-
-    if (left != null) {
-      PVector leftDrawLocation = left.drawNode(mpg, treeHeight);
-      mpg.line(dx, dy, leftDrawLocation.x, leftDrawLocation.y);
-    }
-    if (right != null) {
-      PVector rightDrawLocation = right.drawNode(mpg, treeHeight);
-      mpg.line(dx, dy, rightDrawLocation.x, rightDrawLocation.y);
-    }
-
-    return new PVector(dx, dy);
-  }
-
-  private PVector drawNode2(PGraphics mpg, int treeHeight) {
-    float dx = location.x * mpg.width;
-    float dy = (location.y / (treeHeight - 1)) * mpg.height;
-
-    dy *= map(noise(location.y, location.x/(OUT_SCALE * 100f)), 0, 1, 0, 2);
+    dy *= map(noise(location.y/1000f), 0, 1, 0.2, 2.0);
 
     if (left != null) {
       PVector leftDrawLocation = left.drawNode(mpg, treeHeight);
@@ -178,12 +137,12 @@ class Node {
     int rightHeight = 0;
 
     if (left != null) {
-      float lx = location.x - (1.0 / (1 << int(location.y + 2)));
+      float lx = location.x - (2.0 / (1 << int(location.y + 2)));
       leftHeight = left.calculateHeight(new PVector(lx, location.y + 1));
     }
 
     if (right != null) {
-      float rx = location.x + (1.0 / (1 << int(location.y + 2)));
+      float rx = location.x + (2.0 / (1 << int(location.y + 2)));
       rightHeight = right.calculateHeight(new PVector(rx, location.y + 1));
     }
 

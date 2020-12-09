@@ -7,7 +7,7 @@ void drawOutput(PGraphics mpg) {
     mpg.strokeWeight(OUT_SCALE);
     mpg.fill(200, 0, 0, 16);
     mpg.endDraw();
-    mSplayTree.draw(mpg);
+    //mSplayTree.draw(mpg);
     mTree.draw(mpg);
   }
 }
