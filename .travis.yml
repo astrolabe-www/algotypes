@@ -21,8 +21,18 @@ script:
   - LATEST_COMMIT=$(git log -1 --format=format:%H --full-diff .)
   - LATEST_BOT_COMMIT=$(git log -1 --format=format:%H --full-diff ./algotypes_bot)
   - LATEST_P5_COMMIT=$(git log -1 --format=format:%H --full-diff ./0x*/p5*)
-  - if [[ $LATEST_COMMIT == $LATEST_BOT_COMMIT ]]; then echo "Deploy Heroku"; DEPLOY_BOT=true; fi
-  - if [[ $LATEST_COMMIT == $LATEST_P5_COMMIT ]]; then echo "Deploy P5"; DEPLOY_P5=true; fi
+  - |
+    if [[ $LATEST_COMMIT == $LATEST_BOT_COMMIT ]]; then
+      echo "Deploy Heroku";
+      DEPLOY_BOT=true;
+    else
+      DEPLOY_BOT=true;
+    fi
+  - |
+    if [[ $LATEST_COMMIT == $LATEST_P5_COMMIT ]]; then
+      echo "Deploy P5";
+      DEPLOY_P5=true;
+    fi
   - echo $DEPLOY_BOT $DEPLOY_P5
 
 before_deploy:
