@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-  echo "specify which type of output [SCREEN | PRINT | TELEGRAM]"
+  echo "specify which type of output [SCREEN | PRINT | TELEGRAM] [BLEED]"
   exit
 fi
 
