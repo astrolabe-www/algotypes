@@ -43,6 +43,7 @@ before_deploy:
       echo "Deploy P5 cards";
       wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz;
       PATH=$PATH:./processing-3.5.4;
+      export DISPLAY=:0.0;
       mkdir out;
       processing-java --sketch=$PWD/0x00-PRNG/p5_0x00_PRNG --run SCREEN;
       tar -czf cards.tar.gz out;
