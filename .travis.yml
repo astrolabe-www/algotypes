@@ -37,7 +37,8 @@ before_deploy:
       echo "Deploy P5 cards";
       wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz;
       PATH=$PATH:./processing-3.5.4;
-      xvfb-run ./scripts/gen_all_cards.sh
+      xvfb-run ./scripts/gen_all_cards.sh PRINT
+      xvfb-run ./scripts/gen_all_cards.sh PRINT BLEED
       ls -la out/;
       tar -czf cards.tar.gz out;
       git config --local user.name "$USER_NAME";
