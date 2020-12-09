@@ -11,6 +11,8 @@ then
   mkdir -p out
 fi
 
+which processing-java
+
 for ALGO in $(find . -mindepth 2 -maxdepth 2 -type d -name "p5_0x*" | sort)
 do
   echo $ALGO
