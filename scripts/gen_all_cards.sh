@@ -15,7 +15,7 @@ for ALGO in $(find . -mindepth 2 -maxdepth 2 -type d -name "p5_0x*" | sort)
 do
   echo $ALGO
   pushd $ALGO
-  processing-java --sketch=$PWD --run $1
+  processing-java --sketch=$PWD --run $1 $2
   mv *png ../../out/
   popd
 done

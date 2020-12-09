@@ -14,7 +14,7 @@ void initInput() {
 static class Card {
   static final public String number = "0x0F";
   static final public String name = "JPEG Compression";
-  static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_");
 }
 
 JFIF mJFIF;

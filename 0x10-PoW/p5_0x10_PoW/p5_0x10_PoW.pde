@@ -19,7 +19,7 @@ void initInput() {
 static class Card {
   static final public String number = "0x10";
   static final public String name = "Blockchain Proof-of-Work";
-  static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_");
 }
 
 Block[] chain;

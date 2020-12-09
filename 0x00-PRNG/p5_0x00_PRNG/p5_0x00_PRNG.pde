@@ -14,7 +14,7 @@ void initInput() {
 static class Card {
   static final public String number = "0x00";
   static final public String name = "Pseudo-Random Number Generator";
-  static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_");
 }
 
 PRNG mPRNG;

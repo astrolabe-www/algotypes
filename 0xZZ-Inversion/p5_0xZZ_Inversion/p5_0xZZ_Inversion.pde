@@ -14,7 +14,7 @@ void initInput() {
 static class Card {
   static final public String number = "0xZZ";
   static final public String name = "Matrix Inversion";
-  static final public String filename = OUTPUT.name() + "_" + number + "_" + name.replace(" ", "_");
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_");
 }
 
 LUPMatrix mLUPMatrix;
