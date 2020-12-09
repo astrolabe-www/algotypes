@@ -1,3 +1,9 @@
+# wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
+# $PATH=$PATH:./processing-3.5.4
+
+# DEPLOY_F=true
+# if [[ $DEPLOY_F = true ]]; then echo "hiii"; else echo "no"; fi
+
 language: node_js
 
 node_js:
@@ -13,13 +19,18 @@ branches:
 script:
   - echo "test if deploy"
   - LATEST_COMMIT=$(git log -1 --format=format:%H --full-diff .)
-  - LATEST_COMMIT_IN_PATH=$(git log -1 --format=format:%H --full-diff ./algotypes_bot)
-  - if [[ $LATEST_COMMIT != $LATEST_COMMIT_IN_PATH ]]; then echo "Don't Deploy"; exit 0; else echo "Deploy"; fi
+  - LATEST_BOT_COMMIT=$(git log -1 --format=format:%H --full-diff ./algotypes_bot)
+  - LATEST_P5_COMMIT=$(git log -1 --format=format:%H --full-diff ./0x*/p5*)
+  - if [[ $LATEST_COMMIT == $LATEST_BOT_COMMIT ]]; then echo "Deploy Heroku"; DEPLOY_BOT=true; else echo "Deploy P5"; fi
 
 before_deploy:
+  - echo $DEPLOY_BOT
   - cd algotypes_bot
+  - exit 0
 
 deploy:
   provider: heroku
   api_key: $HEROKU_KEY
   app: algotypes-bot
+  on:
+    condition: $DEPLOY_BOT = true
