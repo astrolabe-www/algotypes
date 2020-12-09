@@ -54,7 +54,7 @@ void mSetup() {
   OUTPUT_GRAPHICS_DIMENSIONS = PVector.mult(OUTPUT_DIMENSIONS, OUT_SCALE).sub(2 * BORDER_WIDTH, 2 * BORDER_WIDTH, 0);
   if (BLEED_WIDTH) OUTPUT_GRAPHICS_DIMENSIONS = PVector.mult(OUTPUT_DIMENSIONS, OUT_SCALE).sub(0, 3 * BORDER_WIDTH, 0);
 
-  mFont = createFont("Montserrat-Thin", FONT_SIZE);
+  mFont = createFont("../../fonts/Montserrat-Thin.ttf", FONT_SIZE);
   INPUT_FILEPATH = sketchPath("../../Packets/in/" + INPUT_FILENAME);
   initInput();
 }

@@ -43,7 +43,7 @@ before_deploy:
       PATH=$PATH:$PWD/processing-3.5.4
       xvfb-run ./scripts/gen_all_cards.sh PRINT
       xvfb-run ./scripts/gen_all_cards.sh PRINT BLEED
-      tar -czf cards.tar.gz out
+      tar -czf cards.tar.gz cards
       git config --local user.name "$USER_NAME"
       git config --local user.email "$USER_EMAIL"
       git tag "$TRAVIS_BRANCH-$(git log --format=%h -1)"
