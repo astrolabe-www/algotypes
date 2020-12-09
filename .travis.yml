@@ -1,9 +1,3 @@
-# wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
-# $PATH=$PATH:./processing-3.5.4
-
-# DEPLOY_F=true
-# if [[ $DEPLOY_F = true ]]; then echo "hiii"; else echo "no"; fi
-
 language: node_js
 
 node_js:
@@ -43,8 +37,8 @@ before_deploy:
       echo "Deploy P5 cards";
       wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz;
       PATH=$PATH:./processing-3.5.4;
-      mkdir out;
-      xvfb-run processing-java --sketch=$PWD/0x00-PRNG/p5_0x00_PRNG --run SCREEN;
+      xvfb-run ./scripts/gen_all_cards.sh
+      ls -la out/;
       tar -czf cards.tar.gz out;
       git config --local user.name "$USER_NAME";
       git config --local user.email "$USER_EMAIL";
