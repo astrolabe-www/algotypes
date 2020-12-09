@@ -18,4 +18,5 @@ do
   processing-java --sketch=$PWD --run $1 $2
   mv *png ../../out/
   popd
+  exit 0
 done
