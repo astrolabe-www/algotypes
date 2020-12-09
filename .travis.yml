@@ -41,7 +41,6 @@ before_deploy:
       echo "Deploy P5 cards"
       wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
       PATH=$PATH:$PWD/processing-3.5.4
-      which processing-java
       xvfb-run ./scripts/gen_all_cards.sh PRINT
       xvfb-run ./scripts/gen_all_cards.sh PRINT BLEED
       ls -la out/
