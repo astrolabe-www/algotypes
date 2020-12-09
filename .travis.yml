@@ -41,7 +41,6 @@ before_deploy:
   - |
     if [[ $DEPLOY_P5 = true ]]; then
       echo "Deploy P5 cards";
-      sudo apt-get install xvfb libxrender1 libxtst6 libxi6
       wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz;
       PATH=$PATH:./processing-3.5.4;
       mkdir out;
