@@ -18,6 +18,8 @@ static class Card {
 void setup() {
   size(840, 840);
   mSetup();
+  if (BLEED_WIDTH) BLEED_HEIGHT = true;
+  if (BLEED_HEIGHT) OUTPUT_GRAPHICS_DIMENSIONS = PVector.mult(OUTPUT_DIMENSIONS, OUT_SCALE).sub(0, 0, 0);
 }
 
 void draw() {

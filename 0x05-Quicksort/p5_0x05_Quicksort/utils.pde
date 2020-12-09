@@ -6,6 +6,7 @@ enum Output {
 
 static Output OUTPUT = Output.SCREEN;
 static boolean BLEED_WIDTH = false;
+static boolean BLEED_HEIGHT = false;
 
 PVector OUTPUT_DIMENSIONS;
 PVector OUTPUT_GRAPHICS_DIMENSIONS;
@@ -111,13 +112,13 @@ void drawBordersBleedWidth(PGraphics mpg) {
   mpg.textSize(FONT_SIZE);
   mpg.rectMode(CENTER);
   mpg.fill(255);
-  mpg.rect(mpg.width/2, 1.5 * BORDER_WIDTH / 2, mpg.width - 2 * BORDER_WIDTH + 1, 1.5 * BORDER_WIDTH);
+  if (!BLEED_HEIGHT) mpg.rect(mpg.width/2, 1.5 * BORDER_WIDTH / 2, mpg.width - 2 * BORDER_WIDTH + 1, 1.5 * BORDER_WIDTH);
   mpg.fill(0);
   mpg.textAlign(CENTER, BOTTOM);
   mpg.text(Card.number, mpg.width/2, 1.25 * BORDER_WIDTH);
 
   mpg.fill(255);
-  mpg.rect(mpg.width/2, mpg.height - 1.5 * BORDER_WIDTH / 2, mpg.width - 2 * BORDER_WIDTH + 1, 1.5 * BORDER_WIDTH);
+  if (!BLEED_HEIGHT) mpg.rect(mpg.width/2, mpg.height - 1.5 * BORDER_WIDTH / 2, mpg.width - 2 * BORDER_WIDTH + 1, 1.5 * BORDER_WIDTH);
   mpg.fill(0);
   mpg.textAlign(CENTER, TOP);
   mpg.text(Card.name, mpg.width/2, mpg.height - 1.25 * BORDER_WIDTH);
@@ -127,8 +128,8 @@ void drawBordersBleedWidth(PGraphics mpg) {
   mpg.stroke(10);
   mpg.strokeWeight(OUT_SCALE);
   mpg.rect(0, 1, mpg.width - 1, mpg.height - 2);
-  mpg.line(0, 1.5 * BORDER_WIDTH, mpg.width, 1.5 * BORDER_WIDTH);
-  mpg.line(0, mpg.height - 1.5 * BORDER_WIDTH, mpg.width, mpg.height - 1.5 * BORDER_WIDTH);
+  if (!BLEED_HEIGHT) mpg.line(0, 1.5 * BORDER_WIDTH, mpg.width, 1.5 * BORDER_WIDTH);
+  if (!BLEED_HEIGHT) mpg.line(0, mpg.height - 1.5 * BORDER_WIDTH, mpg.width, mpg.height - 1.5 * BORDER_WIDTH);
 
   mpg.endDraw();
 }
