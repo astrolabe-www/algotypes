@@ -41,11 +41,11 @@ before_deploy:
   - |
     if [[ $DEPLOY_P5 = true ]]; then
       echo "Deploy P5 cards";
+      apt-get install xvfb libxrender1 libxtst6 libxi6
       wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz;
       PATH=$PATH:./processing-3.5.4;
-      export DISPLAY=:0.0;
       mkdir out;
-      processing-java --sketch=$PWD/0x00-PRNG/p5_0x00_PRNG --run SCREEN;
+      xvfb-run processing-java --sketch=$PWD/0x00-PRNG/p5_0x00_PRNG --run SCREEN;
       tar -czf cards.tar.gz out;
       git config --local user.name "$USER_NAME";
       git config --local user.email "$USER_EMAIL";
