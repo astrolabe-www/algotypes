@@ -22,9 +22,9 @@ extern "C" {
   int wifi_send_pkt_freedom(uint8 *buf, int len, bool sys_seq);
 }
 
-const uint8_t mCHANNEL = 12;
-const uint8_t mMAC = 0x50;
-const String mSSID = "0xZY-Convex";
+const uint8_t mCHANNEL = 8; // 21 % 13
+const uint8_t mMAC = 0x55;
+const String mSSID = "0x15-Convex";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;
