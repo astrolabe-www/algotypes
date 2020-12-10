@@ -13,7 +13,7 @@ public static class Convex {
     Arrays.sort(in, new Comparator<Point>() {
       @Override
       public int compare(Point a, Point b) {
-        return (int)((a.x == b.x) ? (a.y - b.y) : (a.x - b.x));
+        return (int) Math.signum((a.x == b.x) ? (a.y - b.y) : (a.x - b.x));
       }
     });
 
