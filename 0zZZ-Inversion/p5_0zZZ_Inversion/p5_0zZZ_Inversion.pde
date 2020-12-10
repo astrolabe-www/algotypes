@@ -26,21 +26,18 @@ void setup() {
 }
 
 void draw() {
-  float SCALE = 3.0;
-  float PITCH = PI * 0.42;
-  float ROLL = -PI * 0.01;
-  float YAW = PI * 0.09;
-  float SLIDEX = 0.18;
-  float SLIDEY = 0.55;
+  float PITCH = PI * 0.4;
+  float ROLL = -PI * 0.05;
+  float YAW = PI * 0.19;
+  float SLIDEX = 0.333;
+  float SLIDEY = 0.666;
 
   PVector SCALED_OUTPUT_DIMENSIONS = new PVector(OUT_SCALE * OUTPUT_DIMENSIONS.x, OUT_SCALE * OUTPUT_DIMENSIONS.y);
 
-  PGraphics mpgI = createGraphics(int(SCALED_OUTPUT_DIMENSIONS.x), int(SCALED_OUTPUT_DIMENSIONS.y));
   PGraphics mpgB = createGraphics(int(SCALED_OUTPUT_DIMENSIONS.x), int(SCALED_OUTPUT_DIMENSIONS.y));
   PGraphics mpgO = createGraphics(int(SCALED_OUTPUT_DIMENSIONS.x), int(SCALED_OUTPUT_DIMENSIONS.y));
   PGraphics mpgF = createGraphics(int(SCALED_OUTPUT_DIMENSIONS.x), int(SCALED_OUTPUT_DIMENSIONS.y), P3D);
 
-  mpgI.smooth(8);
   mpgB.smooth(8);
   mpgO.smooth(8);
   mpgF.smooth(8);
@@ -60,7 +57,6 @@ void draw() {
   mpgF.rotateZ(ROLL);
   mpgF.rotateY(YAW);
   mpgF.rotateX(PITCH);
-  mpgF.scale(SCALE, SCALE);
   mpgF.translate(-mpgF.width * SLIDEX, -mpgF.height * SLIDEY);
   mpgF.image(mpgO, 0, 0, mpgF.width, mpgF.height);
   mpgF.popMatrix();
