@@ -3,8 +3,7 @@ void drawOutput(PGraphics mpg) {
 
   float mX[] = { max(mpg.width, mpg.height) };
   float mY[] = { max(mpg.width, mpg.height) };
-  int borderOffset = 2 * OUT_SCALE;
-  int rness = 4 * OUT_SCALE;
+  float rness = 4 * OUT_SCALE;
 
   int N[][] = {
     { 16 },
@@ -25,10 +24,10 @@ void drawOutput(PGraphics mpg) {
       PVector xy0 = Hilbert.d2xy(INPUT[i]);
       PVector xy1 = Hilbert.d2xy((INPUT[i] + 1) % 256);
 
-      float x0 = map(xy0.x, 0, Hilbert.N - 1, borderOffset, mX[i % mX.length] - borderOffset);
-      float y0 = map(xy0.y, 0, Hilbert.N - 1, borderOffset, mY[i % mY.length] - borderOffset);
-      float x1 = map(xy1.x, 0, Hilbert.N - 1, borderOffset, mX[i % mX.length] - borderOffset);
-      float y1 = map(xy1.y, 0, Hilbert.N - 1, borderOffset, mY[i % mY.length] - borderOffset);
+      float x0 = map(xy0.x, 0, Hilbert.N - 1, 0, mX[i % mX.length]);
+      float y0 = map(xy0.y, 0, Hilbert.N - 1, 0, mY[i % mY.length]);
+      float x1 = map(xy1.x, 0, Hilbert.N - 1, 0, mX[i % mX.length]);
+      float y1 = map(xy1.y, 0, Hilbert.N - 1, 0, mY[i % mY.length]);
 
       mpg.bezier(x0, y0,
                  lerp(x0 + random(-rness, rness), x1 + random(-rness, rness), random(0, 1)), lerp(y0 + random(-rness, rness), y1 + random(-rness, rness), random(0, 1)),
