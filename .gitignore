@@ -9,4 +9,4 @@ node_modules
 parameters.h
 esp8266/OutrasGraph/data
 cards/**/*png
-p5/**/out/
+p5/**/out_*/*png

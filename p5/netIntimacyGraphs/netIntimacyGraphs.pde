@@ -64,9 +64,9 @@ void drawGraphs(int offset) {
   mGraph.noFill();
   mGraph.endDraw();
 
-  drawSignal(mWifi, mGraph, offset, color(0, 255, 0, 100));
-  drawSignal(mHeart, mGraph, offset, color(255, 0, 0, 100));
-  drawSignal(mTemp, mGraph, offset, color(0, 0, 255, 100));
+  drawSignal(mWifi, mGraph, offset, color(255, 200));
+  drawSignal(mHeart, mGraph, offset, color(255, 200));
+  drawSignal(mTemp, mGraph, offset, color(255, 200));
 }
 
 void draw() {
