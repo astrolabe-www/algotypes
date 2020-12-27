@@ -15,6 +15,7 @@ int CARD_WIDTH;
 float OUT_SCALE;
 int BORDER_WIDTH;
 int FONT_SIZE;
+int FONT_PADDING;
 PFont mFont;
 
 String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
@@ -49,7 +50,8 @@ void mSetup() {
   OUT_SCALE = (OUTPUT == Output.PRINT) ? 2 : 1;
   OUTPUT_DIMENSIONS = (new PVector((OUTPUT != Output.TELEGRAM) ? CARD_WIDTH : CARD_HEIGHT, CARD_HEIGHT)).mult(OUT_SCALE);
   BORDER_WIDTH = int(0.076 * OUT_SCALE * CARD_HEIGHT);
-  FONT_SIZE = int(27 * OUT_SCALE);
+  FONT_SIZE = int(25 * OUT_SCALE);
+  FONT_PADDING = int(1 * OUT_SCALE);
 
   OUTPUT_GRAPHICS_DIMENSIONS = OUTPUT_DIMENSIONS.copy().sub(2 * BORDER_WIDTH, 2.3333 * BORDER_WIDTH, 0);
   if (BLEED_WIDTH) OUTPUT_GRAPHICS_DIMENSIONS = OUTPUT_DIMENSIONS.copy().sub(0, 2.3333 * BORDER_WIDTH, 0);
@@ -113,11 +115,11 @@ void drawBorders(PGraphics mpg) {
 
   mpg.fill(0);
   mpg.textAlign(CENTER, BOTTOM);
-  mpg.text(Card.number, mpg.width/2, (mpg.height - OUTPUT_GRAPHICS_DIMENSIONS.y) / 2);
+  mpg.text(Card.number, mpg.width/2, (mpg.height - OUTPUT_GRAPHICS_DIMENSIONS.y) / 2.0 - FONT_PADDING);
 
   mpg.fill(0);
   mpg.textAlign(CENTER, TOP);
-  mpg.text(Card.name, mpg.width/2, (mpg.height + OUTPUT_GRAPHICS_DIMENSIONS.y) / 2);
+  mpg.text(Card.name, mpg.width/2, (mpg.height + OUTPUT_GRAPHICS_DIMENSIONS.y) / 2.0 + FONT_PADDING);
 
   mpg.rectMode(CORNER);
   mpg.noFill();
