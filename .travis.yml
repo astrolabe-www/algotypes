@@ -25,7 +25,7 @@ script:
     if [[ $LATEST_COMMIT == $LATEST_P5_COMMIT ]]
     then
       echo "Deploy P5"
-      #DEPLOY_P5=true
+      # DEPLOY_P5=true
     fi
 
 before_deploy:
@@ -42,7 +42,7 @@ before_deploy:
       wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
       PATH=$PATH:$PWD/processing-3.5.4
       xvfb-run ./scripts/gen_all_cards.sh PRINT
-      xvfb-run ./scripts/gen_all_cards.sh PRINT BLEED
+      # xvfb-run ./scripts/gen_all_cards.sh PRINT BLEED
       tar -czf cards.tar.gz cards
       git config --local user.name "$USER_NAME"
       git config --local user.email "$USER_EMAIL"
