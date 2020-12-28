@@ -7,7 +7,7 @@
 #include <vector>
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include "Maze.cpp"
+#include "Greedy.cpp"
 #include "BeaconPacket.h"
 #include "sdk_structs.h"
 #include "ieee80211_structs.h"
@@ -22,8 +22,8 @@ extern "C" {
 }
 
 const uint8_t mCHANNEL = 11;
-const uint8_t mMAC = 0x4B;
-const String mSSID = "0x0B-Maze";
+const uint8_t mMAC = 0x5B;
+const String mSSID = "0x0B-TSP";
 
 const uint32_t BEACON_PACKET_SIZE = sizeof(beaconPacket);
 const uint8_t BEACON_PACKET_INDEX_CHANNEL = 82;
@@ -38,7 +38,7 @@ uint32_t lastTxTime = 0;
 uint32_t COMPUTE_PERIOD_MS = 2000;
 uint32_t lastComputeTime = 0;
 
-const int DATA_IN_SIZE = 1024;
+const int DATA_IN_SIZE = 2048;
 int DATA_IN[DATA_IN_SIZE];
 int DATA_IN_CNT = 0;
 
@@ -154,16 +154,12 @@ void loop() {
     Serial.printf("\n\nSEND!!!\n\n");
     digitalWrite(LED_BUILTIN, LOW);
 
-    Maze mMaze = Maze(DATA_IN, DATA_IN_SIZE);
-    int oI = 0;
+    Greedy mGreedy(DATA_IN, DATA_IN_SIZE);
+    std::vector<int> tour = mGreedy.solve();
 
-    while (oI < DATA_OUT_SIZE) {
-      std::vector<int> path = mMaze.find(DATA_IN[oI % DATA_IN_SIZE]);
-      for (int v = 0; v < path.size(); v++) {
-        DATA_OUT[oI++] = (uint8_t)(path[v] & 0xFF);
-      }
+    for (int i = 0; i < DATA_OUT_SIZE; i++) {
+      DATA_OUT[i] = (uint8_t)(tour[i % tour.size()] & 0xFF);
     }
-
     DATA_IN_CNT = 0;
     lastComputeTime = millis();
   }
