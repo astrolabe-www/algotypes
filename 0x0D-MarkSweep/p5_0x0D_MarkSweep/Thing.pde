@@ -4,12 +4,12 @@ enum ThingType {
 }
 
 class Thing {
-  ThingType type;
-  boolean marked;
+  protected ThingType type;
+  protected boolean marked;
 
-  int value;
-  Thing one;
-  Thing two;
+  protected int value;
+  protected Thing one;
+  protected Thing two;
 
   public Thing(ThingType tt) {
     type = tt;
