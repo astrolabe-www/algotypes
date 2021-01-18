@@ -1,47 +1,56 @@
 class VM {
   private final int MAX_STACK_SIZE = 256;
   private final int MAX_MEM_SIZE = 8 * MAX_STACK_SIZE;
+  private final int MAX_FIELD_SIZE = 4 * MAX_STACK_SIZE;
+  private final int FIELDS_PER_MEM = (MAX_MEM_SIZE / MAX_FIELD_SIZE);
 
-  Thing[] mStack;
-  Thing[] mMem;
-  int mStackSize;
-  int mMemSize;
+  private Thing[] mStack;
+  private Thing[] mMem;
+  private byte[] mField;
 
-  int cntP, cntI, cntMS;
+  private int mStackSize;
+  private int mMemSize;
 
   public VM() {
     randomSeed(1010);
     mStack = new Thing[MAX_STACK_SIZE];
     mMem = new Thing[MAX_MEM_SIZE];
+    mField = new byte[MAX_FIELD_SIZE];
 
     for (int i = 0; i < mStack.length; i++) mStack[i] = null;
     for (int i = 0; i < mMem.length; i++) mMem[i] = null;
+    for (int i = 0; i < mField.length; i++) mField[i] = 0;
 
     mStackSize = 0;
     mMemSize = 0;
-    cntP = 0;
-    cntI = 0;
-    cntMS = 0;
   }
 
-  public boolean step(int in) {
+  public byte[] step(int in) {
     if (in > random(0, 0xff)) {
       // pushInt(in);
       pushPair();
     } else {
       pushInt(in);
     }
+
+    if (needsMarkSweep()) {
+      prepareField();
+    }
+    return mField;
+  }
+
+  public boolean needsMarkSweep() {
     return (mStackSize >= MAX_STACK_SIZE);
   }
 
-  public void markSweep() {
-    while (mStackSize >= MAX_STACK_SIZE) {
+  public byte[] markSweep() {
+    printStats();
+    while (needsMarkSweep()) {
       int mSum = 0;
       boolean stillPoping = true;
 
       // pop stuff and turn pairs into ints by adding towards other ints (random. I know.)
       while (stillPoping) {
-        //for(int j = 0; j < (in + 1); j++) {
         Thing pThing = pop();
         if (pThing == null) break;
 
@@ -56,31 +65,39 @@ class VM {
             mSum += pThing.two.value;
             stillPoping = false;
           }
-          if (!stillPoping) pushInt((mSum & 0xFF));
+          if (!stillPoping) pushInt((mSum & 0xff));
         }
       }
       printStats();
       mark();
       sweep();
-      cntMS++;
       printStats();
       println();
     }
+
+    return prepareField();
+  }
+
+  private byte[] prepareField() {
+    for (int i = 0; i < mField.length; i++) mField[i] = 0;
+
+    for (int i = 0; i < mMem.length; i++) {
+      if (mMem[i] != null) {
+        mField[i % mField.length] += (0xff / FIELDS_PER_MEM);
+      }
+    }
+    return mField;
   }
 
   private void push(Thing mT) {
     if (mStackSize >= MAX_STACK_SIZE) return;
     mStack[mStackSize++] = mT;
-    if (mT.type == ThingType.INT) cntI++;
-    else if (mT.type == ThingType.PAIR) cntP++;
   }
 
   private Thing pop() {
     if (mStackSize <= 0) return null;
     Thing mT = mStack[--mStackSize];
     mStack[mStackSize] = null;
-    if (mT.type == ThingType.INT) cntI--;
-    else if (mT.type == ThingType.PAIR) cntP--;
     return mT;
   }
 
@@ -131,6 +148,6 @@ class VM {
   }
 
   private void printStats() {
-    println(mStackSize + " ints: " + cntI + " & pairs: " + cntP + " mem: " + mMemSize + " M&Ss: " + cntMS);
+    println("stack: " + mStackSize + " mem: " + mMemSize);
   }
 }
