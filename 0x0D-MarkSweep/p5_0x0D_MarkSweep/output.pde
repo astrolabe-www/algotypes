@@ -5,5 +5,9 @@ void drawOutput(PGraphics mpg) {
   mpg.strokeWeight(OUT_SCALE / 2);
   mpg.fill(255, 0, 0, 20);
 
+  for (int i = 0; i < INPUT.length; i++) {
+    mVM.step(INPUT[i]);
+  }
+
   mpg.endDraw();
 }

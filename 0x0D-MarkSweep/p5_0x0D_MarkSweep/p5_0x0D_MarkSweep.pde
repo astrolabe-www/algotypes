@@ -23,7 +23,7 @@ VM mVM;
 void setup() {
   size(840, 840);
   mSetup();
-  mVM = new VM(INPUT);
+  mVM = new VM();
 }
 
 void draw() {
