@@ -17,7 +17,7 @@ class VM {
       }
 
       while(mSize >= MAX_SIZE) {
-        int someRandomSum = in[i];
+        int mSum = in[i];
         boolean stillPoping = true;
 
         // pop stuff and turn pairs into ints by adding towards other ints (random. I know.)
@@ -27,16 +27,17 @@ class VM {
           if(pThing == null) break;
 
           if(pThing.type == ThingType.INT) {
-            someRandomSum += pThing.value;
+            mSum += pThing.value;
           } else {
-            if (pThing.one != null && pThing.one.type == ThingType.INT) {
-              someRandomSum += pThing.one.value;
+            if (pThing.one.type == ThingType.INT) {
+              mSum += pThing.one.value;
+              stillPoping = false;
             }
-            if (pThing.two != null && pThing.two.type == ThingType.INT) {
-              someRandomSum += pThing.two.value;
+            if (pThing.two.type == ThingType.INT) {
+              mSum += pThing.two.value;
+              stillPoping = false;
             }
-            pushInt((someRandomSum & 0xFF));
-            stillPoping = false;
+            if(!stillPoping) pushInt((mSum & 0xFF));
           }
         }
         printStats();
@@ -90,7 +91,8 @@ class VM {
     Thing mT = new Thing(ThingType.PAIR);
     mT.one = pop();
     mT.two = pop();
-    push(mT);
+    if(mT.two == null) mT.two = mT.one;
+    if(mT.one != null && mT.two != null) push(mT);
   }
 
   private void mark() {
