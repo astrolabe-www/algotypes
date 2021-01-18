@@ -6,7 +6,7 @@ void drawOutput(PGraphics mpg) {
   mpg.fill(255, 0, 0, 20);
 
   for (int i = 0; i < INPUT.length; i++) {
-    mVM.step(INPUT[i]);
+    if(mVM.step(INPUT[i])) mVM.markSweep();
   }
 
   mpg.endDraw();

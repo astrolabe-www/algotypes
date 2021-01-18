@@ -1,32 +1,42 @@
 class VM {
   private final int MAX_STACK_SIZE = 256;
+  private final int MAX_MEM_SIZE = 8 * MAX_STACK_SIZE;
 
-  int mSize;
   Thing[] mStack;
-  Thing firstThing;
+  Thing[] mMem;
+  int mStackSize;
+  int mMemSize;
+
   int cntP, cntI, cntMS;
 
   public VM() {
     randomSeed(1010);
     mStack = new Thing[MAX_STACK_SIZE];
+    mMem = new Thing[MAX_MEM_SIZE];
+
     for (int i = 0; i < mStack.length; i++) mStack[i] = null;
-    mSize = 0;
+    for (int i = 0; i < mMem.length; i++) mMem[i] = null;
+
+    mStackSize = 0;
+    mMemSize = 0;
     cntP = 0;
     cntI = 0;
     cntMS = 0;
-    firstThing = null;
   }
 
-  public void step(int in) {
+  public boolean step(int in) {
     if (in > random(0, 0xff)) {
       // pushInt(in);
       pushPair();
     } else {
       pushInt(in);
     }
+    return (mStackSize >= MAX_STACK_SIZE);
+  }
 
-    while (mSize >= MAX_STACK_SIZE) {
-      int mSum = in;
+  public void markSweep() {
+    while (mStackSize >= MAX_STACK_SIZE) {
+      int mSum = 0;
       boolean stillPoping = true;
 
       // pop stuff and turn pairs into ints by adding towards other ints (random. I know.)
@@ -58,83 +68,69 @@ class VM {
     }
   }
 
-  private void push(Thing t) {
-    if (mSize >= MAX_STACK_SIZE) return;
-    mStack[mSize++] = t;
-    t.next = firstThing;
-    firstThing = t;
-    if (t.type == ThingType.INT) cntI++;
-    else if (t.type == ThingType.PAIR) cntP++;
+  private void push(Thing mT) {
+    if (mStackSize >= MAX_STACK_SIZE) return;
+    mStack[mStackSize++] = mT;
+    if (mT.type == ThingType.INT) cntI++;
+    else if (mT.type == ThingType.PAIR) cntP++;
   }
 
   private Thing pop() {
-    if (mSize <= 0) return null;
-    Thing mT = mStack[--mSize];
-    mStack[mSize] = null;
+    if (mStackSize <= 0) return null;
+    Thing mT = mStack[--mStackSize];
+    mStack[mStackSize] = null;
     if (mT.type == ThingType.INT) cntI--;
     else if (mT.type == ThingType.PAIR) cntP--;
     return mT;
   }
 
-  private Thing head() {
-    if (mSize <= 0) return null;
-    return mStack[mSize - 1];
+  private int findMemIndex() {
+    for (int i = 0; i < mMem.length; i++) if (mMem[i] == null) return i;
+    return mMem.length;
   }
 
   private void pushInt(int mi) {
-    Thing mT = new Thing(ThingType.INT);
-    mT.value = mi;
-    push(mT);
+    if (mMemSize >= MAX_MEM_SIZE) return;
+
+    int ni = findMemIndex();
+
+    mMem[ni] = new Thing(ThingType.INT);
+    mMem[ni].value = mi;
+    mMemSize++;
+
+    push(mMem[ni]);
   }
 
   private void pushPair() {
-    Thing mT = new Thing(ThingType.PAIR);
-    mT.one = pop();
-    mT.two = pop();
-    if (mT.two == null) mT.two = mT.one;
-    if (mT.one != null && mT.two != null) push(mT);
+    if (mMemSize >= MAX_MEM_SIZE) return;
+
+    int ni = findMemIndex();
+
+    mMem[ni] = new Thing(ThingType.PAIR);
+    mMem[ni].one = pop();
+    mMem[ni].two = pop();
+    mMemSize++;
+
+    if (mMem[ni].two == null) mMem[ni].two = mMem[ni].one;
+    if (mMem[ni].one != null && mMem[ni].two != null) push(mMem[ni]);
   }
 
   private void mark() {
-    for (int i = 0; i < mSize; i++) {
-      mStack[i].mark();
-    }
+    for (int i = 0; i < mStackSize; i++) mStack[i].mark();
   }
 
   private void sweep() {
-    Thing prevThing = null;
-    Thing thisThing = firstThing;
-
-    while (thisThing != null) {
-      if (thisThing.marked) {
-        thisThing.marked = false;
-        prevThing = thisThing;
-        thisThing = thisThing.next;
-      } else {
-        if (prevThing == null) {
-          firstThing = thisThing.next;
-          thisThing.next = null;
-          thisThing = firstThing;
-        } else {
-          prevThing.next = thisThing.next;
-          thisThing.next = null;
-          thisThing = prevThing.next;
-        }
+    for (int i = 0; i < mMem.length; i++) {
+      if (mMem[i] != null && mMem[i].marked) {
+        mMem[i].marked = false;
+      } else if (mMem[i] != null) {
+        mMem[i] = null;
+        mMemSize--;
       }
     }
   }
 
-  private int countThings() {
-    Thing thisThing = firstThing;
-    int cnt = 0;
-    while (thisThing != null) {
-      cnt++;
-      thisThing = thisThing.next;
-    }
-    return cnt;
-  }
-
   private void printStats() {
-    println(mSize + " ints: " + cntI + " & pairs: " + cntP + " mem: " + countThings() + " M&Ss: " + cntMS);
+    println(mStackSize + " ints: " + cntI + " & pairs: " + cntP + " mem: " + mMemSize + " M&Ss: " + cntMS);
   }
 }

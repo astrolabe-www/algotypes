@@ -11,11 +11,8 @@ class Thing {
   Thing one;
   Thing two;
 
-  Thing next;
-
   public Thing(ThingType tt) {
     type = tt;
-    next = null;
   }
 
   protected void mark() {
