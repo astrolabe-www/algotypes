@@ -1,7 +1,7 @@
 class VM {
   private final int MAX_STACK_SIZE = 256;
-  private final int MAX_MEM_SIZE = 8 * MAX_STACK_SIZE;
   private final int MAX_FIELD_SIZE = 4 * MAX_STACK_SIZE;
+  private final int MAX_MEM_SIZE = 2 * MAX_FIELD_SIZE;
   private final int FIELDS_PER_MEM = (MAX_MEM_SIZE / MAX_FIELD_SIZE);
 
   private Thing[] mStack;
@@ -26,51 +26,26 @@ class VM {
   }
 
   public byte[] step(int in) {
+    pushInt(in);
     if (in > random(0, 0xff)) {
-      // pushInt(in);
       pushPair();
-    } else {
-      pushInt(in);
     }
 
-    if (needsMarkSweep()) {
-      prepareField();
+    if (mStackSize >= MAX_STACK_SIZE) {
+      for (int i = 0; i < in; i++) pop();
     }
+
+    if (needsMarkSweep()) prepareField();
     return mField;
   }
 
   public boolean needsMarkSweep() {
-    return (mStackSize >= MAX_STACK_SIZE);
+    return (mMemSize >= 3 * MAX_MEM_SIZE / 4);
   }
 
   public byte[] markSweep() {
-    while (needsMarkSweep()) {
-      int mSum = 0;
-      boolean stillPoping = true;
-
-      // pop stuff and turn pairs into ints by adding towards other ints (random. I know.)
-      while (stillPoping) {
-        Thing pThing = pop();
-        if (pThing == null) break;
-
-        if (pThing.type == ThingType.INT) {
-          mSum += pThing.value;
-        } else {
-          if (pThing.one.type == ThingType.INT) {
-            mSum += pThing.one.value;
-            stillPoping = false;
-          }
-          if (pThing.two.type == ThingType.INT) {
-            mSum += pThing.two.value;
-            stillPoping = false;
-          }
-          if (!stillPoping) pushInt((mSum & 0xff));
-        }
-      }
-      mark();
-      sweep();
-    }
-
+    mark();
+    sweep();
     return prepareField();
   }
 
@@ -98,7 +73,10 @@ class VM {
   }
 
   private int findMemIndex() {
-    for (int i = 0; i < mMem.length; i++) if (mMem[i] == null) return i;
+    for (int i = 0; i < mMem.length; i++) {
+      int mi = (mMemSize + i) % mMem.length;
+      if (mMem[mi] == null) return mi;
+    }
     return mMem.length;
   }
 
