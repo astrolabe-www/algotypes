@@ -20,9 +20,9 @@ void drawOutput(PGraphics mpg) {
 
   mpg.beginDraw();
   mpg.noFill();
-  mpg.stroke(200, 0, 0, 132);
+  mpg.stroke(COLOR_RED, 0, 0, 128);
   mpg.strokeWeight(1.2 * OUT_SCALE);
-  if (OUT_FILL) mpg.fill(200, 0, 0, 16);
+  if (OUT_FILL) mpg.fill(COLOR_RED, 0, 0, 16);
   mpg.endDraw();
 
   if (OUT_VERTICAL) drawOutputV(mpg, nonces, minNonce, maxNonce);

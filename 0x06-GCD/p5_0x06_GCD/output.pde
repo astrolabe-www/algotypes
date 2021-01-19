@@ -2,8 +2,8 @@ void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.rectMode(CORNER);
-  mpg.stroke(200, 0, 0, 64);
-  mpg.fill(200, 0, 0, 96);
+  mpg.stroke(COLOR_RED, 0, 0, 64);
+  mpg.fill(COLOR_RED, 0, 0, 96);
   mpg.strokeWeight(OUT_SCALE * 1);
 
   int maxA = 0;

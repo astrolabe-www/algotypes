@@ -1,6 +1,6 @@
 void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
-  mpg.fill(200, 0, 0, 32);
+  mpg.fill(COLOR_RED, 0, 0, 32);
   mpg.noStroke();
 
   float minX = (min(mpg.height, mpg.width) - max(mpg.height, mpg.width)) / 2.0;

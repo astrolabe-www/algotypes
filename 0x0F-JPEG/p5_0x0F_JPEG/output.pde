@@ -22,9 +22,9 @@ void drawOutput(PGraphics mpg) {
 
   for (int y = 0; y < mjpeg.length; y++) {
     for (int x = 0; x < mjpeg[y].length; x++) {
-      int red = (int)map((mjpeg[y][x] - mluminance[y][x]), minDiff, maxDiff, 0, 255);
-      mpg.fill(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
-      mpg.stroke(red, 0, 0, (mjpeg[y][x] - mluminance[y][x]));
+      int alpha = int(map((mjpeg[y][x] - mluminance[y][x]), minDiff, maxDiff, 0, 255));
+      mpg.fill(COLOR_RED, 0, 0, alpha);
+      mpg.stroke(COLOR_RED, 0, 0, alpha);
       mpg.rect(w*x, h*y, w, h);
     }
     mpg.rect(w*mjpeg[y].length, h*y, w, h);
@@ -32,9 +32,9 @@ void drawOutput(PGraphics mpg) {
 
   int y = mjpeg.length;
   for (int x = 0; x < mjpeg[0].length; x++) {
-    int red = (int)map((mjpeg[0][x] - mluminance[0][x]), minDiff, maxDiff, 0, 255);
-    mpg.fill(red, 0, 0, (mjpeg[0][x] - mluminance[0][x]));
-    mpg.stroke(red, 0, 0, (mjpeg[0][x] - mluminance[0][x]));
+    int alpha = int(map((mjpeg[0][x] - mluminance[0][x]), minDiff, maxDiff, 0, 255));
+    mpg.fill(COLOR_RED, 0, 0, alpha);
+    mpg.stroke(COLOR_RED, 0, 0, alpha);
     mpg.rect(w*x, h*y, w, h);
   }
   mpg.rect(w*mjpeg[0].length, h*y, w, h);

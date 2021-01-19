@@ -11,8 +11,8 @@ class Reaction {
     {.05, .2, .05}
   };
 
-  private PVector[][] AB;
-  private int size;
+  public PVector[][] AB;
+  public int size;
 
   public Reaction(int[] input) {
     size = 7 * int(sqrt(input.length));
@@ -66,31 +66,5 @@ class Reaction {
         AB[x][y].set(AB_[x][y].x, AB_[x][y].y);
       }
     }
-  }
-
-  public void draw(PGraphics mpg) {
-    float w = float(mpg.width) / (size - 2);
-    float h = float(mpg.height) / (size - 2);
-
-    float drawDimesion = max(w, h);
-
-    mpg.beginDraw();
-    mpg.strokeWeight(0);
-
-    for (int y = 1; y < size - 1; y++) {
-      for (int x = 1; x < size - 1; x++) {
-        float redX = min(AB[x][y].x * 255, 200);
-        float redY = min(AB[x][y].y * 255, 200);
-
-        mpg.fill(redX, 0, 0, AB[x][y].x * 32);
-        mpg.stroke(redX, 0, 0, AB[x][y].x * 32);
-        mpg.rect(x * drawDimesion, y * drawDimesion, drawDimesion, drawDimesion);
-
-        mpg.fill(redY, 0, 0, AB[x][y].y * 8);
-        mpg.stroke(redY, 0, 0, AB[x][y].y * 8);
-        mpg.rect(x * drawDimesion, y * drawDimesion, drawDimesion, drawDimesion);
-      }
-    }
-    mpg.endDraw();
   }
 }

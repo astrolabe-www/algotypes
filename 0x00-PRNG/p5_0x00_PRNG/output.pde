@@ -3,7 +3,7 @@ void drawOutput(PGraphics mpg) {
   mpg.rectMode(CENTER);
   mpg.stroke(0, 128);
   mpg.strokeWeight(OUT_SCALE / 2);
-  mpg.fill(255, 0, 0, 20);
+  mpg.fill(COLOR_RED, 0, 0, 20);
 
   for (int i = 0; i < INPUT.length; i += 1) {
     float x = map(mPRNG.random(), 0, 256, 0, mpg.width);

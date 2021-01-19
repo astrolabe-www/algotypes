@@ -2,7 +2,7 @@ void drawOutput(PGraphics mpg) {
   randomSeed(1);
 
   mpg.beginDraw();
-  mpg.fill(255, 0, 0, 20);
+  mpg.fill(COLOR_RED, 0, 0, 32);
   mpg.noStroke();
   mpg.rectMode(CENTER);
 

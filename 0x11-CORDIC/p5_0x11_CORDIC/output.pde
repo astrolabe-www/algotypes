@@ -2,8 +2,8 @@ void drawOutput(PGraphics mpg) {
   float R = mpg.width / 1.9;
 
   mpg.beginDraw();
-  mpg.fill(200, 0, 0, 40);
-  mpg.stroke(200, 0, 0, 80);
+  mpg.fill(COLOR_RED, 0, 0, 32);
+  mpg.stroke(COLOR_RED, 0, 0, 96);
   mpg.strokeWeight(OUT_SCALE);
 
   mpg.push();

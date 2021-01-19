@@ -2,7 +2,7 @@ void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.noFill();
-  mpg.stroke(200, 0, 0, 128);
+  mpg.stroke(COLOR_RED, 0, 0, 128);
   mpg.strokeWeight(OUT_SCALE * 3.0);
 
   Board[] inputMoves;

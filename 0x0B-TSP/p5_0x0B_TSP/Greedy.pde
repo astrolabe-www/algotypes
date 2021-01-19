@@ -72,9 +72,6 @@ class Greedy {
     location[tour[0]] = new PVector(mpg.width / 2, 0.75 * mpg.height);
 
     mpg.beginDraw();
-    mpg.fill(200, 0, 0, 32);
-    mpg.stroke(200, 0, 0, 64);
-    mpg.strokeWeight(OUT_SCALE);
 
     mpg.beginShape();
     mpg.vertex(location[tour[0]].x, location[tour[0]].y);

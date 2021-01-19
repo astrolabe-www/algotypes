@@ -1,7 +1,7 @@
 void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
   mpg.rectMode(CENTER);
-  mpg.fill(200, 0, 0, 200);
+  mpg.fill(COLOR_RED, 0, 0);
   mpg.noStroke();
 
   float[] e = mPID.getErrors();

@@ -7,9 +7,9 @@ void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.ellipseMode(CORNER);
-  mpg.stroke(200, 0, 0, 24);
+  mpg.stroke(COLOR_RED, 0, 0, 24);
   mpg.strokeWeight(OUT_SCALE);
-  mpg.fill(200, 0, 0, 10);
+  mpg.fill(COLOR_RED, 0, 0, 10);
 
   for (int i = out.length - 1; i >= 0; i--) {
     float h = 32.0 * out[i] * mpg.height;

@@ -2,7 +2,7 @@ void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.noFill();
-  mpg.strokeWeight(OUT_SCALE * 1);
+  mpg.strokeWeight(OUT_SCALE);
   float alphaMultipplier = 2.0;
   int middleSections = 3;
 
@@ -18,15 +18,15 @@ void drawOutput(PGraphics mpg) {
 
         if ((s >= mFSM.F.length / 2 - middleSections / 2) && (s <= mFSM.F.length / 2 + middleSections / 2)) {
           float a = map(mFSM.transition[s][f][t], 0, 1, 0, alphaMultipplier * 80);
-          mpg.stroke(200, 0, 0, a);
+          mpg.stroke(COLOR_RED, 0, 0, a);
           mpg.line(x0, y0, x1, y1);
 
           a = map(mFSM.transitionProbability[f][t], 0, 1, 0, alphaMultipplier * 255);
-          mpg.stroke(200, 0, 0, a);
+          mpg.stroke(COLOR_RED, 0, 0, a);
           mpg.line(x0, y0, x1, y1);
         } else {
           float a = alphaMultipplier * 32;
-          mpg.stroke(200, 0, 0, a);
+          mpg.stroke(COLOR_RED, 0, 0, a);
           mpg.line(x0, y0, x1, y1);
         }
       }

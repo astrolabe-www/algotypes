@@ -12,7 +12,7 @@ void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
   mpg.background(255);
   mpg.noFill();
-  mpg.stroke(200, 0, 0, 200);
+  mpg.stroke(COLOR_RED, 0, 0);
   mpg.strokeWeight(OUT_SCALE * 3);
   mpg.endDraw();
 

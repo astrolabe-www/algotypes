@@ -4,7 +4,7 @@ void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
   mpg.rectMode(CORNER);
   mpg.noStroke();
-  mpg.fill(200, 0, 0, 20);
+  mpg.fill(COLOR_RED, 0, 0, 20);
 
   for (int i = 0; i < INPUT.length; i++) {
     mField = mVM.step(INPUT[i % INPUT.length]);
@@ -31,7 +31,7 @@ void drawField(PGraphics mpg, byte[] field) {
   for (int y = 0; y < maxY; y++) {
     for (int x = 0; x < maxX; x++) {
       int a = field[int(maxX * y + x)] & 0xff;
-      mpg.fill(200, 0, 0, a);
+      mpg.fill(COLOR_RED, 0, 0, a);
       mpg.rect((x / maxX) * (mpg.width / 2.0), (y / maxY) * mpg.height, (mpg.width / 2.0) / maxX, mpg.height / maxY);
     }
   }

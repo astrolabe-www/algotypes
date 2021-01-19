@@ -5,7 +5,7 @@ void drawOutput(PGraphics mpg) {
 
   mpg.beginDraw();
   mpg.strokeWeight(OUT_SCALE);
-  mpg.stroke(200, 0, 0, 8);
+  mpg.stroke(COLOR_RED, 0, 0, 8);
   mpg.noFill();
 
   for (int i = 0; i < INPUT_BYTES.length / 64; i++) {
