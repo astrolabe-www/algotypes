@@ -1,5 +1,6 @@
 final boolean VMAJOR_MEM = true;
 final int INPUT_ROUNDS = 1;
+final boolean MIRROR = false;
 
 void drawOutput(PGraphics mpg) {
   byte[] mField;
@@ -30,11 +31,15 @@ void drawOutput(PGraphics mpg) {
     }
   }
 
+  for(int i = mPGs.size() - 2; (i >= 0) && MIRROR; i--) mPGs.add(mPGs.get(i));
+
   mpg.pushMatrix();
-  for (PGraphics tmpPG : mPGs) {
-    mpg.image(tmpPG, 0, 0, mpg.width / (mPGs.size() - 1), mpg.height);
-    mpg.translate(mpg.width / (mPGs.size() - 1), 0);
+  for(int i = 0; i < 2 * mPGs.size(); i++) {
+    PGraphics tmpPG = mPGs.get(i % mPGs.size());
+    mpg.image(tmpPG, 0, 0, mpg.width / mPGs.size(), mpg.height);
+    mpg.translate(mpg.width / mPGs.size(), 0);
   }
+
   mpg.popMatrix();
   mpg.endDraw();
 }
