@@ -44,7 +44,6 @@ class VM {
   }
 
   public byte[] markSweep() {
-    printStats();
     while (needsMarkSweep()) {
       int mSum = 0;
       boolean stillPoping = true;
@@ -68,11 +67,8 @@ class VM {
           if (!stillPoping) pushInt((mSum & 0xff));
         }
       }
-      printStats();
       mark();
       sweep();
-      printStats();
-      println();
     }
 
     return prepareField();

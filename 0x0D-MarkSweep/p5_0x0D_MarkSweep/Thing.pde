@@ -1,5 +1,5 @@
 enum ThingType {
-  INT, 
+  INT,
   PAIR
 }
 
@@ -16,12 +16,12 @@ class Thing {
   }
 
   protected void mark() {
-    if(marked) return;
+    if (marked) return;
     marked = true;
 
-    if(type == ThingType.PAIR) {
-      if(one != null) one.mark();
-      if(two != null)  two.mark();
+    if (type == ThingType.PAIR) {
+      if (one != null) one.mark();
+      if (two != null)  two.mark();
     }
   }
 }
