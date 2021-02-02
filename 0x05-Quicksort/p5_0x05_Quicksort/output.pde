@@ -4,8 +4,8 @@ void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
 
   mpg.rectMode(CENTER);
-  mpg.stroke(COLOR_RED, 0, 0, 8);
-  mpg.fill(COLOR_RED, 0, 0, 32);
+  mpg.stroke(COLOR_RED, 0, 0, 16);
+  mpg.fill(COLOR_RED, 0, 0, 24);
   mpg.strokeWeight(OUT_SCALE);
 
   for (int i = 0; i < output.length; i += 4) {

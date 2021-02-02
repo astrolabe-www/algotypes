@@ -1,7 +1,7 @@
 void drawOutput(PGraphics mpg) {
   mpg.beginDraw();
   mpg.rectMode(CORNER);
-  mpg.stroke(0, 128);
+  mpg.stroke(0, 176);
   mpg.strokeWeight(OUT_SCALE / 2);
   mpg.fill(COLOR_RED, 0, 0, 20);
 

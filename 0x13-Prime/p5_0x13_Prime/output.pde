@@ -6,7 +6,7 @@ void drawOutput(PGraphics mpg) {
   mpg.noStroke();
   mpg.rectMode(CENTER);
 
-  float M = (OUTPUT != Output.TELEGRAM) ? OUT_SCALE * 4 : OUT_SCALE * 6.66;
+  float M = (OUTPUT != Output.TELEGRAM) ? OUT_SCALE * 4.2 : OUT_SCALE * 6.66;
   PVector m = new PVector(M, M * mpg.height / mpg.width);
   PVector xy;
 
@@ -15,7 +15,7 @@ void drawOutput(PGraphics mpg) {
 
   for (int i = 1; i < mPrimes.length; i++) {
     xy = getXY(mPrimes[i]);
-    mpg.rect(m.x * xy.x, m.y * xy.y, m.x, m.x);
+    mpg.ellipse(m.x * xy.x, m.y * xy.y, m.x, m.x);
     xy = getXY(Primal.nextPrime(int(random(min(mPrimes[i-1], mPrimes[i]), max(mPrimes[i-1], mPrimes[i])))));
     mpg.ellipse(m.x * xy.x, m.y * xy.y, m.x, m.x);
   }

@@ -23,8 +23,8 @@ void drawInputWave(PGraphics mpg) {
 void drawOutputWave(PGraphics mpg) {
   mpg.beginDraw();
 
-  mpg.fill(COLOR_RED, 0, 0, 16);
-  mpg.stroke(COLOR_RED, 0, 0, 128);
+  mpg.noFill();
+  mpg.stroke(COLOR_RED, 0, 0, 176);
   mpg.strokeWeight(OUT_SCALE);
 
   mpg.pushMatrix();
