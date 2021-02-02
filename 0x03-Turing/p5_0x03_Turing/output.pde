@@ -14,13 +14,14 @@ void drawOutput(PGraphics mpg) {
     for (int x = 1; x < mSize - 1; x++) {
       float redX = min(mAB[x][y].x * COLOR_RED, COLOR_RED);
       float redY = min(mAB[x][y].y * COLOR_RED, COLOR_RED);
+      float alpha = (mAB[x][y].x < 1) ? 0 : (mAB[x][y].x * 32);
 
-      mpg.fill(redX, 0, 0, mAB[x][y].x * 32);
-      mpg.stroke(redX, 0, 0, mAB[x][y].x * 32);
+      mpg.fill(redX, 0, 0, alpha);
+      mpg.stroke(redX, 0, 0, alpha);
       mpg.rect(x * drawDimesion, y * drawDimesion, drawDimesion, drawDimesion);
 
-      //mpg.fill(redY, 0, 0, mAB[x][y].y * 8);
-      //mpg.stroke(redY, 0, 0, mAB[x][y].y * 8);
+      //mpg.fill(redY, 0, 0, alpha);
+      //mpg.stroke(redY, 0, 0, alpha);
       //mpg.rect(x * drawDimesion, y * drawDimesion, drawDimesion, drawDimesion);
     }
   }
