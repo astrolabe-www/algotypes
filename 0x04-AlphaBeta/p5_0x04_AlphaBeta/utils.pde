@@ -20,7 +20,6 @@ int FONT_PADDING;
 int COLOR_RED;
 PFont mFont;
 
-String INPUT_FILENAME = "frames_20200207-0004_reqs.raw";
 String[] INPUT_FILENAME_LIST = {
   "frames_20200206-2351.raw",
   "frames_20200206-2357.raw",
@@ -30,6 +29,7 @@ String[] INPUT_FILENAME_LIST = {
   "frames_20200207-0010.raw",
   "frames_20200207-0012.raw"
 };
+String INPUT_FILENAME = INPUT_FILENAME_LIST[2];
 
 String INPUT_FILEPATH;
 int[] INPUT;
