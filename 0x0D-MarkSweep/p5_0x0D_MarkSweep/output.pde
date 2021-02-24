@@ -1,6 +1,6 @@
-final boolean VMAJOR_MEM = true;
+final boolean VMAJOR_MEM = false;
 final int INPUT_ROUNDS = 1;
-final boolean MIRROR = false;
+final boolean MIRROR = true;
 
 void drawOutput(PGraphics mpg) {
   byte[] mField;

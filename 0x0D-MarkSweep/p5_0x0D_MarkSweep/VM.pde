@@ -1,6 +1,6 @@
 class VM {
-  private final int MAX_STACK_SIZE = 256;
-  private final int MAX_FIELD_SIZE = 4 * MAX_STACK_SIZE;
+  private final int MAX_STACK_SIZE = 128;
+  private final int MAX_FIELD_SIZE = 8 * MAX_STACK_SIZE;
   private final int MAX_MEM_SIZE = 2 * MAX_FIELD_SIZE;
   private final int FIELDS_PER_MEM = (MAX_MEM_SIZE / MAX_FIELD_SIZE);
 
