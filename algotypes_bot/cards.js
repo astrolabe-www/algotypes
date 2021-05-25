@@ -8,7 +8,7 @@ exports.cards = [
     },
     message: {
       en: 'Beginning of a journey. Every outcome is equally likely. But there is method to your madness.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -20,7 +20,7 @@ exports.cards = [
     },
     message: {
       en: 'Transformation between two realms. Creativity as material resource. You bring your own practical knowledge, tools and rituals.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -32,7 +32,7 @@ exports.cards = [
     },
     message: {
       en: 'Inner knowledge and intuition. A way into the divine subconscious mind. Not all silence bears secrets.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -44,7 +44,7 @@ exports.cards = [
     },
     message: {
       en: 'You can have both nature AND nurture in beautiful abundance. Just don\'t waste your time looking for something that isn\'t there. Movement doesn\'t equal progress.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -56,7 +56,7 @@ exports.cards = [
     },
     message: {
       en: 'Consider all your possibilities before clearing up space for new beginnings. Be aware of rules, patterns and time restrictions related to your ventures.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -68,7 +68,7 @@ exports.cards = [
     },
     message: {
       en: 'Material preoccupation with law and order. Don\'t inflate your ego with righteousness by ignoring social and community matters.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -80,7 +80,7 @@ exports.cards = [
     },
     message: {
       en: 'Choice doesn\'t have to mean abdication. Synthesize. Figure out a way to integrate both sides, or keep one for later.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -92,7 +92,7 @@ exports.cards = [
     },
     message: {
       en: 'One way to weather the storm is to step on the accelerator. Many decisions and actions are reversible. Don\'t be afraid of making mistakes and backtracking.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -104,7 +104,7 @@ exports.cards = [
     },
     message: {
       en: 'Action, reaction, cause and effect. There is a difference between equity and equality. There are many layers to be unpacked.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -116,7 +116,7 @@ exports.cards = [
     },
     message: {
       en: 'Some answers come from within. Being alone is not the same as being lonely. It is what it is, but what is it? There might only be room for one. Close the door.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -128,7 +128,7 @@ exports.cards = [
     },
     message: {
       en: 'Change is fundamental. All bad things end, and so do good things. It feels like you\'ve been here before, but have you really?',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -140,7 +140,7 @@ exports.cards = [
     },
     message: {
       en: 'Self-control, temperance and discipline. Nurture over nature. Eventually all roads go the same way. You might not be able to bruteforce your way out.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -152,7 +152,7 @@ exports.cards = [
     },
     message: {
       en: 'Turn, turn, turn. Change direction. Learn to listen for new callings . Things are out of your control for now. Breathe. Take the ride. It\'s an opportunity to see things from a different perspective.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -164,7 +164,7 @@ exports.cards = [
     },
     message: {
       en: 'Everything being pruned away is recycled in the name of fertility. Cut the cords that link you to the past and head into the harvest. But, if you plant ice you\'re gonna harvest wind.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -176,7 +176,7 @@ exports.cards = [
     },
     message: {
       en: 'Be prepared: make sure you have all the pieces before starting to solve the puzzle. It might mean waiting for the moment with patience and moderation.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -188,7 +188,7 @@ exports.cards = [
     },
     message: {
       en: 'Bring out your inner fears and desires. Don\'t be subtle. They aren\'t as numerous or complicated as you think.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -200,7 +200,7 @@ exports.cards = [
     },
     message: {
       en: 'Uncontrolled energy. Sudden change. Revolution over evolution. Past, present and future are superimposed all of a sudden. Beware of cognitive dissonance.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -212,7 +212,7 @@ exports.cards = [
     },
     message: {
       en: 'Channel your abilities and resources to transcend the limitations of earthly and material concerns. True power comes from the core.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -224,7 +224,7 @@ exports.cards = [
     },
     message: {
       en: 'Daily routine is just a set up for your dreams. Trust your subconscious and resensitize yourself to the meaning of hidden states.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -236,7 +236,7 @@ exports.cards = [
     },
     message: {
       en: 'Inner essence. Untraditional power centers. Reflected similarities are seen under a different light. Find the natural centers of resonance.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -248,7 +248,7 @@ exports.cards = [
     },
     message: {
       en: 'Judiciously gather wisdom from tradition and customs. Be mindful of walls and enclosures. Design your own rituals to strengthen the non-material aspects of your life.',
-      pt: ''
+      pt:'_'
     }
   },
   {
@@ -260,7 +260,7 @@ exports.cards = [
     },
     message: {
       en: 'Looking back and walking forward. Searching for resolution and completeness. You\'ll relax when you realize you\'re in the right place.',
-      pt: ''
+      pt:'_'
     }
   }
 ];

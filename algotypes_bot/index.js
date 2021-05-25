@@ -2,6 +2,16 @@ require('dotenv').config()
 const TeleBot = require('telebot');
 const { cards } = require('./cards.js');
 
+const TXTS = {
+  intro: {
+    en: 'Your algorithm today is:',
+    pt: 'O seu algoritmo de hoje é:'
+  },
+  outro: {
+    en: '🔮 Come back tomorrow for a new algorithm 🔮',
+    pt: '🔮 Volte amanhã para uma nova mensagem 🔮'
+  }
+};
 
 function dayOfYear() {
   const now = new Date();
@@ -15,11 +25,6 @@ function dayOfYear() {
 function dailyRandom(mSeed) {
   const x = Math.sin(mSeed) * 1e4;
   return x - Math.floor(x);
-}
-
-function getCard(msg) {
-  const mIndex = Math.floor(cards.length * dailyRandom(msg.from.id + dayOfYear()));
-  return cards[mIndex];
 }
 
 const bot = new TeleBot({
@@ -39,26 +44,25 @@ bot.on('sticker', (msg) => {
   return msg.reply.text(msg.sticker.file_id);
 });
 
-bot.on(['/draw'], (msg) => {
-  const mCard = getCard(msg);
-  msg.reply.text(`Your algorithm is:\n${mCard.name}`).then(() => {
+function botReply(bot, msg, lang) {
+  const mIndex = Math.floor(cards.length * dailyRandom(msg.from.id + dayOfYear()));
+  const mCard = cards[mIndex];
+
+  msg.reply.text(`${TXTS.intro[lang]}\n${mCard.name[lang]}`).then(() => {
     bot.sendSticker(msg.chat.id, mCard.sticker_id).then(() => {
-      msg.reply.text(`${mCard.message}`).then(() => {
-        msg.reply.text('🔮 Come back tomorrow for a new algorithm 🔮');
+      msg.reply.text(`${mCard.message[lang]}`).then(() => {
+        msg.reply.text(`${TXTS.outro[lang]}`);
       });
     });
   });
+}
+
+bot.on(['/draw'], (msg) => {
+  botReply(bot, msg, 'en');
 });
 
 bot.on(['/carta'], (msg) => {
-  const mCard = getCard(msg);
-  msg.reply.text(`O seu algoritmo de hoje é:\n${mCard.name.pt}`).then(() => {
-    bot.sendSticker(msg.chat.id, mCard.sticker_id).then(() => {
-      msg.reply.text(`${mCard.message.pt}`).then(() => {
-        msg.reply.text('🔮 Volte amanhã para uma nova mensagem 🔮');
-      });
-    });
-  });
+  botReply(bot, msg, 'pt');
 });
 
 bot.start();
