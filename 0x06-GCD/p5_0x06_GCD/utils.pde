@@ -14,6 +14,7 @@ PVector BORDER_WIDTH_DIMENSIONS;
 int CARD_HEIGHT;
 int CARD_WIDTH;
 float OUT_SCALE;
+float BORDER_WIDTH_SCALE;
 int BORDER_WIDTH;
 int FONT_SIZE;
 int FONT_PADDING;
@@ -56,7 +57,8 @@ void mSetup() {
   FONT_PADDING = int(1 * OUT_SCALE);
   COLOR_RED = 255;
 
-  BORDER_WIDTH = int(0.076 * OUT_SCALE * CARD_HEIGHT);
+  BORDER_WIDTH_SCALE = (OUTPUT != Output.TELEGRAM) ? 0.076 : 0.008;
+  BORDER_WIDTH = int(BORDER_WIDTH_SCALE * OUT_SCALE * CARD_HEIGHT);
   BORDER_WIDTH_DIMENSIONS = Card.name.equals("") ? new PVector(1.5, 1.5, 0) : new PVector(2.0, 2.33333, 0);
   if (BLEED_WIDTH) BORDER_WIDTH_DIMENSIONS.x = 0;
 
@@ -119,12 +121,33 @@ void drawBorders(PGraphics mpg) {
   mpg.textFont(mFont);
   mpg.textSize(FONT_SIZE);
 
+  if (OUTPUT == Output.TELEGRAM) {
+    mpg.fill(255);
+    float w_pad_scale = 1.2;
+    float w = mpg.textWidth(Card.number);
+    float w_padded = w_pad_scale * w;
+
+    mpg.rect(mpg.width / 2.0 - w_padded / 2.0,
+      (mpg.height - OUTPUT_GRAPHICS_DIMENSIONS.y) / 2,
+      w_padded,
+      w_pad_scale * FONT_SIZE);
+
+    w = mpg.textWidth(Card.name);
+    w_padded = w_pad_scale / 1.111 * w;
+    mpg.rect(mpg.width / 2.0 - w_padded / 2.0,
+      (mpg.height - 1.33 * w_pad_scale * FONT_SIZE),
+      w_padded,
+      w_pad_scale * w_pad_scale * FONT_SIZE);
+  }
+
   mpg.fill(0);
-  mpg.textAlign(CENTER, BOTTOM);
+  if (OUTPUT != Output.TELEGRAM) mpg.textAlign(CENTER, BOTTOM);
+  else mpg.textAlign(CENTER, TOP);
   mpg.text(Card.number, mpg.width/2, (mpg.height - OUTPUT_GRAPHICS_DIMENSIONS.y) / 2.0 - FONT_PADDING);
 
   mpg.fill(0);
-  mpg.textAlign(CENTER, TOP);
+  if (OUTPUT != Output.TELEGRAM) mpg.textAlign(CENTER, TOP);
+  else mpg.textAlign(CENTER, BOTTOM);
   mpg.text(Card.name, mpg.width/2, (mpg.height + OUTPUT_GRAPHICS_DIMENSIONS.y) / 2.0 + FONT_PADDING);
 
   mpg.rectMode(CORNER);
@@ -134,7 +157,7 @@ void drawBorders(PGraphics mpg) {
 
   mpg.rect(0, 1, mpg.width - 1, mpg.height - 2);
 
-  if (!BLEED_HEIGHT)
+  if (!BLEED_HEIGHT && OUTPUT != Output.TELEGRAM)
     mpg.rect((mpg.width - OUTPUT_GRAPHICS_DIMENSIONS.x) / 2, (mpg.height - OUTPUT_GRAPHICS_DIMENSIONS.y) / 2, OUTPUT_GRAPHICS_DIMENSIONS.x, OUTPUT_GRAPHICS_DIMENSIONS.y);
 
   mpg.endDraw();
