@@ -17,6 +17,11 @@ function dailyRandom(mSeed) {
   return x - Math.floor(x);
 }
 
+function getCard(msg) {
+  const mIndex = Math.floor(cards.length * dailyRandom(msg.from.id + dayOfYear()));
+  return cards[mIndex];
+}
+
 const bot = new TeleBot({
   token: process.env.API_TOKEN,
   polling: {
@@ -25,7 +30,7 @@ const bot = new TeleBot({
     limit: 100,
     retryTimeout: 5000
   },
-  allowedUpdates: ["text"],
+  allowedUpdates: ['text'],
   usePlugins: []
 });
 
@@ -35,12 +40,22 @@ bot.on('sticker', (msg) => {
 });
 
 bot.on(['/draw'], (msg) => {
-  const mIndex = Math.floor(cards.length * dailyRandom(msg.from.id + dayOfYear()));
-  const mCard = cards[mIndex];
+  const mCard = getCard(msg);
   msg.reply.text(`Your algorithm is:\n${mCard.name}`).then(() => {
     bot.sendSticker(msg.chat.id, mCard.sticker_id).then(() => {
       msg.reply.text(`${mCard.message}`).then(() => {
         msg.reply.text('🔮 Come back tomorrow for a new algorithm 🔮');
+      });
+    });
+  });
+});
+
+bot.on(['/carta'], (msg) => {
+  const mCard = getCard(msg);
+  msg.reply.text(`O seu algoritmo de hoje é:\n${mCard.name.pt}`).then(() => {
+    bot.sendSticker(msg.chat.id, mCard.sticker_id).then(() => {
+      msg.reply.text(`${mCard.message.pt}`).then(() => {
+        msg.reply.text('🔮 Volte amanhã para uma nova mensagem 🔮');
       });
     });
   });

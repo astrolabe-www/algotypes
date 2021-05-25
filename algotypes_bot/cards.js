@@ -1,134 +1,266 @@
 exports.cards = [
   {
     number: 0x00,
-    name: 'PSEUDO-RANDOM NUMBER GENERATOR',
-    sticker_id: 'CAACAgEAAxkBAAM4Xl7swchNlJwBmeeZKxDa4G0dRPgAAgIAA38pID7Fh9RJshKhqRgE',
-    message: 'Beginning of a journey. Every outcome is equally likely. But there is method to your madness.'
+    sticker_id: 'CAACAgEAAxkBAAIGsGCtRC_60FyZJ3aoM0tE9Svs7uGaAAKIAgACFYNwRSWjCrXoIPT-HwQ',
+    name: {
+      en: 'Pseudo-Random Number Generator',
+      pt: 'Gerador de Números Pseudoaleatórios'
+    },
+    message: {
+      en: 'Beginning of a journey. Every outcome is equally likely. But there is method to your madness.',
+      pt: ''
+    }
   },
   {
     number: 0x01,
-    name: 'FAST FOURIER TRANSFORM',
-    sticker_id: 'CAACAgEAAxkBAAM5Xl7szFlEUaRM2m8MVKifIYtcgrQAAgMAA38pID4Q0BmhjWqs2xgE',
-    message: 'Transformation between two realms. Creativity as material resource. You bring your own practical knowledge, tools and rituals.'
+    sticker_id: 'CAACAgEAAxkBAAIGsmCtRD9eVjlaRHrQMi6HBFjlJoKXAAKCAQAC-_VxRWzLRsBpdA6NHwQ',
+    name: {
+      en: 'Fast Fourier Transform',
+      pt: 'Transformação Rápida de Fourier'
+    },
+    message: {
+      en: 'Transformation between two realms. Creativity as material resource. You bring your own practical knowledge, tools and rituals.',
+      pt: ''
+    }
   },
   {
     number: 0x02,
-    name: 'PAGERANK',
-    sticker_id: 'CAACAgEAAxkBAANEXl7tkxZUf5d8yPSgr1lW4D08dakAAgQAA38pID6b4ntyRPbCaxgE',
-    message: 'Inner knowledge and intuition. A way into the divine subconscious mind. Not all silence bears secrets.'
+    sticker_id: 'CAACAgEAAxkBAAIGtGCtREtLWwQis5_QK9scTyiv24BWAAIaAQAC_HppRQk3SlrGDDP2HwQ',
+    name: {
+      en: 'PageRank',
+      pt: 'PageRank'
+    },
+    message: {
+      en: 'Inner knowledge and intuition. A way into the divine subconscious mind. Not all silence bears secrets.',
+      pt: ''
+    }
   },
   {
     number: 0x03,
-    name: 'TURING REACTION-DIFFUSION',
-    sticker_id: 'CAACAgEAAxkBAAIDBl6CK7c11M9lQjBHyVEv_mcKjW_xAAIQAAN_KSA-ByKnGrH0pmIYBA',
-    message: 'You can have both nature AND nurture in beautiful abundance. Just don\'t waste your time looking for something that isn\'t there. Movement doesn\'t equal progress.'
+    sticker_id: 'CAACAgEAAxkBAAIGtmCtRHLHrviiDkyr-vMh1WXuESo0AAIoAgACnORxRbc4ZQ9VpisZHwQ',
+    name: {
+      en: 'Reaction-Diffusion',
+      pt: 'Reação-Difusão'
+    },
+    message: {
+      en: 'You can have both nature AND nurture in beautiful abundance. Just don\'t waste your time looking for something that isn\'t there. Movement doesn\'t equal progress.',
+      pt: ''
+    }
   },
   {
     number: 0x04,
-    name: 'QUICKSORT',
-    sticker_id: 'CAACAgEAAxkBAAIDCF6CK83Rh-Ef5kim287gbxC2Pv6GAAIRAAN_KSA-ukSG_W9bJ1IYBA',
-    message: 'Material preoccupation with law and order. Don\'t inflate your ego with righteousness by ignoring social and community matters.'
+    sticker_id: 'CAACAgEAAxkBAAIGuGCtRHvPG8DG1gG4s1ljyCQqNtCpAAI0AQACT3tpRR83XBquJ5k6HwQ',
+    name: {
+      en: 'Alpha–Beta Pruning',
+      pt: 'Poda Alfa-Beta'
+    },
+    message: {
+      en: 'Consider all your possibilities before clearing up space for new beginnings. Be aware of rules, patterns and time restrictions related to your ventures.',
+      pt: ''
+    }
   },
   {
     number: 0x05,
-    name: 'CONVEX HULL',
-    sticker_id: 'CAACAgEAAxkBAAIEEV6RA9jgLWjAEp0OimIRD0hPt_P9AAIdAAN_KSA-dtG2GSOn3wUYBA',
-    message: 'Judiciously gather wisdom from tradition and customs. Be mindful of walls and enclosures. Design your own rituals to strengthen the non-material aspects of your life.'
+    sticker_id: 'CAACAgEAAxkBAAIGumCtRIZJMrNZLCtzno066A7i-pZsAAJjAQAC2OFxRVw0l-JIHLzwHwQ',
+    name: {
+      en: 'Quicksort',
+      pt: 'Quicksort'
+    },
+    message: {
+      en: 'Material preoccupation with law and order. Don\'t inflate your ego with righteousness by ignoring social and community matters.',
+      pt: ''
+    }
   },
   {
     number: 0x06,
-    name: 'EUCLIDEAN GCD',
-    sticker_id: 'CAACAgEAAxkBAAIDLF6Cr6W17EbQWP0GqPbDy3BBZi6bAAITAAN_KSA-_mNRAgm9LgYYBA',
-    message: 'Choice doesn\'t have to mean abdication. Synthesize. Figure out a way to integrate both sides, or keep one for later.'
+    sticker_id: 'CAACAgEAAxkBAAIGvGCtRJGoibeR9Uoceje2oxwPmLgPAAI7AQACZZpwRfk2RytDev14HwQ',
+    name: {
+      en: 'Greatest Common Divisor',
+      pt: 'Máximo Divisor Comum'
+    },
+    message: {
+      en: 'Choice doesn\'t have to mean abdication. Synthesize. Figure out a way to integrate both sides, or keep one for later.',
+      pt: ''
+    }
   },
   {
     number: 0x07,
-    name: 'MAZE SEARCH',
-    sticker_id: 'CAACAgEAAxkBAAIDFF6Cc3Ss2Cpj7e6vFyqSE4rseleKAAISAAN_KSA-s22M-T5sfOcYBA',
-    message: 'One way to weather the storm is to step on the accelerator. Don\'t be afraid of making mistakes.'
+    sticker_id: 'CAACAgEAAxkBAAIGvmCtRJxCmz4S84Qn9bGXwHv4GkSFAAI1AQACeBVoRfJ_qOe6hV5MHwQ',
+    name: {
+      en: 'Maze Search',
+      pt: 'Travessia de Grafos e Labirintos'
+    },
+    message: {
+      en: 'One way to weather the storm is to step on the accelerator. Many decisions and actions are reversible. Don\'t be afraid of making mistakes and backtracking.',
+      pt: ''
+    }
   },
   {
     number: 0x08,
-    name: 'PID CONTROL',
-    sticker_id: 'CAACAgEAAxkBAAID3l6PUTNHGioLs_MI8npsiznimymZAAIZAAN_KSA-BUxH-sc3RLMYBA',
-    message: 'Integration. Looking back and walking forward. Looking for resolution and completeness. You\'ll relax when you realize you\'re in the right place.'
+    sticker_id: 'CAACAgEAAxkBAAIGwGCtRKVnyKIiHOYwB7JcfuTULqeqAAKvAgACYtdpRYFpJP9eJKZFHwQ',
+    name: {
+      en: 'Splay Trees',
+      pt: 'Árvore Splay'
+    },
+    message: {
+      en: 'Action, reaction, cause and effect. There is a difference between equity and equality. There are many layers to be unpacked.',
+      pt: ''
+    }
   },
   {
     number: 0x09,
-    name: 'SHA3-512 ENCRYPTION',
-    sticker_id: 'CAACAgEAAxkBAANIXl7t3Bd2hY3RlNrXDx_ckyh-iQYAAgYAA38pID4wIzVNlmGGWBgE',
-    message: 'Some answers come from within. Being alone is not the same as being lonely. It is what it is, but what is it? There might only be room for one. Close the door.'
+    sticker_id: 'CAACAgEAAxkBAAIGwmCtRLAx9PsXYSn3k09b5owziEBVAAJfAQACQVxpRfd7vQoQa6SpHwQ',
+    name: {
+      en: 'SHA3-512',
+      pt: 'SHA3-512'
+    },
+    message: {
+      en: 'Some answers come from within. Being alone is not the same as being lonely. It is what it is, but what is it? There might only be room for one. Close the door.',
+      pt: ''
+    }
   },
   {
     number: 0x0A,
-    name: 'PERLIN NOISE',
-    sticker_id: 'CAACAgEAAxkBAANKXl7t7xblwLgUw64DioNaxAOgXGQAAgcAA38pID7kSOs8UgT0HRgE',
-    message: 'Change is fundamental. All bad things end, and so do good things. It feels like you\'ve been here before, but have you really?'
+    sticker_id: 'CAACAgEAAxkBAAIGxGCtRLxev2-JwlG2FOhnbvlPb7EmAAJDAQAC6M9pRd6OtWWZ16ARHwQ',
+    name: {
+      en: 'Perlin Noise',
+      pt: 'Ruído Perlin'
+    },
+    message: {
+      en: 'Change is fundamental. All bad things end, and so do good things. It feels like you\'ve been here before, but have you really?',
+      pt: ''
+    }
   },
   {
     number: 0x0B,
-    name: 'SPLAY TREES',
-    sticker_id: 'CAACAgEAAxkBAANMXl7t_i4MTy03g9HJZwEhW0VHluoAAggAA38pID75IaI-cXqoVBgE',
-    message: 'Action, reaction, cause and effect. There is a difference between equity and equality. There are many layers to be unpacked.'
+    sticker_id: 'CAACAgEAAxkBAAIGxmCtRMYNeTmu5np9ev-W3j7-mZuwAAI-AQACiDFxRUl9NH3J0rTYHwQ',
+    name: {
+      en: 'Travelling Salesperson',
+      pt: 'Caixeiro-Viajante'
+    },
+    message: {
+      en: 'Self-control, temperance and discipline. Nurture over nature. Eventually all roads go the same way. You might not be able to bruteforce your way out.',
+      pt: ''
+    }
   },
   {
     number: 0x0C,
-    name: 'MATRIX INVERSION',
-    sticker_id: 'CAACAgEAAxkBAANOXl7uDEbYHofGjkwqbYEuysQjlugAAgkAA38pID6nu9Y0w0h92BgE',
-    message: 'Things are out of your control for now. Breathe. Take the ride. It\'s an opportunity to see things from a different perspective.'
+    sticker_id: 'CAACAgEAAxkBAAIGyGCtRNI2wIAE1f8tcZHGrqr5N5wqAALjAQACllJoRWgKaLIFXhtAHwQ',
+    name: {
+      en: 'Hilbert Curves',
+      pt: 'Curva de Hilbert'
+    },
+    message: {
+      en: 'Turn, turn, turn. Change direction. Learn to listen for new callings . Things are out of your control for now. Breathe. Take the ride. It\'s an opportunity to see things from a different perspective.',
+      pt: ''
+    }
   },
   {
     number: 0x0D,
-    name: 'ALPHA-BETA PRUNING',
-    sticker_id: 'CAACAgEAAxkBAAIEUF6UnfG6G_kHQ95oDQV4JhzATBpUAAIfAAN_KSA-g7AkMY1eTD4YBA',
-    message: 'Consider all your possibilities before clearing up space for new beginnings. Be aware of rules, patterns and time restrictions related to your ventures.'
+    sticker_id: 'CAACAgEAAxkBAAIGymCtRN2futKf3Q-aHFtvcJ50Y5EvAAKiAQACcnNoRcsRrlW-f0EXHwQ',
+    name: {
+      en: 'Mark & Sweep',
+      pt: 'Coletor Mark & Sweep'
+    },
+    message: {
+      en: 'Everything being pruned away is recycled in the name of fertility. Cut the cords that link you to the past and head into the harvest. But, if you plant ice you\'re gonna harvest wind.',
+      pt: ''
+    }
   },
   {
     number: 0x0E,
-    name: 'DIFFIE-HELLMAN KEY EXCHANGE',
-    sticker_id: 'CAACAgEAAxkBAAIDr16M93GdyOnjqzK71qpIS07L0lfyAAIYAAN_KSA-0O4vRbDYWxAYBA',
-    message: 'Be prepared: make sure you have all the pieces before starting to solve the puzzle. It might mean waiting for the moment with patience and moderation.'
+    sticker_id: 'CAACAgEAAxkBAAIGzGCtROmTR2SxFjOAWBCzI-DxeBqKAAJtAQACV59oRcFyqlkNmRfOHwQ',
+    name: {
+      en: 'Diffie-Hellman Keys',
+      pt: 'Chaves Diffie–Hellman'
+    },
+    message: {
+      en: 'Be prepared: make sure you have all the pieces before starting to solve the puzzle. It might mean waiting for the moment with patience and moderation.',
+      pt: ''
+    }
   },
   {
     number: 0x0F,
-    name: 'JPEG COMPRESSION',
-    sticker_id: 'CAACAgEAAxkBAANQXl7uFmn0kry-QdTtFWrz0zs7nL0AAgoAA38pID50k5uolvhZURgE',
-    message: 'Bring out your inner fears and desires. Don\'t be subtle. They aren\'t as numerous or complicated as you think.'
+    sticker_id: 'CAACAgEAAxkBAAIGzmCtRPVvDuzDt7uV8vqeycQav1nOAAIJAQACH9lwRbRXYUXW_Td-HwQ',
+    name: {
+      en: 'JPEG Compression',
+      pt: 'Compressão JPEG'
+    },
+    message: {
+      en: 'Bring out your inner fears and desires. Don\'t be subtle. They aren\'t as numerous or complicated as you think.',
+      pt: ''
+    }
   },
   {
     number: 0x10,
-    name: 'BLOCKCHAIN PROOF-OF-WORK',
-    sticker_id: 'CAACAgEAAxkBAAIBdV5sEyzVZFC0DK45GpUPWO6YNBPGAAIPAAN_KSA-Dojtyp9aOgoYBA',
-    message: 'Uncontrolled energy. Sudden change. Revolution over evolution. Past, present and future are superimposed all of a sudden. Beware of cognitive dissonance.'
+    sticker_id: 'CAACAgEAAxkBAAIG0GCtRP6FL_imvYm2UIbPA44BIAwvAAKdAQACFWJoRRqFlTEuMxaxHwQ',
+    name: {
+      en: 'Blockchain Proof-of-Work',
+      pt: 'Prova de Trabalho'
+    },
+    message: {
+      en: 'Uncontrolled energy. Sudden change. Revolution over evolution. Past, present and future are superimposed all of a sudden. Beware of cognitive dissonance.',
+      pt: ''
+    }
   },
   {
     number: 0x11,
-    name: 'CORDIC',
-    sticker_id: 'CAACAgEAAxkBAAIDTl6EMroDSBxf1O7GzfXomW7_ia6yAAIUAAN_KSA-I0YDVGaPO0oYBA',
-    message: 'Channel your abilities and resources to transcend the limitations of earthly and material concerns. True power comes from the core.'
+    sticker_id: 'CAACAgEAAxkBAAIG0mCtRQrX5cmlLAtpR7roMSB9HmEiAAKbAQAC9kpxRcLOMm4sIF0AAR8E',
+    name: {
+      en: 'CORDIC',
+      pt: 'CORDIC'
+    },
+    message: {
+      en: 'Channel your abilities and resources to transcend the limitations of earthly and material concerns. True power comes from the core.',
+      pt: ''
+    }
   },
   {
     number: 0x12,
-    name: 'VITERBI ENCODING',
-    sticker_id: 'CAACAgEAAxkBAAID-V6QFbhD6pDIz5mG3XA-xdrdCnM9AAIbAAN_KSA-UMmjGawqoBwYBA',
-    message: 'Daily routine is just a set up for your dreams. Trust your subconscious and resensitize yourself to the meaning of hidden states.'
+    sticker_id: 'CAACAgEAAxkBAAIG1GCtRRKr_hYj7Hzsxyjy5V2ynT9NAALJAQACThVpRT90OGk7dSMoHwQ',
+    name: {
+      en: 'Viterbi Encoding',
+      pt: 'Encodificação de Viterbi'
+    },
+    message: {
+      en: 'Daily routine is just a set up for your dreams. Trust your subconscious and resensitize yourself to the meaning of hidden states.',
+      pt: ''
+    }
   },
   {
     number: 0x13,
-    name: 'PRIMALITY TEST',
-    sticker_id: 'CAACAgEAAxkBAANUXl7uPsH4zmackTO_k_dq9VziMVUAAgwAA38pID6GM9eE56d2UxgE',
-    message: 'Inner essence. Untraditional power centers. Reflected similarities are seen under a different light. Find the natural centers of resonance.'
+    sticker_id: 'CAACAgEAAxkBAAIG1mCtRR_ADSVZQiJpNyAJtSj4yLvmAAI0AQACRcRwRXajzuOIpCT0HwQ',
+    name: {
+      en: 'Primality Test',
+      pt: 'Teste de Primalidade'
+    },
+    message: {
+      en: 'Inner essence. Untraditional power centers. Reflected similarities are seen under a different light. Find the natural centers of resonance.',
+      pt: ''
+    }
   },
   {
     number: 0x14,
-    name: 'HILBERT CURVES',
-    sticker_id: 'CAACAgEAAxkBAAIDf16GVzYISQtohVSr-3ft8YkKXJLWAAIWAAN_KSA-nxC70uvnOOgYBA',
-    message: 'Turn, turn, turn. Change direction. Learn to listen for new callings and new journeys. With the right changes, you might discover you have unexpected abilities in other dimensions.'
+    sticker_id: 'CAACAgEAAxkBAAIG2GCtRTTjY5xQ22jQGXjnub8r5tEWAAJ5AQACc55pRabS2BfFylfSHwQ',
+    name: {
+      en: 'Convex Hull',
+      pt: 'Geometria Convexa'
+    },
+    message: {
+      en: 'Judiciously gather wisdom from tradition and customs. Be mindful of walls and enclosures. Design your own rituals to strengthen the non-material aspects of your life.',
+      pt: ''
+    }
   },
   {
     number: 0x15,
-    name: 'TRAVELLING SALESPERSON',
-    sticker_id: 'CAACAgEAAxkBAAID4F6PUUfBVzwduw-pgyOwSBpOvE38AAIaAAN_KSA-sm3jdpBuKxAYBA',
-    message: 'Self-control, temperance and discipline. Nurture over nature. Eventually all roads go the same way. You might not be able to bruteforce your way out.'
+    sticker_id: 'CAACAgEAAxkBAAIG2mCtRUAq0puSvjanAYuiP_gs8rdhAAIIAQACOutoRfQjpg8uNRpAHwQ',
+    name: {
+      en: 'PID Controller',
+      pt: 'Controlador PID'
+    },
+    message: {
+      en: 'Looking back and walking forward. Searching for resolution and completeness. You\'ll relax when you realize you\'re in the right place.',
+      pt: ''
+    }
   }
 ];
