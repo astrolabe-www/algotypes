@@ -8,7 +8,7 @@ exports.cards = [
     },
     message: {
       en: 'Beginning of a journey. Every outcome is equally likely. But there is method to your madness.',
-      pt:'_'
+      pt:'Início de uma jornada. Cada possibilidade é igualmente provável. Mas existe um método para a sua loucura.'
     }
   },
   {
@@ -19,8 +19,8 @@ exports.cards = [
       pt: 'Transformação Rápida de Fourier'
     },
     message: {
-      en: 'Transformation between two realms. Creativity as material resource. You bring your own practical knowledge, tools and rituals.',
-      pt:'_'
+      en: 'Transformation between two realms. Creativity as material resource. Bring your own practical knowledge, tools and rituals.',
+      pt:'Transformação entre dois mundos. Criatividade como recurso material. Traga seus próprios conhecimentos práticos, ferramentas e rituais.'
     }
   },
   {
@@ -32,7 +32,7 @@ exports.cards = [
     },
     message: {
       en: 'Inner knowledge and intuition. A way into the divine subconscious mind. Not all silence bears secrets.',
-      pt:'_'
+      pt:'Conhecimento interno e intuição. Um caminho para o subconsciente divino. Nem todo silêncio contém segredos.'
     }
   },
   {
@@ -44,7 +44,7 @@ exports.cards = [
     },
     message: {
       en: 'You can have both nature AND nurture in beautiful abundance. Just don\'t waste your time looking for something that isn\'t there. Movement doesn\'t equal progress.',
-      pt:'_'
+      pt:'Natureza e cultura em bela abundância. Só não perca seu tempo procurando por algo que não exista. Movimento não é a mesma coisa que progresso.'
     }
   },
   {
@@ -56,7 +56,7 @@ exports.cards = [
     },
     message: {
       en: 'Consider all your possibilities before clearing up space for new beginnings. Be aware of rules, patterns and time restrictions related to your ventures.',
-      pt:'_'
+      pt:'Considere todas as suas possibilidades antes de investir em recomeços. Esteja ciente das regras, padrões e restrições relacionadas aos seus empreendimentos.'
     }
   },
   {
@@ -68,7 +68,7 @@ exports.cards = [
     },
     message: {
       en: 'Material preoccupation with law and order. Don\'t inflate your ego with righteousness by ignoring social and community matters.',
-      pt:'_'
+      pt:'Preocupação material com regras e ordem. Não polua seu ego com retidão e superioridade, ignorando questões sociais e comunitárias.'
     }
   },
   {
@@ -80,7 +80,7 @@ exports.cards = [
     },
     message: {
       en: 'Choice doesn\'t have to mean abdication. Synthesize. Figure out a way to integrate both sides, or keep one for later.',
-      pt:'_'
+      pt:'Uma escolha não significa abdicação. Sintetize. Descubra uma maneira de integrar os dois lados ou guarde um para depois.'
     }
   },
   {
@@ -92,7 +92,7 @@ exports.cards = [
     },
     message: {
       en: 'One way to weather the storm is to step on the accelerator. Many decisions and actions are reversible. Don\'t be afraid of making mistakes and backtracking.',
-      pt:'_'
+      pt:'Uma maneira de enfrentar à tempestade é pisando no acelerador. Muitas decisões e ações são reversíveis. Não tenha medo de cometer erros e retroceder.'
     }
   },
   {
@@ -103,8 +103,8 @@ exports.cards = [
       pt: 'Árvore Splay'
     },
     message: {
-      en: 'Action, reaction, cause and effect. There is a difference between equity and equality. There are many layers to be unpacked.',
-      pt:'_'
+      en: 'Action, reaction, cause and effect. There is a difference between equity and equality. There are many layers to be unpacked and balanced.',
+      pt:'Ação e reação, causa e efeito. Existe uma diferença entre equidade e igualdade. Existem muitas camadas a serem entendidas e equilibradas.'
     }
   },
   {
@@ -116,7 +116,7 @@ exports.cards = [
     },
     message: {
       en: 'Some answers come from within. Being alone is not the same as being lonely. It is what it is, but what is it? There might only be room for one. Close the door.',
-      pt:'_'
+      pt:'Algumas respostas vêm de dentro. Solidão não é a mesma coisa que estar sozinha. Pode não haver espaço para maiores quantidades... Feche a porta.'
     }
   },
   {
@@ -128,7 +128,7 @@ exports.cards = [
     },
     message: {
       en: 'Change is fundamental. All bad things end, and so do good things. It feels like you\'ve been here before, but have you really?',
-      pt:'_'
+      pt:'A mudança é fundamental. Todas as coisas ruins acabam, mas as coisas boas também. Pode parecer que você já esteve aqui antes, mas você realmente esteve?'
     }
   },
   {
@@ -140,7 +140,7 @@ exports.cards = [
     },
     message: {
       en: 'Self-control, temperance and discipline. Nurture over nature. Eventually all roads go the same way. You might not be able to bruteforce your way out.',
-      pt:'_'
+      pt:'Autocontrole, moderação e disciplina. Aprenda com a natureza. Eventualmente, todas as estradas levam ao mesmo lugar. Você não deve usar a força bruta para sair dessa.'
     }
   },
   {
@@ -152,7 +152,7 @@ exports.cards = [
     },
     message: {
       en: 'Turn, turn, turn. Change direction. Learn to listen for new callings . Things are out of your control for now. Breathe. Take the ride. It\'s an opportunity to see things from a different perspective.',
-      pt:'_'
+      pt:'Vira, vira, vira. Mude a direção. Aprenda a ouvir novos chamados. As coisas estão fora de seu controle por enquanto. Respire. É uma oportunidade de ver as coisas de uma perspectiva diferente.'
     }
   },
   {
@@ -164,7 +164,7 @@ exports.cards = [
     },
     message: {
       en: 'Everything being pruned away is recycled in the name of fertility. Cut the cords that link you to the past and head into the harvest. But, if you plant ice you\'re gonna harvest wind.',
-      pt:'_'
+      pt:'Tudo o que está sendo podado é reciclado em nome da fertilidade. Corte as amarras que te ligam ao passado e desfrute da abundância da colheita. Mas, quem planta gelo, colhe vento.'
     }
   },
   {
@@ -176,7 +176,7 @@ exports.cards = [
     },
     message: {
       en: 'Be prepared: make sure you have all the pieces before starting to solve the puzzle. It might mean waiting for the moment with patience and moderation.',
-      pt:'_'
+      pt:'Esteja preparado: verifique todas as peças antes de começar a montar o quebra-cabeça. Isso pode significar um momento de espera com paciência e moderação.'
     }
   },
   {
@@ -188,7 +188,7 @@ exports.cards = [
     },
     message: {
       en: 'Bring out your inner fears and desires. Don\'t be subtle. They aren\'t as numerous or complicated as you think.',
-      pt:'_'
+      pt:'Revele seus medos e desejos íntimos. Não seja sutil. Eles não são tão numerosos ou complicados quanto você pensa.'
     }
   },
   {
@@ -200,7 +200,7 @@ exports.cards = [
     },
     message: {
       en: 'Uncontrolled energy. Sudden change. Revolution over evolution. Past, present and future are superimposed all of a sudden. Beware of cognitive dissonance.',
-      pt:'_'
+      pt:'Energia descontrolada. Mudança repentina. Revolução ao invés de evolução. Passado, presente e futuro se sobrepõem de repente. Cuidado com a dissonância cognitiva.'
     }
   },
   {
@@ -212,7 +212,7 @@ exports.cards = [
     },
     message: {
       en: 'Channel your abilities and resources to transcend the limitations of earthly and material concerns. True power comes from the core.',
-      pt:'_'
+      pt:'Foque suas habilidades e recursos para transcender as limitações e preocupações materiais e terrestres. O verdadeiro poder vem de dentro.'
     }
   },
   {
@@ -224,7 +224,7 @@ exports.cards = [
     },
     message: {
       en: 'Daily routine is just a set up for your dreams. Trust your subconscious and resensitize yourself to the meaning of hidden states.',
-      pt:'_'
+      pt:'A rotina diária é apenas um prelúdio para seus sonhos. Confie no seu subconsciente e ressensibilize-se aos significados de estados ocultos.'
     }
   },
   {
@@ -236,7 +236,7 @@ exports.cards = [
     },
     message: {
       en: 'Inner essence. Untraditional power centers. Reflected similarities are seen under a different light. Find the natural centers of resonance.',
-      pt:'_'
+      pt:'Essência interna. Poderes não tradicionais. As semelhanças refletidas são vistas sob uma luz diferente. Encontre os centros naturais de ressonância.'
     }
   },
   {
@@ -248,7 +248,7 @@ exports.cards = [
     },
     message: {
       en: 'Judiciously gather wisdom from tradition and customs. Be mindful of walls and enclosures. Design your own rituals to strengthen the non-material aspects of your life.',
-      pt:'_'
+      pt:'Reúna cuidadosamente as sabedorias da tradição e dos costumes. Esteja atento a paredes e cercas. Desenhe seus próprios rituais para fortalecer os aspectos não materiais de sua vida.'
     }
   },
   {
@@ -260,7 +260,7 @@ exports.cards = [
     },
     message: {
       en: 'Looking back and walking forward. Searching for resolution and completeness. You\'ll relax when you realize you\'re in the right place.',
-      pt:'_'
+      pt:'Olhe para trás e caminhe para frente. Procure resolução e integridade. Você vai relaxar quando perceber que já está no lugar certo.'
     }
   }
 ];
