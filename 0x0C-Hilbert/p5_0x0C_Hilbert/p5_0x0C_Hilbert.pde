@@ -12,8 +12,9 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x0C";
-  static final public String name = "Hilbert Curves";
-  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_");
+  static final public String nameEN = "Hilbert Curves";
+  static final public String namePT = "Curva de Hilbert";
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + nameEN.replace(" ", "_");
 }
 
 

@@ -14,8 +14,9 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x15";
-  static final public String name = "PID Controller";
-  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_");
+  static final public String nameEN = "PID Controller";
+  static final public String namePT = "Controlador PID";
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + nameEN.replace(" ", "_");
 }
 
 PID mPID;

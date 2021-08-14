@@ -13,8 +13,9 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x00";
-  static final public String name = "Pseudo-Random Numbers";
-  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_");
+  static final public String nameEN = "Pseudo-Random Numbers";
+  static final public String namePT = "Números Pseudoaleatórios";
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + nameEN.replace(" ", "_");
 }
 
 PRNG mPRNG;

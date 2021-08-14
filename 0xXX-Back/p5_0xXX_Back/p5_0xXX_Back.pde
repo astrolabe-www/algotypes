@@ -11,8 +11,9 @@ void initInput() {
 
 static class Card {
   static final public String number = "";
-  static final public String name = "";
-  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + "0xXX_Back";
+  static final public String nameEN = "";
+  static final public String namePT = "";
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + nameEN.replace(" ", "_");
 }
 
 void setup() {

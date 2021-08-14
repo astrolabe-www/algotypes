@@ -14,8 +14,9 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x0D";
-  static final public String name = "Mark & Sweep";
-  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_").replace("&", "n");
+  static final public String nameEN = "Mark & Sweep";
+  static final public String namePT = "Coletor Mark & Sweep";
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + nameEN.replace(" ", "_");
 }
 
 VM mVM;

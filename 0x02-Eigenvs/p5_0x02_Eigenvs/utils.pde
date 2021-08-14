@@ -11,6 +11,7 @@ static boolean BLEED_HEIGHT = false;
 PVector OUTPUT_DIMENSIONS;
 PVector OUTPUT_GRAPHICS_DIMENSIONS;
 PVector BORDER_WIDTH_DIMENSIONS;
+String CARD_NAME;
 int CARD_HEIGHT;
 int CARD_WIDTH;
 float OUT_SCALE;
@@ -48,6 +49,8 @@ void mSetup() {
 
   if (args != null && args.length > 1 && args[1].equals("BLEED")) BLEED_WIDTH = true;
 
+  CARD_NAME = Card.nameEN;
+
   CARD_HEIGHT = 840;
   CARD_WIDTH = int(0.6 * CARD_HEIGHT);
   OUT_SCALE = (OUTPUT == Output.PRINT) ? 1.786 : 1;
@@ -59,7 +62,7 @@ void mSetup() {
 
   BORDER_WIDTH_SCALE = (OUTPUT != Output.TELEGRAM) ? 0.076 : 0.008;
   BORDER_WIDTH = int(BORDER_WIDTH_SCALE * OUT_SCALE * CARD_HEIGHT);
-  BORDER_WIDTH_DIMENSIONS = Card.name.equals("") ? new PVector(1.5, 1.5, 0) : new PVector(2.0, 2.33333, 0);
+  BORDER_WIDTH_DIMENSIONS = CARD_NAME.equals("") ? new PVector(1.5, 1.5, 0) : new PVector(2.0, 2.33333, 0);
   if (BLEED_WIDTH) BORDER_WIDTH_DIMENSIONS.x = 0;
 
   OUTPUT_GRAPHICS_DIMENSIONS = OUTPUT_DIMENSIONS.copy().sub(BORDER_WIDTH_DIMENSIONS.mult(BORDER_WIDTH));
@@ -132,7 +135,7 @@ void drawBorders(PGraphics mpg) {
       w_padded,
       w_pad_scale * FONT_SIZE);
 
-    w = mpg.textWidth(Card.name);
+    w = mpg.textWidth(CARD_NAME);
     w_padded = w_pad_scale / 1.111 * w;
     mpg.rect(mpg.width / 2.0 - w_padded / 2.0,
       (mpg.height - 1.33 * w_pad_scale * FONT_SIZE),
@@ -148,7 +151,7 @@ void drawBorders(PGraphics mpg) {
   mpg.fill(0);
   if (OUTPUT != Output.TELEGRAM) mpg.textAlign(CENTER, TOP);
   else mpg.textAlign(CENTER, BOTTOM);
-  mpg.text(Card.name, mpg.width/2, (mpg.height + OUTPUT_GRAPHICS_DIMENSIONS.y) / 2.0 + FONT_PADDING);
+  mpg.text(CARD_NAME, mpg.width/2, (mpg.height + OUTPUT_GRAPHICS_DIMENSIONS.y) / 2.0 + FONT_PADDING);
 
   mpg.rectMode(CORNER);
   mpg.noFill();

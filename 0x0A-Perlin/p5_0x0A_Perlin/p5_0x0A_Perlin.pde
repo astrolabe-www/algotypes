@@ -11,8 +11,9 @@ void initInput() {
 
 static class Card {
   static final public String number = "0x0A";
-  static final public String name = "Perlin Noise";
-  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + name.replace(" ", "_");
+  static final public String nameEN = "Perlin Noise";
+  static final public String namePT = "Ruído Perlin";
+  static final public String filename = OUTPUT.name() + "_" + (BLEED_WIDTH ? "WIDE_" : "") + number + "_" + nameEN.replace(" ", "_");
 }
 
 Perlin mPerlin;
