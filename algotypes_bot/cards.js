@@ -244,7 +244,7 @@ exports.cards = [
     sticker_id: 'CAACAgEAAxkBAAIG2GCtRTTjY5xQ22jQGXjnub8r5tEWAAJ5AQACc55pRabS2BfFylfSHwQ',
     name: {
       en: 'Convex Hull',
-      pt: 'Geometria Convexa'
+      pt: 'Fecho Convexo'
     },
     message: {
       en: 'Judiciously gather wisdom from tradition and customs. Be mindful of walls and enclosures. Design your own rituals to strengthen the non-material aspects of your life.',
