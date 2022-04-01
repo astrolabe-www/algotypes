@@ -43,6 +43,7 @@ int DATA_IN_CNT = 0;
 
 const int DATA_OUT_SIZE = 4096;
 uint8_t DATA_OUT[DATA_OUT_SIZE];
+const bool WRITE_TO_FILE = false;
 
 void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   // First layer: type cast the received buffer into our generic SDK structure
@@ -160,9 +161,15 @@ void loop() {
       DATA_OUT[2 * i + 0] = (uint8_t)(int(ab.x * 255.0) & 0xFF);
       DATA_OUT[2 * i + 1] = (uint8_t)(int(ab.y * 255.0) & 0xFF);
     }
-
     DATA_IN_CNT = 0;
     lastComputeTime = millis();
+
+    if (WRITE_TO_FILE) {
+      uint8_t preamble[4] = { 0xde, 0xad, (DATA_OUT_SIZE >> 8) & 0xff, (DATA_OUT_SIZE >> 0) & 0xff };
+      Serial.write(preamble, 4);
+      Serial.write(&DATA_OUT[0], DATA_OUT_SIZE);
+      Serial.flush();
+    }
   }
 
   if (millis() - lastTxTime > TX_PERIOD_MS) {

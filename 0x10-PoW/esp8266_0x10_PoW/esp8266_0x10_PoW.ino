@@ -44,6 +44,7 @@ int DATA_IN_CNT = 0;
 
 const int DATA_OUT_SIZE = 4096;
 uint8_t DATA_OUT[DATA_OUT_SIZE];
+const bool WRITE_TO_FILE = false;
 
 std::vector<uint8_t> _h0;
 const int HASH_SIZE_BYTES = 32;
@@ -173,9 +174,15 @@ void loop() {
       h0 = hash;
       nTarget = mBlock.getNextTarget();
     }
-
     DATA_IN_CNT = 0;
     lastComputeTime = millis();
+
+    if (WRITE_TO_FILE) {
+      uint8_t preamble[4] = { 0xde, 0xad, (DATA_OUT_SIZE >> 8) & 0xff, (DATA_OUT_SIZE >> 0) & 0xff };
+      Serial.write(preamble, 4);
+      Serial.write(&DATA_OUT[0], DATA_OUT_SIZE);
+      Serial.flush();
+    }
   }
 
   if (millis() - lastTxTime > TX_PERIOD_MS) {
