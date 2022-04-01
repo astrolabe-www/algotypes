@@ -5,19 +5,22 @@ byte[] inByte;
 int nBytes = 4;
 boolean readyForBytes = false;
 
-byte[] outBuffer = new byte[4096];
+int OUTPUT_SIZE = 4096;
+String OUTPUT_FILENAME = "frames.raw";
+
+byte[] outBuffer = new byte[OUTPUT_SIZE];
 int outBufferCount = 0;
 
 void setup() { 
   size(400, 200);  
   printArray(Serial.list());  
-  myPort = new Serial(this, Serial.list()[3], 115200);
+  myPort = new Serial(this, Serial.list()[4], 115200);
   myPort.clear();
 } 
 
 void draw() {
   if (outBufferCount >= outBuffer.length) {
-    saveBytes("frames.raw", outBuffer);
+    saveBytes(OUTPUT_FILENAME, outBuffer);
     exit();
   }
 }
