@@ -12,6 +12,7 @@
 #include "sdk_structs.h"
 #include "ieee80211_structs.h"
 #include "string_utils.h"
+#include "test_input.h"
 
 extern "C" {
 #include "user_interface.h"
@@ -159,6 +160,12 @@ void loop() {
   if ((DATA_IN_CNT >= DATA_IN_SIZE) && (millis() - lastComputeTime > COMPUTE_PERIOD_MS)) {
     Serial.printf("\n\nSEND!!!\n\n");
     digitalWrite(LED_BUILTIN, LOW);
+
+    if (WRITE_TO_FILE) {
+      for (int i = 0; i < DATA_IN_SIZE; i++) {
+        DATA_IN[i] = TEST_IN[i % TEST_IN_SIZE];
+      }
+    }
 
     uint8_t nTarget = 0x7f;
     std::vector<uint8_t>* h0 = &_h0;
