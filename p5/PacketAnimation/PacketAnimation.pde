@@ -1,9 +1,9 @@
 // input
 String[] INPUT_FILENAME = {
-  "in/frames_20200207-0004_reqs.raw",
-  "out/0x00_PRNG.raw",
-  "out/0x0A_Perlin_Noise.raw",
-  "out/0x13_Primality_Test.raw"
+  "../Packets/in/frames_20200207-0004_reqs.raw",
+  "../Packets/out/0x00_PRNG.raw",
+  "../Packets/out/0x0A_Perlin_Noise.raw",
+  "../Packets/out/0x13_Primality_Test.raw"
 };
 int[][] INPUT;
 
