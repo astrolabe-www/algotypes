@@ -207,7 +207,7 @@ void loop() {
 
           for (int x = 0; (x < Board::SQUARE_LENGTH) && (oI < DATA_OUT_SIZE); x++) {
             for (int y = 0; (y < Board::SQUARE_LENGTH) && (oI < DATA_OUT_SIZE); y++) {
-              DATA_OUT[oI++] = (uint8_t)((mBoard.square[x][y]) & 0xFF);
+              DATA_OUT[oI++] = (uint8_t)((mBoard.square[x][y] * 127) & 0xFF);
             }
           }
           if (oI >= DATA_OUT_SIZE) break;
