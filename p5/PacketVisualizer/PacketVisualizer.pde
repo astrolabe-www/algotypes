@@ -1,4 +1,4 @@
-String DATA_OUT_DIRECTORY = "../../Packets/out/2022-04-04";
+String DATA_OUT_DIRECTORY = "../../Packets/out/2022-04-26";
 String DATA_IN_FILENAME = "../../Packets/in/data_20220402-2248.raw";
 
 int[] DATA_IN;
@@ -54,16 +54,18 @@ void setup() {
   File[] DATA_OUT_FILES = new File(sketchPath(DATA_OUT_DIRECTORY)).listFiles();
 
   for (int i = 0; i < DATA_OUT_FILES.length; i++) {
-    String algorithmName = DATA_OUT_FILES[i].getName().replace(".raw", "");
-    String dataOutFilename = DATA_OUT_DIRECTORY + "/" + algorithmName + ".raw";
+    if (DATA_OUT_FILES[i].getName().endsWith(".raw")) {
+      String algorithmName = DATA_OUT_FILES[i].getName().replace(".raw", "");
+      String dataOutFilename = DATA_OUT_DIRECTORY + "/" + algorithmName + ".raw";
 
-    loadData(dataOutFilename);
-    initGraphics();
+      loadData(dataOutFilename);
+      initGraphics();
 
-    drawBytes(DATA_IN, dipg, COLOR_FOREGROUND_DATA_IN, 0, 256);
-    drawBytes(DATA_OUT, dopg, COLOR_FOREGROUND_DATA_OUT, minV, maxV);
-    drawToOutputGraphics();
-    opg.save(sketchPath("data/" + PACKETS_PER_ROW + "_norm/" + algorithmName + ".jpg"));
+      drawBytes(DATA_IN, dipg, COLOR_FOREGROUND_DATA_IN, 0, 256);
+      drawBytes(DATA_OUT, dopg, COLOR_FOREGROUND_DATA_OUT, minV, maxV);
+      drawToOutputGraphics();
+      opg.save(sketchPath("data/" + PACKETS_PER_ROW + "_norm/" + algorithmName + ".jpg"));
+    }
   }
   exit();
 }
