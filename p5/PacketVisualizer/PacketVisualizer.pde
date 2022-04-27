@@ -1,4 +1,4 @@
-String DATA_OUT_DIRECTORY = "../../Packets/out/2022-04-26";
+String DATA_OUT_DIRECTORY = "../../Packets/out/2022-04-04";
 String DATA_IN_FILENAME = "../../Packets/in/data_20220402-2248.raw";
 
 int[] DATA_IN;
@@ -48,7 +48,7 @@ void drawBytes(int[] data, PGraphics pg, color mc, float minV, float maxV) {
 }
 
 void setup() {
-  size(960, 800);
+  size(960, 480);
   noLoop();
 
   File[] DATA_OUT_FILES = new File(sketchPath(DATA_OUT_DIRECTORY)).listFiles();
@@ -64,7 +64,7 @@ void setup() {
       drawBytes(DATA_IN, dipg, COLOR_FOREGROUND_DATA_IN, 0, 256);
       drawBytes(DATA_OUT, dopg, COLOR_FOREGROUND_DATA_OUT, minV, maxV);
       drawToOutputGraphics();
-      opg.save(sketchPath("data/" + PACKETS_PER_ROW + "_norm/" + algorithmName + ".jpg"));
+      opg.save(sketchPath("data/" + PACKETS_PER_ROW + "_norm_sq/" + algorithmName + ".jpg"));
     }
   }
   exit();
