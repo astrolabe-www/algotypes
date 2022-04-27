@@ -6,6 +6,16 @@
 
 class Primal {
   public:
+    static bool isPrime(int n) {
+      if (n <= 3) return (n > 1);
+      else if (((n % 2) == 0) || ((n % 3) == 0)) return false;
+
+      for (int i = 6; (i * i) < n; i += 6) {
+        if (((n % (i - 1)) == 0) || ((n % (i + 1)) == 0)) return false;
+      }
+      return true;
+    }
+
     Primal(int* in, int in_length) {
       for (int i = 0; i < in_length / BYTES_PER_PRIME; i++) {
         int tn = 0x00;
@@ -28,15 +38,6 @@ class Primal {
   private:
     std::vector<uint8_t> mPrimes;
     const int BYTES_PER_PRIME = 2;
-    bool isPrime(int n) {
-      if (n <= 3) return (n > 1);
-      else if (((n % 2) == 0) || ((n % 3) == 0)) return false;
-
-      for (int i = 6; (i * i) < n; i += 6) {
-        if (((n % (i - 1)) == 0) || ((n % (i + 1)) == 0)) return false;
-      }
-      return true;
-    }
 
     int next6k(int n) {
       for (int i = 0; i < 6; i++) {

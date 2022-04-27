@@ -162,11 +162,9 @@ void loop() {
       }
     }
 
-    Primal mPrimal(DATA_IN, DATA_IN_SIZE);
-    const std::vector<uint8_t>* mPrimes = mPrimal.primes();
-
     for (int i = 0; i < DATA_OUT_SIZE; i++) {
-      DATA_OUT[i] = (*mPrimes)[i % mPrimes->size()];
+      int n = DATA_IN[i % DATA_IN_SIZE] & 0xFF;
+      DATA_OUT[i] = Primal::isPrime(n) ? (uint8_t)(n & 0xFF) : 0;
     }
     DATA_IN_CNT = 0;
     lastComputeTime = millis();
