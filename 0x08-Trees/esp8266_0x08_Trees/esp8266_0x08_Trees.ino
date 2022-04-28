@@ -39,7 +39,7 @@ uint32_t lastTxTime = 0;
 uint32_t COMPUTE_PERIOD_MS = 2000;
 uint32_t lastComputeTime = 0;
 
-const int DATA_IN_SIZE = 2048;
+const int DATA_IN_SIZE = 4096;
 int DATA_IN[DATA_IN_SIZE];
 int DATA_IN_CNT = 0;
 
@@ -165,6 +165,7 @@ void loop() {
     SplayTree mTree(DATA_IN, DATA_IN_SIZE);
 
     std::vector<int> dftOrder;
+    dftOrder.reserve(DATA_IN_SIZE);
     mTree.depthFirst(dftOrder);
 
     for (int i = 0; i < DATA_OUT_SIZE; i++) {
