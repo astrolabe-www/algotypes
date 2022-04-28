@@ -30,6 +30,7 @@ class PID {
 
   public:
     PID(int* b, int b_length) {
+      error.reserve(b_length);
       goal = (float)(b[b_length - 1]);
       dt = 1.0 / b_length;
 

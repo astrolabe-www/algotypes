@@ -4,6 +4,7 @@
 // https://carvesystems.com/news/writing-a-simple-esp8266-based-sniffer/
 // https://www.danielcasner.org/guidelines-for-writing-code-for-the-esp8266/
 
+#include <algorithm>
 #include <vector>
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
@@ -39,13 +40,16 @@ uint32_t lastTxTime = 0;
 uint32_t COMPUTE_PERIOD_MS = 2000;
 uint32_t lastComputeTime = 0;
 
-const int DATA_IN_SIZE = 2048;
+const int DATA_IN_SIZE = 4096;
 int DATA_IN[DATA_IN_SIZE];
 int DATA_IN_CNT = 0;
 
 const int DATA_OUT_SIZE = 4096;
 uint8_t DATA_OUT[DATA_OUT_SIZE];
 const bool WRITE_TO_FILE = false;
+
+const int NUM_ROWS = 64;
+const int NUM_VALS = 64;
 
 void wifi_sniffer_packet_handler(uint8_t *buff, uint16_t buff_length) {
   // First layer: type cast the received buffer into our generic SDK structure
@@ -151,6 +155,10 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
+bool myComp (int i, int j) {
+  return (i > j);
+}
+
 void loop() {
   if ((DATA_IN_CNT >= DATA_IN_SIZE) && (millis() - lastComputeTime > COMPUTE_PERIOD_MS)) {
     Serial.printf("\n\nSEND!!!\n\n");
@@ -165,11 +173,25 @@ void loop() {
     PID mPID(DATA_IN, DATA_IN_SIZE);
     const std::vector<float>* errors = mPID.getErrors();
 
-    for (int i = 0; i < DATA_OUT_SIZE; i++) {
-      float fv = (*errors)[i % errors->size()];
-      int iv = (int)(*((int*)(&fv)));
-      DATA_OUT[i] = (uint8_t)(iv & 0xFF);
+    std::vector<uint8_t> _sorted;
+    _sorted.reserve(NUM_VALS);
+
+    for (int i = 0; i < NUM_ROWS; i++) {
+      _sorted.clear();
+      for (int j = 0; j < NUM_VALS; j++) {
+        int ei = i * NUM_VALS + j;
+        float fv = (*errors)[ei % errors->size()];
+        int iv = (int)(*((int*)(&fv)));
+        _sorted.push_back((uint8_t)(iv & 0xFF));
+      }
+
+      std::sort(_sorted.begin(), _sorted.end(), myComp);
+      for (int j = 0; j < NUM_VALS; j++) {
+        int ei = i * NUM_VALS + j;
+        DATA_OUT[ei] = (uint8_t)(_sorted[j] & 0xFF);
+      }
     }
+
     DATA_IN_CNT = 0;
     lastComputeTime = millis();
 
