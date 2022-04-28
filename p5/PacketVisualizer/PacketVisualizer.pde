@@ -1,4 +1,4 @@
-String DATA_OUT_DIRECTORY = "../../Packets/out/2022-04-04";
+String DATA_OUT_DIRECTORY = "../../Packets/out/2022-04-26";
 String DATA_IN_FILENAME = "../../Packets/in/data_20220402-2248.raw";
 
 int[] DATA_IN;
@@ -13,7 +13,7 @@ int COLOR_FOREGROUND_ALPHA = 200;
 int COLOR_FOREGROUND_DATA_IN = color(200, COLOR_FOREGROUND_ALPHA);
 int COLOR_FOREGROUND_DATA_OUT = color(200, 0, 0, COLOR_FOREGROUND_ALPHA);
 
-int OUT_SCALE = 1;
+int OUT_SCALE = 4;
 int PACKETS_PER_ROW = 64;
 
 PGraphics dipg;
