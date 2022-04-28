@@ -1,5 +1,4 @@
 String DATA_TX_DIRECTORY = "../../Packets/out/2022-04-26";
-String DATA_RX_FILENAME = "../../Packets/in/data_20220402-2248.raw";
 
 int minV = 256;
 int maxV = -1;
@@ -67,7 +66,6 @@ void setup() {
         "data" +
         File.separatorChar +
         PACKETS_PER_ROW +
-        "_norm_sq" +
         File.separatorChar +
         algorithmName +
         ".jpg")

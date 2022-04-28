@@ -10,4 +10,5 @@ parameters.h
 p5/OutrasGraph/data
 cards/**/*png
 p5/**/out_*/*png
+p5/PacketVisualizer/data/**/*jpg
 *.code-workspace
