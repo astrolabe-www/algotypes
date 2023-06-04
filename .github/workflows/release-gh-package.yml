@@ -24,13 +24,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      # - name: Install
-      #   run: wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
+      - name: Install
+        run: wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
 
-      # - name: Build
-      #   run: |
-      #     PATH=$PATH:$PWD/processing-3.5.4
-      #     xvfb-run ./p5/scripts/gen_all_cards.sh PRINT
+      - name: Build
+        run: |
+          PATH=$PATH:$PWD/processing-3.5.4
+          xvfb-run ./p5/scripts/gen_all_cards.sh PRINT
 
       - name: Setup Git
         id: setup
