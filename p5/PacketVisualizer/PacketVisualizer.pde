@@ -1,12 +1,14 @@
+import processing.svg.*;
+
 String DATA_TX_DIRECTORY = "../../Packets/out/2022-04-26";
 
 int minV = 256;
 int maxV = -1;
 
 int OUT_SCALE = 3;
-int PACKETS_PER_ROW = 64;
+int PACKETS_PER_ROW = 16;
 
-PGraphics opg;
+PGraphics opg, opgSvg;
 
 void drawBytes(int[] data, PGraphics pg, float minV, float maxV) {
   pg.beginDraw();
@@ -61,15 +63,20 @@ void setup() {
       maxV = -1;
       int[] mData = loadBytesFromFile(rawFilename);
 
-      drawBytes(mData, opg, minV, maxV);
-      opg.save(sketchPath(
+      String outPath = sketchPath(
         "data" +
         File.separatorChar +
         PACKETS_PER_ROW +
         File.separatorChar +
         algorithmName +
-        ".jpg")
-        );
+        ".jpg");
+
+      opgSvg = createGraphics(OUT_SCALE * width, OUT_SCALE * height, SVG, outPath.replace(".jpg", ".svg"));
+      drawBytes(mData, opgSvg, minV, maxV);
+      opgSvg.dispose();
+
+      drawBytes(mData, opg, minV, maxV);
+      opg.save(outPath);
     }
   }
   exit();
