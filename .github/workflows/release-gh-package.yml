@@ -5,7 +5,7 @@ on:
     branches:
       - main
     path:
-     - 0x*/p5*
+     - '0x*/p5*'
 
 jobs:
   build:
