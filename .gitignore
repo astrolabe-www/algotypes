@@ -11,4 +11,5 @@ p5/OutrasGraph/data
 cards/**/*png
 p5/**/out_*/*png
 p5/PacketVisualizer/data/**/*jpg
+p5/PacketVisualizer/data/**/*svg
 *.code-workspace
