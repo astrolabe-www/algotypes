@@ -16,12 +16,14 @@ jobs:
         uses: actions/checkout@master
 
       - name: Install
-        run: |
-          wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
-          PATH=$PATH:$PWD/processing-3.5.4
+        run: wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
 
       - name: Build
-        run: xvfb-run ./p5/scripts/gen_all_cards.sh PRINT
+        run: |
+          PATH=$PATH:$PWD/processing-3.5.4
+          echo $PATH
+          which processing-java
+          xvfb-run ./p5/scripts/gen_all_cards.sh PRINT
 
       - name: Setup Git
         id: setup
