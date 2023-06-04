@@ -1,0 +1,43 @@
+name: deploy gh-pages
+
+on:
+  push:
+    branches:
+      - main
+    path:
+     - 0x*/p5*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Install
+        run: |
+          wget -qO- https://download.processing.org/processing-3.5.4-linux64.tgz | tar -xz
+          PATH=$PATH:$PWD/processing-3.5.4
+
+      - name: Build
+        run: xvfb-run ./p5/scripts/gen_all_cards.sh PRINT
+
+      - name: Setup Git
+        id: setup
+        run: |
+          git config --local user.name "${{ secrets.USER_NAME }}"
+          git config --local user.email "${{ secrets.USER_EMAIL }}"
+          TAG_NAME=${{ github.ref_name }}-$(git log --format=%h -1)
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+
+      - name: Pack
+        run: tar -czf cards.tar.gz cards
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: cards.tar.gz
+          tag_name: ${{ steps.setup.outputs.TAG_NAME }}
