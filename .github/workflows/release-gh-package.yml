@@ -21,8 +21,6 @@ jobs:
       - name: Build
         run: |
           PATH=$PATH:$PWD/processing-3.5.4
-          echo $PATH
-          which processing-java
           xvfb-run ./p5/scripts/gen_all_cards.sh PRINT
 
       - name: Setup Git
